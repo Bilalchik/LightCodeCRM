@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center>
+  <h3>Фильтрация</h3>
+  <form method="get">
+<!--    {{ filter.form.as_p }}-->
+    {{ filterset.form.as_p }}
+    <button type="submit">Применить фильтр</button>
+</form>
+  {% for obj in object_list %}
+  {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
+    {{ obj }}
+  {% endif %}
+{% endfor %}
+
+  <h3>Доходы</h3>
+  <br>
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
+
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th style="text-align: center; margin: 0 10px;" >Студент</th>
+      <th style="text-align: center; margin: 0 10px;" >Курс</th>
+      <th style="text-align: center; margin: 0 10px;" >Цена</th>
+      <th style="text-align: center; margin: 0 10px;" >Способ оплаты</th>
+      <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
+    </tr>
+    {% for income in object_list %}
+    <tr>
+      <td style="text-align: center; margin: 0 10px;"><a href="{% url 'income_detail' income.id %}" >{{ income.student }}</a></td>
+      <td style="text-align: center; margin: 0 10px;" >{{ income.course }}</td>
+      <td style="text-align: center; margin: 0 10px;" >{{ income.value }}</td>
+        {% if income.payment_method %}
+          <td style="text-align: center; margin: 0 10px;" >{{ income.payment_method }}</td>
+        {% else %}
+          <td style="text-align: center; margin: 0 10px;" ></td>
+      {% endif %}
+      <td style="text-align: center; margin: 0 10px;" >{{ income.created_date }}</td>
+      <td><a href="{% url 'income_delete' income.id %}">Удалить</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  <br>
+  <br>
+  <div>
+    <h2>Общая сумма дохода</h2>
+  <h4>{{total}}</h4>
+    </div>
+  <br>
+<br>
+<br>
+        <a style="font-size: 22px;" href="{% url 'income_add' %}">Добавить объект <i class="fa fa-arrow-right"></i></a>
+
+<br>
+<br>
+<br>
+
+
+<!--    <form method="POST" action=".">-->
+<!--  {% csrf_token %}-->
+<!-- {{ form.as_p }}-->
+<!--<button type="submit">Сохранить</button>-->
+<!--  </form>-->
+</center>
+{% endblock %}
+

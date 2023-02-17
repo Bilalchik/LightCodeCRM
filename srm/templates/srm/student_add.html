@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center>
+    <h3>Студент</h3>
+  <br>
+    <form method="POST" action=".">
+  {% csrf_token %}
+ {{ form.as_p }}
+<button type="submit">Сохранить</button>
+  </form>
+</center>
+{% endblock %}
+
