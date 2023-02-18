@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <br>
@@ -11,10 +12,25 @@
 <center>
     <h3>Расход</h3>
   <br>
+      <div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <form method="POST" action=".">
   {% csrf_token %}
- {{ form.as_p }}
+<!-- {{ form|crispy }}-->
+        <div class="row" >
+            <div class="col-6" >
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.value|as_crispy_field }}
+            </div>
+
+        </div>
+        <div class="col-6" >
+                {{ form.flow_type|as_crispy_field }}
+            </div>
 <button type="submit">Сохранить</button>
   </form>
+      </div>
+
 </center>
 {% endblock %}

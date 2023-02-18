@@ -134,6 +134,13 @@ class Income(models.Model):
     def __str__(self):
         return str(self.student)
 
+    def save(self, *args, **kwargs):
+        student = self.student
+        student.total_payment += self.value
+        student.last_payment_date = datetime.now()
+        student.save()
+        return super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Доходы'
         verbose_name_plural = 'Доходы'

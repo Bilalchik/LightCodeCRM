@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <br>
@@ -77,11 +78,46 @@
   <br>
   <br>
   <h4>Изменить объект</h4><br>
-  <form method="POST" action=".">
+  <div class="container mt-3" style="width: 55%; fon-size: 10px;">
+    <form method="POST" action=".">
   {% csrf_token %}
- {{ form.as_p }}
+<!-- {{ form|crispy }}-->
+        <div class="row" >
+            <div class="col-6" >
+                {{ form.full_name|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.phone_number|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.course|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.tariff|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.certificate|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.url|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.time|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.is_graduate|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.total_payment|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.last_payment_date|as_crispy_field }}
+            </div>
+        </div>
+
 <button type="submit">Сохранить</button>
   </form>
+      </div>
 
 </center>
 {% endblock %}

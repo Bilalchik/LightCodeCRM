@@ -39,7 +39,7 @@
       <th style="text-align: center; margin: 0 10px;" >Тип расхода</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
     </tr>
-    {% for expense in object_list  %}
+    {% for expense in expenses  %}
     <tr>
       <td style="text-align: center; margin: 0 10px;"><a href="{% url 'expense_detail' expense.id %}" >{{ expense.title }}</a></td>
       <td style="text-align: center; margin: 0 10px;" >{{ expense.value }}</td>

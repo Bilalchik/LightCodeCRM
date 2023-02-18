@@ -11,7 +11,8 @@ from .models import Lead, Student, Income, Expense
 
 def leads_view(request):
     leads = Lead.objects.all().order_by('-created_date')
-    return render(request, template_name='srm/leads.html', context={'leads': leads})
+    students = Student.objects.all().order_by('-created_date')
+    return render(request, template_name='srm/leads.html', context={'leads': leads, 'students': students})
 
 
 def lead_add(request):
@@ -50,7 +51,7 @@ def student_list(request):
     students = Student.objects.all().order_by('-created_date')
 
     return render(request, template_name='srm/students.html', context={
-        'students': students,})
+        'students': students})
 
 
 def student_detail(request, pk):
@@ -59,7 +60,7 @@ def student_detail(request, pk):
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return redirect('students')
+            return redirect('leads')
     else:
         form = StudentForm(instance=student)
 
@@ -71,7 +72,7 @@ def student_delete(request, pk):
     student = Student.objects.get(id=pk)
     student.delete()
 
-    return HttpResponseRedirect(reverse('students'))
+    return HttpResponseRedirect(reverse('leads'))
 
 
 def student_add(request):
@@ -79,7 +80,7 @@ def student_add(request):
         form = StudentForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
-            return redirect('students')
+            return redirect('leads')
 
     form = StudentForm()
     return render(request, template_name='srm/student_add.html', context={'form': form})
@@ -111,20 +112,22 @@ class IncomeListView(FilteredListView):
     filterset_class = IncomeFilter
     template_name = 'srm/incomes.html'
 
-    # def get_context_data(self, **kwargs):
-    #     expense = Expense.objects.all().order_by('-created_date')
-    #     filterset_expense = ExpenseFilter(self.request.GET, queryset=expense)
-    #
-    #     context = super().get_context_data(**kwargs)
-    #     context['total'] = context['object_list'].aggregate(total=Sum('value'))['total']
-    #     context['expenses'] = filterset_expense.qs
-    #
-    #     return context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total'] = context['object_list'].aggregate(total=Sum('value'))['total']
+        expense = Expense.objects.all().order_by('-created_date')
+        filterset_expense = ExpenseFilter(self.request.GET, queryset=expense)
+        context['gg'] = ExpenseFilter
+        context['expenses'] = filterset_expense.qs
+        context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
+        context['total_expenses'] = context['expenses'].aggregate(total=Sum('value'))['total']
+
 
         return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['total'] = context['object_list'].aggregate(total=Sum('value'))['total']
+    #
+    #     return context
 
 
 def income_detail(request, pk):
@@ -178,7 +181,7 @@ def expense_detail(request, pk):
         form = ExpenseForm(request.POST, instance=expense)
         if form.is_valid():
             form.save()
-            return redirect('expenses_list')
+            return redirect('income_list')
     else:
         form = ExpenseForm(instance=expense)
 
@@ -190,7 +193,7 @@ def expense_add(request):
         form = ExpenseForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
-            return redirect('expenses_list')
+            return redirect('income_list')
 
     form = ExpenseForm()
     return render(request, template_name='srm/expense_add.html', context={'form': form})
@@ -201,6 +204,6 @@ def expense_delete(request, pk):
     expense = Expense.objects.get(id=pk)
     expense.delete()
 
-    return HttpResponseRedirect(reverse('expenses_list'))
+    return HttpResponseRedirect(reverse('income_list'))
 
 
