@@ -26,6 +26,7 @@
       <th style="text-align: center; margin: 0 10px;" >Студент</th>
       <th style="text-align: center; margin: 0 10px;" >Курс</th>
       <th style="text-align: center; margin: 0 10px;" >Цена</th>
+        <th style="text-align: center; margin: 0 10px;" >Валюта</th>
       <th style="text-align: center; margin: 0 10px;" >Способ оплаты</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
     </tr>
@@ -33,6 +34,7 @@
       <td style="text-align: center; margin: 0 10px;"><a href="#" >{{ income.student }}</a></td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.course }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.value }}</td>
+        <td style="text-align: center; margin: 0 10px;" >{{ income.currency }}</td>
       {% if income.payment_method %}
         <td style="text-align: center; margin: 0 10px;" >{{ income.payment_method }}</td>
       {% else %}
@@ -65,6 +67,9 @@
                 {{ form.payment_method|as_crispy_field }}
             </div>
         </div>
+        <div class="col-6" >
+                {{ form.currency|as_crispy_field }}
+            </div>
 
 <button type="submit">Сохранить</button>
   </form>

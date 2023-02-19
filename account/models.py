@@ -56,7 +56,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         default=1,
         verbose_name=('Статус')
     )
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания аккаунта')
+    created_date = models.DateField(auto_now_add=True, verbose_name='Дата создания аккаунта')
     is_active = models.BooleanField(
         default=True,
         verbose_name=('Пользователь активен?')

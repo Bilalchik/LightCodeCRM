@@ -14,6 +14,9 @@
 <br>
 
 <center>
+  <h1 style="color: blue;">Должники</h1>
+  <br>
+  <br>
   <h3>Фильтрация для Студентов</h3>
     <div class="container mt-3" style="width: 55%; fon-size: 10px;">
   <form method="get" id="incomes">
@@ -51,6 +54,8 @@
 <!-- {{ form.as_p }}-->
 <!--<button type="submit">Сохранить</button>-->
 <!--  </form>-->
+    <h2>Должники</h2>
+         <h3>{{ total_debtors }}</h3>
   <br>
   <br>
   <br>
@@ -121,7 +126,7 @@
   <br>
 <br>
 <br>
-  <a style="font-size: 22px;" href="{% url 'student_add' %}">Добавить Студента <i class="fa fa-arrow-right"></i></a>
+<!--  <a style="font-size: 22px;" href="{% url 'student_add' %}">Добавить Студента <i class="fa fa-arrow-right"></i></a>-->
 </center>
 {% endblock %}
 

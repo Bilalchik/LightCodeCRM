@@ -19,23 +19,36 @@
 <!--    {{ filter.form.as_p }}-->
     <div class="row" >
       <div class="col-6" >
+        {{ filterset.form.student|as_crispy_field }}
+      </div>
+      <div class="col-6" >
         {{ filterset.form.course|as_crispy_field }}
       </div>
       <div class="col-6" >
         {{ filterset.form.payment_method|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.course__format|as_crispy_field }}
-      </div>
-      <div class="col-6" >
-        {{ filterset.form.course__studying_time|as_crispy_field }}
+        {{ filterset.form.currency|as_crispy_field }}
       </div>
     </div>
+    <div class="col-6" >
+        {{ filterset.form.course__format|as_crispy_field }}
+      </div>
+    <div class="col-6" >
+        {{ filterset.form.course__studying_time|as_crispy_field }}
+      </div>
           <div class="col-6" >
         {{ filterset.form.course__teacher|as_crispy_field }}
       </div>
      <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
+      </div>
+    <h4>Фильтрация для Расходов</h4>
+    <div class="col-6">
+      {{ gg.form.flow_type|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ gg.form.created_date|as_crispy_field }}
       </div>
     <button type="submit">Применить фильтр</button>
 </form>
@@ -48,6 +61,19 @@
   <br>
 <br>
 <br>
+  <h2>Чистая прибыль</h2>
+         <h3>{{ net_profit }}</h3>
+  <br>
+  <br>
+  <br>
+
+  <div class="d-flex justify-content-around">
+    <div class="left col-5">
+          <h2>Общая сумма дохода</h2>
+  <h4>{{total_incomes}}</h4>
+      <br>
+      <br>
+      <br>
   <h3>Доходы</h3>
   <br>
 <style>
@@ -62,6 +88,7 @@
       <th style="text-align: center; margin: 0 10px;" >Студент</th>
       <th style="text-align: center; margin: 0 10px;" >Курс</th>
       <th style="text-align: center; margin: 0 10px;" >Цена</th>
+      <th style="text-align: center; margin: 0 10px;" >Валюта</th>
       <th style="text-align: center; margin: 0 10px;" >Способ оплаты</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
     </tr>
@@ -70,6 +97,7 @@
       <td style="text-align: center; margin: 0 10px;"><a href="{% url 'income_detail' income.id %}" >{{ income.student }}</a></td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.course }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.value }}</td>
+      <td style="text-align: center; margin: 0 10px;" >{{ income.currency }}</td>
         {% if income.payment_method %}
           <td style="text-align: center; margin: 0 10px;" >{{ income.payment_method }}</td>
         {% else %}
@@ -84,8 +112,7 @@
   <br>
   <br>
   <div>
-    <h2>Общая сумма дохода</h2>
-  <h4>{{total_incomes}}</h4>
+
     </div>
   <br>
 <br>
@@ -95,31 +122,33 @@
 <br>
 <br>
 <br>
-<hr style="height: 2px; color: black;" >
+    </div>
+    <div class="right col-5">
 
 <!--    <form method="POST" action=".">-->
 <!--  {% csrf_token %}-->
 <!-- {{ form.as_p }}-->
 <!--<button type="submit">Сохранить</button>-->
 <!--  </form>-->
-  <h3>Фильтрация</h3><br>
-    <div class="container mt-3" style="width: 55%; fon-size: 10px;">
-    <form method="get" id="expenses">
-<!--    {{ filter.form.as_p }}-->
-<!--          <div class="row" >-->
-            <div class="col-6">
-              {{ gg.form.flow_type|as_crispy_field }}
-              </div>
-      <div class="col-6">
-        {{ gg.form.created_date|as_crispy_field }}
-      </div>
-    <button type="submit">Применить фильтр</button>
-</form>
-      </div>
-    <br>
+<!--  <h3>Фильтрация</h3><br>-->
+<!--    <div class="container mt-3" style="width: 55%; fon-size: 10px;">-->
+<!--    <form method="get" id="expenses">-->
+<!--      <div class="col-6">-->
+<!--      {{ gg.form.flow_type|as_crispy_field }}-->
+<!--      </div>-->
+<!--      <div class="col-6">-->
+<!--        {{ gg.form.created_date|as_crispy_field }}-->
+<!--      </div>-->
+<!--    <button type="submit">Применить фильтр</button>-->
+<!--</form>-->
+<!--      </div>-->
+
+    <h2>Общая сумма расходов</h2>
+  <h4>{{ total_expenses }}</h4>
+          <br>
 <br>
 <br>
-    <h3>Расходы</h3>
+      <h3>Расходы</h3>
   <br>
 <style>
   table, th, td {
@@ -148,14 +177,18 @@
   <br>
   <br>
   <div>
-    <h2>Общая сумма расходов</h2>
-  <h4>{{ total_expenses }}</h4>
+
     </div>
   <br>
 <br>
 <br>
   <a style="font-size: 22px;" href="{% url 'expense_add' %}">Добавить Расход <i class="fa fa-arrow-right"></i></a>
+    </div>
+  </div>
 
-</center>
+<!--<hr style="height: 2px; color: black;" >-->
+
+
+</>
 {% endblock %}
 

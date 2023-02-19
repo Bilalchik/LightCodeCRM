@@ -17,7 +17,7 @@ class StudentForm(forms.ModelForm):
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['student', 'course', 'value', 'payment_method']
+        fields = ['student', 'course', 'value', 'payment_method', 'currency']
 
 
 class ExpenseForm(forms.ModelForm):

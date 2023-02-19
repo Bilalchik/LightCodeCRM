@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Course, Review
+from .models import CourseForLanding, Review
 from srm.models import Employee, Lead
 from account.models import MyUser
 from django.db.models.signals import post_save
@@ -9,7 +9,7 @@ from django.contrib import messages
 
 
 def index(request):
-    courses = Course.objects.all()
+    courses = CourseForLanding.objects.all()
     reviews = Review.objects.all()
     employees = Employee.objects.filter(is_active=True)
 
@@ -44,7 +44,7 @@ def remove_from_inventory(sender, **kwargs):
 
 def course_detail(request, slug):
 
-    course = Course.objects.get(slug=slug)
+    course = CourseForLanding.objects.get(slug=slug)
 
     return render(request, template_name='landing/course-detail.html', context={'course': course})
 

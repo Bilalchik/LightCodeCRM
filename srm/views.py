@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 
 from .forms import LeadForm, StudentForm, IncomeForm, ExpenseForm
-from .filters import IncomeFilter, ExpenseFilter
+from .filters import IncomeFilter, ExpenseFilter, StudentFilter
 from .models import Lead, Student, Income, Expense
 
 
@@ -13,6 +13,34 @@ def leads_view(request):
     leads = Lead.objects.all().order_by('-created_date')
     students = Student.objects.all().order_by('-created_date')
     return render(request, template_name='srm/leads.html', context={'leads': leads, 'students': students})
+
+
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return context
+
+
+class StudentListView(FilteredListView):
+    model = Student
+    queryset = Student.objects.all().order_by('-created_date')
+    filterset_class = StudentFilter
+    template_name = 'srm/leads.html'
+    context_object_name = 'students'
 
 
 def lead_add(request):
@@ -48,10 +76,10 @@ def lead_delete(request, pk):
 
 
 def student_list(request):
-    students = Student.objects.all().order_by('-created_date')
+    leads = Lead.objects.all().order_by('-created_date')
 
     return render(request, template_name='srm/students.html', context={
-        'students': students})
+        'leads': leads})
 
 
 def student_detail(request, pk):
@@ -84,7 +112,6 @@ def student_add(request):
 
     form = StudentForm()
     return render(request, template_name='srm/student_add.html', context={'form': form})
-
 
 class FilteredListView(ListView):
     filterset_class = None
@@ -120,7 +147,7 @@ class IncomeListView(FilteredListView):
         context['expenses'] = filterset_expense.qs
         context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
         context['total_expenses'] = context['expenses'].aggregate(total=Sum('value'))['total']
-
+        context['net_profit'] = context['object_list'].aggregate(total=Sum('value'))['total'] - context['expenses'].aggregate(total=Sum('value'))['total']
 
         return context
     # def get_context_data(self, **kwargs):
@@ -128,6 +155,38 @@ class IncomeListView(FilteredListView):
     #     context['total'] = context['object_list'].aggregate(total=Sum('value'))['total']
     #
     #     return context
+
+
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return context
+
+class Debtor(FilteredListView):
+    model = Student
+    queryset = Student.objects.all().order_by('-created_date')
+    filterset_class = StudentFilter
+    template_name = 'srm/debtors.html'
+    context_object_name = 'students'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_debtors'] = context['students'].aggregate(total=Sum('remainder'))['total']
+        return context
 
 
 def income_detail(request, pk):
@@ -205,5 +264,23 @@ def expense_delete(request, pk):
     expense.delete()
 
     return HttpResponseRedirect(reverse('income_list'))
+
+
+def personal(request):
+    return render(request, template_name='srm/personal.html')
+
+
+def manager(request):
+    leads = Lead.objects.all()
+    lead_count = leads.count()
+    student = Student.objects.all()
+    student_count = student.count()
+    return render(request, template_name='srm/manager.html', context={
+        'lead_count': lead_count,
+        'student_count': student_count})
+
+
+def admin_choice(request):
+    return render(request, template_name='srm/admin_choice.html')
 
 

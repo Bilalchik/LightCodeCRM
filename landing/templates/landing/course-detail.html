@@ -16,9 +16,7 @@
             <div class="col-lg-6">
               <div class="box-item">
                 <h4 style="color: blue;" >Время обучения</h4>
-                {% for formats in course.studying_time.all %}
-                <p style="font-size: 17px;color: black;" >{{ formats.title }}</p>
-                {% endfor %}
+                <p style="font-size: 17px;color: black;" >{{ course.studying_time }}</p>
               </div>
             </div>
             <div class="col-lg-6">

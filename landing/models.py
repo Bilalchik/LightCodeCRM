@@ -24,7 +24,7 @@ class LearningFormat(models.Model):
         verbose_name_plural = 'Форматы обучения'
 
 
-class Course(models.Model):
+class CourseForLanding(models.Model):
     title = models.CharField(max_length=123, verbose_name=('Название'))
     slug = models.SlugField()
     cover = models.ImageField(upload_to='media/image/', verbose_name=('Обложка'))
@@ -46,8 +46,8 @@ class Course(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Курс'
-        verbose_name_plural = 'Курсы'
+        verbose_name = 'Курс для Лэндинга'
+        verbose_name_plural = 'Курс для Лэндинга'
 
 
 class Review(models.Model):

@@ -29,7 +29,6 @@
       <th style="text-align: center; margin: 0 10px;" >Формат обучения</th>
       <th style="text-align: center; margin: 0 10px;" >Сертификат</th>
       <th style="text-align: center; margin: 0 10px;" >URL</th>
-      <th style="text-align: center; margin: 0 10px;" >Время обучения</th>
       <th style="text-align: center; margin: 0 10px;" >Выпускник</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
       <th style="text-align: center; margin: 0 10px;" >Общая оплата</th>
@@ -51,11 +50,6 @@
       <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
       {% if student.url %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.url }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
-      {% if student.time %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.get_time_display }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
@@ -100,9 +94,6 @@
             </div>
             <div class="col-6" >
                 {{ form.url|as_crispy_field }}
-            </div>
-            <div class="col-6" >
-                {{ form.time|as_crispy_field }}
             </div>
             <div class="col-6" >
                 {{ form.is_graduate|as_crispy_field }}
