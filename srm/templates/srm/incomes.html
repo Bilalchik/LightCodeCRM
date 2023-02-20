@@ -13,8 +13,12 @@
 <br>
 <br>
 <center>
-  <h3>Фильтрация для Доходов</h3><br>
+
+    <div class="d-flex justify-content-around">
+      <div class="left col-5">
+    <div align="left">
   <div class="container mt-3" style="width: 55%; fon-size: 10px;">
+    <h3 align="left">Фильтрация для Доходов</h3><br>
   <form method="get" id="incomes">
 <!--    {{ filter.form.as_p }}-->
     <div class="row" >
@@ -30,29 +34,44 @@
       <div class="col-6" >
         {{ filterset.form.currency|as_crispy_field }}
       </div>
-    </div>
-    <div class="col-6" >
+        <div class="col-6" >
         {{ filterset.form.course__format|as_crispy_field }}
       </div>
-    <div class="col-6" >
+        <div class="col-6" >
         {{ filterset.form.course__studying_time|as_crispy_field }}
       </div>
-          <div class="col-6" >
+           <div class="col-6" >
         {{ filterset.form.course__teacher|as_crispy_field }}
       </div>
-     <div class="col-6" >
+        <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
       </div>
-    <h4>Фильтрация для Расходов</h4>
+    </div>
+      </div>
+        </div>
+    </div>
+
+  <div class="left col-5">
+<div class="container mt-3" style="width: 55%; fon-size: 10px;">
+  <h3 align="right">Фильтрация для Расходов</h3>
+<br>
+    <div align="right">
+    <div class="row">
     <div class="col-6">
       {{ gg.form.flow_type|as_crispy_field }}
       </div>
       <div class="col-6">
         {{ gg.form.created_date|as_crispy_field }}
       </div>
-    <button type="submit">Применить фильтр</button>
-</form>
+        </div>
+    </div>
+        </div>
   </div>
+      </div>
+  <button type="submit">Применить фильтр</button>
+</form>
+
+
   {% for obj in object_list %}
   {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
     {{ obj }}
