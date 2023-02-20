@@ -199,16 +199,22 @@
 <div class="container mt-3" style="width: 90%; fon-size: 10px;">
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for employee in employees %}
-  <div class="col">
+  <a href="{% url 'employee_detail' employee.id %}"><div class="col">
     <div class="card">
-      <img src="{{ employee.image.url }}" style="height: 300px; object-fit: unset;" class="card-img-top" alt="...">
+        <div class="container mt-3" style="width: 98%; height: 98%; fon-size: 10px;">
+            <img src="{{ employee.image.url }}" style="width: 250px; height: 300px; object-fit: cover;" class="card-img-top" alt="...">
+        </div>
       <div class="card-body">
-        <h5 class="card-title">{{ employee.full_name }}</h5>
+        <h5 class="card-title" style="color: black;">{{ employee.full_name }}</h5>
           <h6 style="color: blue;">{{ employee.role }} </h6><br>
-        <p style="color: black; font-size: 17px;" class="card-text">{{ employee.description }}</p>
+          <hr style="color: black;">
+        <p style="color: black; font-size: 17px;white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    text-overflow: ellipsis;" class="card-text">{{ employee.description }} </p>
       </div>
     </div>
-  </div>
+  </div></a>
           {% endfor %}
 </div>
 </div>
@@ -415,7 +421,9 @@
               <div class="shadow-effect">
                   <h4>{{ rewiew.name }}</h4>
                     <p style="font-size: 17px; color: blue;"> {{ rewiew.direction }} </p>
+                  <div class="container mt-3" style="width: 100%; fon-size: 5px;">
                 <p style="color: black;" >{{ rewiew.description }}</p>
+                  </div>
               </div>
             </div>
             <!--END OF TESTIMONIAL 1 -->

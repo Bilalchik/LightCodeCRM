@@ -13,7 +13,7 @@
 <br>
 <br>
 <center>
-  <h3>Фильтрация</h3><br>
+  <h3>Фильтрация для Доходов</h3><br>
   <div class="container mt-3" style="width: 55%; fon-size: 10px;">
   <form method="get" id="incomes">
 <!--    {{ filter.form.as_p }}-->
@@ -54,6 +54,12 @@
 </form>
   </div>
   {% for obj in object_list %}
+  {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
+    {{ obj }}
+  {% endif %}
+{% endfor %}
+
+    {% for obj in kaka %}
   {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
     {{ obj }}
   {% endif %}

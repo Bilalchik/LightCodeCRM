@@ -9,6 +9,10 @@ class LeadForm(forms.ModelForm):
 
 
 class StudentForm(forms.ModelForm):
+    last_payment_date = forms.DateField(widget=forms.widgets.DateInput(
+        attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'})
+    )
+
     class Meta:
         model = Student
         fields = ['full_name', 'phone_number', 'course', 'tariff', 'certificate', 'url', 'time', 'is_graduate', 'total_payment', 'last_payment_date']

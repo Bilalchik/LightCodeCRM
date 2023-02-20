@@ -10,8 +10,8 @@ from .models import Lead, Student, Income, Expense
 
 
 def leads_view(request):
-    leads = Lead.objects.all().order_by('-created_date')
-    students = Student.objects.all().order_by('-created_date')
+    leads = Lead.objects.all().order_by('-id')
+    students = Student.objects.all().order_by('-id')
     return render(request, template_name='srm/leads.html', context={'leads': leads, 'students': students})
 
 
@@ -37,7 +37,7 @@ class FilteredListView(ListView):
 
 class StudentListView(FilteredListView):
     model = Student
-    queryset = Student.objects.all().order_by('-created_date')
+    queryset = Student.objects.all().order_by('-id')
     filterset_class = StudentFilter
     template_name = 'srm/leads.html'
     context_object_name = 'students'
@@ -48,7 +48,7 @@ def lead_add(request):
         form = LeadForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
-            return redirect('leads')
+            return redirect('students')
 
     form = LeadForm()
     return render(request, template_name='srm/lead_add.html', context={'form': form})
@@ -76,7 +76,7 @@ def lead_delete(request, pk):
 
 
 def student_list(request):
-    leads = Lead.objects.all().order_by('-created_date')
+    leads = Lead.objects.all().order_by('-id')
 
     return render(request, template_name='srm/students.html', context={
         'leads': leads})
@@ -135,26 +135,24 @@ class FilteredListView(ListView):
 
 class IncomeListView(FilteredListView):
     model = Income
-    queryset = Income.objects.all().order_by('-created_date')
+    queryset = Income.objects.all().order_by('-id')
     filterset_class = IncomeFilter
     template_name = 'srm/incomes.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        expense = Expense.objects.all().order_by('-created_date')
-        filterset_expense = ExpenseFilter(self.request.GET, queryset=expense)
-        context['gg'] = ExpenseFilter
+        expense = Expense.objects.all().order_by('-id')
+        filterset_expense = ExpenseFilter(self.request.GET, queryset=expense, prefix='expense')
+
+        context['gg'] = filterset_expense
+        context['kaka'] = expense
         context['expenses'] = filterset_expense.qs
         context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
         context['total_expenses'] = context['expenses'].aggregate(total=Sum('value'))['total']
-        context['net_profit'] = context['object_list'].aggregate(total=Sum('value'))['total'] - context['expenses'].aggregate(total=Sum('value'))['total']
+        if context['total_incomes'] and context['total_expenses']:
+            context['net_profit'] = context['object_list'].aggregate(total=Sum('value'))['total'] - context['expenses'].aggregate(total=Sum('value'))['total']
 
         return context
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['total'] = context['object_list'].aggregate(total=Sum('value'))['total']
-    #
-    #     return context
 
 
 class FilteredListView(ListView):
@@ -178,7 +176,7 @@ class FilteredListView(ListView):
 
 class Debtor(FilteredListView):
     model = Student
-    queryset = Student.objects.all().order_by('-created_date')
+    queryset = Student.objects.all().order_by('-id')
     filterset_class = StudentFilter
     template_name = 'srm/debtors.html'
     context_object_name = 'students'
@@ -223,7 +221,7 @@ def income_delete(request, pk):
 
 class ExpenseListView(FilteredListView):
     model = Expense
-    queryset = Expense.objects.all().order_by('-created_date')
+    queryset = Expense.objects.all().order_by('-id')
     filterset_class = ExpenseFilter
     template_name = 'srm/expenses_list.html'
 

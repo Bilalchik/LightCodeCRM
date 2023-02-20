@@ -51,9 +51,9 @@ class CourseForLanding(models.Model):
 
 
 class Review(models.Model):
-    name = models.CharField(max_length=70)
-    direction = models.CharField(max_length=50)
-    description = models.TextField(verbose_name=('Описание'))
+    name = models.CharField(max_length=70, verbose_name='Имя')
+    direction = models.CharField(max_length=50, verbose_name='Направление')
+    description = models.TextField(verbose_name=('Описание'), max_length=515)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=('Дата создания'))
 
     def __str__(self):

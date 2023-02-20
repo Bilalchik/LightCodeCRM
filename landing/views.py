@@ -49,3 +49,9 @@ def course_detail(request, slug):
     return render(request, template_name='landing/course-detail.html', context={'course': course})
 
 
+def employee_detail(request, pk):
+    employee = Employee.objects.get(pk=pk)
+    course = CourseForLanding.objects.filter(teacher=employee)
+    return render(request, template_name='landing/employee.html', context={'employee': employee, 'courses': course})
+
+

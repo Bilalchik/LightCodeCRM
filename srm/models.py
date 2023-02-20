@@ -209,20 +209,39 @@ class Lead(models.Model):
     def __str__(self):
         return self.full_name
 
+    # def clean(self):
+    #     if self.is_add == True:
+    #         if not self.course:
+    #             raise ValidationError({'course': 'На какой курс хочет записаться Лид'})
+    #     return super(Lead, self).clean()
+    #
+    # def save(self, *args, **kwargs):
+    #     if self.is_add == True:
+    #         Student.objects.create(
+    #             full_name=self.full_name,
+    #             phone_number=self.phone_number,
+    #             course=self.course,
+    #         )
+    #     return super().save(*args, *kwargs)
+    def create_student(self):
+        if self.is_add == True:
+            student = Student.objects.create(
+                full_name=self.full_name,
+                phone_number=self.phone_number,
+                course=self.course,
+            )
+            return student
+        return None
+
     def clean(self):
         if self.is_add == True:
             if not self.course:
                 raise ValidationError({'course': 'На какой курс хочет записаться Лид'})
         return super(Lead, self).clean()
-    
+
     def save(self, *args, **kwargs):
-        if self.is_add == True:
-            Student.objects.create(
-                full_name=self.full_name,
-                phone_number=self.phone_number,
-                course=self.course,
-            )
-        return super(Lead, self).save(*args, *kwargs)
+        self.create_student()
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Лид'
