@@ -12,7 +12,9 @@
 <br>
 <br>
 <br>
-
+<div class="container">
+  <a style="font-size: 22px;" href="{% url 'manager' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+</div>
 <center>
   <h3>Фильтрация для Студентов</h3>
     <div class="container mt-3" style="width: 55%; fon-size: 10px;">
@@ -23,9 +25,6 @@
         {{ filterset.form.course|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.tariff|as_crispy_field }}
-      </div>
-      <div class="col-6" >
         {{ filterset.form.is_graduate|as_crispy_field }}
       </div>
       <div class="col-6" >
@@ -34,10 +33,10 @@
        <div class="col-6" >
         {{ filterset.form.course__format|as_crispy_field }}
       </div>
-       <div class="col-6" >
+    </div>
+    <div class="col-6" >
         {{ filterset.form.course__teacher|as_crispy_field }}
       </div>
-    </div>
     <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
       </div>
@@ -58,6 +57,9 @@
 
     <h3>Студенты</h3>
   <br>
+    <a style="font-size: 22px;" href="{% url 'student_add' %}">Добавить Студента <i class="fa fa-arrow-right"></i></a>
+<br>
+<br>
 <style>
   table, th, td {
     border: 1px solid black;
@@ -88,19 +90,15 @@
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
-      {% if student.tariff %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.tariff }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.course.format }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
       {% if student.url %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.url }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
-      {% if student.time %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.get_time_display }}</td>
+      {% if student.course.studying_time %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.course.get_studying_time_display }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
@@ -121,7 +119,6 @@
   <br>
 <br>
 <br>
-  <a style="font-size: 22px;" href="{% url 'student_add' %}">Добавить Студента <i class="fa fa-arrow-right"></i></a>
 </center>
 {% endblock %}
 

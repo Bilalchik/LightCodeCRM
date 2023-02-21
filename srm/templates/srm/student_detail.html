@@ -12,6 +12,9 @@
 <br>
 <br>
 <br>
+<div class="container">
+  <a style="font-size: 22px;" href="{% url 'leads' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+</div>
 <center>
   <h3>Студент</h3>
   <br>
@@ -43,22 +46,14 @@
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
-      {% if student.tariff %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.tariff }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.course.format }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
       {% if student.url %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.url }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
-      {% if student.time %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.get_time_display }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.course.get_studying_time_display }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.is_graduate }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.created_date }}</td>
       {% if student.total_payment  %}
@@ -93,29 +88,24 @@
                 {{ form.course|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.tariff|as_crispy_field }}
-            </div>
-            <div class="col-6" >
                 {{ form.certificate|as_crispy_field }}
             </div>
             <div class="col-6" >
                 {{ form.url|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.time|as_crispy_field }}
-            </div>
-            <div class="col-6" >
                 {{ form.is_graduate|as_crispy_field }}
-            </div>
-            <div class="col-6" >
-                {{ form.total_payment|as_crispy_field }}
-            </div>
-            <div class="col-6" >
-                {{ form.last_payment_date|as_crispy_field }}
             </div>
         </div>
 
 <button type="submit">Сохранить</button>
+         <br>
+        <br>
+        <h5>Студент хочет оплатить?</h5>
+        <select name="is_payed">
+            <option value="no">Нет</option>
+            <option value="on">Да</option>
+        </select>
   </form>
       </div>
 

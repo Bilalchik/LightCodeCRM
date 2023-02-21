@@ -13,16 +13,16 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
+    readonly_fields = ('total_payment', 'last_payment_date')
     list_display = [
         'full_name',
         'course',
-        'tariff',
         'certificate',
         'is_graduate',
         'created_date',
         'total_payment',
         'last_payment_date']
-    list_filter = ('created_date', 'course', 'tariff', 'is_graduate')
+    list_filter = ('created_date', 'course', 'is_graduate')
     search_fields = ['full_name', 'phone_number']
 
 
@@ -39,8 +39,14 @@ class ExpenseAdmin(admin.ModelAdmin):
 
 
 class IncomeAdmin(admin.ModelAdmin):
-    list_display = ['student', 'course', 'payment_method', 'value', 'currency', 'created_date']
-    list_filter = ('created_date', 'course', 'payment_method', 'course__format', 'course__studying_time', 'course__teacher')
+    list_display = ['student', 'payment_method', 'value', 'currency', 'created_date']
+    list_filter = (
+        'created_date',
+        'student__course__title',
+        'payment_method',
+        'student__course__format',
+        'student__course__studying_time',
+        'student__course__teacher')
     search_fields = ['student', ]
 
 

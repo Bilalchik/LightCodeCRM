@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     path('students/delete/<int:pk>/', views.student_delete, name='student_delete'),
     path('students_add/', views.student_add, name='student_add'),
     path('administrator/', views.IncomeListView.as_view(), name='income_list'),
+    path("select2/", include("django_select2.urls")),
     path('income_detail/<int:pk>/', views.income_detail, name='income_detail'),
     path('income_add/', views.income_add, name='income_add'),
     path('income_list/delete/<int:pk>/', views.income_delete, name='income_delete'),

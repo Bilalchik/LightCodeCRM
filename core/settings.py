@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-mka64s^pc8)-hk=eupwq0fo8ih(!c+*fnd)+wbsjsm9t$&)^y&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'account',
     'srm',
     # external apps
+    'django_select2',
     "phonenumber_field",
     "django_filters",
     "crispy_forms",
@@ -118,15 +119,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = 'mediafiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+STATIC_URL = '/static/'
+MEDIA_URL = 'mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

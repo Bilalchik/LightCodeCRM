@@ -1,13 +1,12 @@
 from django.db.models import Sum
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 from .forms import LeadForm, StudentForm, IncomeForm, ExpenseForm
 from .filters import IncomeFilter, ExpenseFilter, StudentFilter
 from .models import Lead, Student, Income, Expense
-
 
 def leads_view(request):
     leads = Lead.objects.all().order_by('-id')
@@ -88,6 +87,8 @@ def student_detail(request, pk):
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
+            if request.POST['is_payed'] == 'on':
+                return redirect('income_add')
             return redirect('leads')
     else:
         form = StudentForm(instance=student)
@@ -105,9 +106,12 @@ def student_delete(request, pk):
 
 def student_add(request):
     if request.method == 'POST':
+        print(request.POST)
         form = StudentForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
+            if request.POST['is_payed'] == 'on':
+                return redirect('income_add')
             return redirect('leads')
 
     form = StudentForm()
@@ -205,10 +209,15 @@ def income_add(request):
         form = IncomeForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
-            return redirect('income_list')
-
+            return redirect('leads')
     form = IncomeForm()
     return render(request, template_name='srm/income_add.html', context={'form': form})
+
+# class IncomeCreate(CreateView):
+#     form_class = IncomeForm
+#     model = Income
+#     template_name = 'srm/income_add.html'
+#     success_url = 'income_list'
 
 
 def income_delete(request, pk):

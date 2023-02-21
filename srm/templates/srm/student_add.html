@@ -3,19 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <br>
 <br>
 <br>
 <br>
 <br>
 <br>
+<br>
+<div class="container">
+  <a style="font-size: 22px;" href="{% url 'leads' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+</div>
 <center>
-    <h3>Студент</h3>
-  <br>
-  <div class="container mt-3" style="width: 55%; fon-size: 10px;">
+<h3>Студент</h3>
+<br>
+<div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <form method="POST" action=".">
-  {% csrf_token %}
-<!-- {{ form|crispy }}-->
+        {% csrf_token %}
         <div class="row" >
             <div class="col-6" >
                 {{ form.full_name|as_crispy_field }}
@@ -27,31 +29,29 @@
                 {{ form.course|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.tariff|as_crispy_field }}
-            </div>
-            <div class="col-6" >
                 {{ form.certificate|as_crispy_field }}
             </div>
             <div class="col-6" >
                 {{ form.url|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.time|as_crispy_field }}
-            </div>
-            <div class="col-6" >
                 {{ form.is_graduate|as_crispy_field }}
             </div>
-            <div class="col-6" >
-                {{ form.total_payment|as_crispy_field }}
-            </div>
-            <div class="col-6" >
-                {{ form.last_payment_date|as_crispy_field }}
-            </div>
         </div>
-
-<button type="submit">Сохранить</button>
-  </form>
-      </div>
+        <button type="submit">Сохранить</button>
+        <br>
+        <br>
+        <h5>Студент хочет оплатить сразу?</h5>
+        <select name="is_payed">
+            <option value="no">Нет</option>
+            <option value="on">Да</option>
+        </select>
+    </form>
+</div>
+<!--<h4>Если студент хочет оплатить сразу</h4>-->
+<!--<form method="POST" action=".">-->
+<!--    <a style="font-size: 22px;" href="{% url 'income_add' %}">Оплата <i class="fa fa-arrow-right"></i></a>-->
+<!--</form>-->
 </center>
 {% endblock %}
 

@@ -12,7 +12,9 @@
 <br>
 <br>
 <br>
-
+<div class="container">
+  <a style="font-size: 22px;" href="{% url 'admin_choice' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+</div>
 <center>
   <h1 style="color: blue;">Должники</h1>
   <br>
@@ -26,9 +28,6 @@
         {{ filterset.form.course|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.tariff|as_crispy_field }}
-      </div>
-      <div class="col-6" >
         {{ filterset.form.is_graduate|as_crispy_field }}
       </div>
       <div class="col-6" >
@@ -37,10 +36,10 @@
        <div class="col-6" >
         {{ filterset.form.course__format|as_crispy_field }}
       </div>
-       <div class="col-6" >
+    </div>
+    <div class="col-6" >
         {{ filterset.form.course__teacher|as_crispy_field }}
       </div>
-    </div>
     <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
       </div>
@@ -126,7 +125,6 @@
   <br>
 <br>
 <br>
-<!--  <a style="font-size: 22px;" href="{% url 'student_add' %}">Добавить Студента <i class="fa fa-arrow-right"></i></a>-->
 </center>
 {% endblock %}
 

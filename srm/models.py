@@ -96,25 +96,8 @@ class Student(models.Model):
         on_delete=models.PROTECT,
         verbose_name='Курс',
         related_name='student')
-    tariff = models.ForeignKey(
-        'landing.LearningFormat',
-        on_delete=models.PROTECT,
-        verbose_name='Формат обучения',
-        blank=True,
-        null=True)
     certificate = models.PositiveSmallIntegerField(default=0, verbose_name='Сертификат')
     url = models.URLField(blank=True, null=True)
-    time = models.PositiveSmallIntegerField(
-        choices=(
-            (1, 'Утро'),
-            (2, 'День'),
-            (3, 'Вечер'),
-            (4, 'Ночь'),
-        ),
-        verbose_name='Время обучения',
-        blank=True,
-        null=True
-    )
     total_payment = models.DecimalField(
         decimal_places=2,
         max_digits=12,
@@ -172,7 +155,6 @@ class Expense(models.Model):
 
 class Income(models.Model):
     student = models.ForeignKey(Student, on_delete=models.PROTECT, verbose_name='Студент')
-    course = models.ForeignKey(Course, on_delete=models.PROTECT, verbose_name='Курс')
     value = models.DecimalField(decimal_places=2, max_digits=12, default=0.00, verbose_name='Цена')
     payment_method = models.ForeignKey(
                 PaymentMethod,
