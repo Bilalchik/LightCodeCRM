@@ -57,7 +57,7 @@ class Course(models.Model):
     is_active = models.BooleanField(default=True, verbose_name=('Активен'))
 
     def __str__(self):
-        return self.title
+        return f'{self.title} | {self.get_studying_time_display()} | {self.format} | {self.teacher}'
 
     class Meta:
         verbose_name = 'Курс'
