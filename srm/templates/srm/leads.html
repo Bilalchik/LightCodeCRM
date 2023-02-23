@@ -3,15 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br>
 <div class="container">
   <a style="font-size: 22px;" href="{% url 'manager' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
@@ -28,14 +20,14 @@
         {{ filterset.form.is_graduate|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.course__studying_time|as_crispy_field }}
+        {{ filterset.form.studying_time|as_crispy_field }}
       </div>
        <div class="col-6" >
-        {{ filterset.form.course__format|as_crispy_field }}
+        {{ filterset.form.format|as_crispy_field }}
       </div>
     </div>
     <div class="col-6" >
-        {{ filterset.form.course__teacher|as_crispy_field }}
+        {{ filterset.form.teacher|as_crispy_field }}
       </div>
     <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
@@ -50,9 +42,7 @@
 <!-- {{ form.as_p }}-->
 <!--<button type="submit">Сохранить</button>-->
 <!--  </form>-->
-  <br>
-  <br>
-  <br>
+    <br><br><br>
   <hr style="height: 2px; color: black;" >
 
     <h3>Студенты</h3>
@@ -71,6 +61,7 @@
       <th style="text-align: center; margin: 0 10px;" >ФИО</th>
       <th style="text-align: center; margin: 0 10px;" >Номер телефона</th>
       <th style="text-align: center; margin: 0 10px;" >Курс</th>
+      <th style="text-align: center; margin: 0 10px;" >Ментор</th>
       <th style="text-align: center; margin: 0 10px;" >Формат обучения</th>
       <th style="text-align: center; margin: 0 10px;" >Сертификат</th>
       <th style="text-align: center; margin: 0 10px;" >URL</th>
@@ -88,20 +79,17 @@
       {% if student.course %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.course }}</td>
       {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
+        <td style="text-align: center; margin: 0 10px;" >{{ student.teacher }}</td>
       {% endif %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.course.format }}</td>
+        <td style="text-align: center; margin: 0 10px;" ></td>
+        <td style="text-align: center; margin: 0 10px;" >{{ student.format }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
       {% if student.url %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.url }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
-      {% if student.course.studying_time %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.course.get_studying_time_display }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.get_studying_time_display }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.is_graduate }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.created_date }}</td>
         <td style="text-align: center; margin: 0 10px;" >{{ student.total_payment }}</td>

@@ -4,29 +4,29 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, phone_number, username, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
         """
-        if not email:
-            raise ValueError('Users must have an email address')
 
         user = self.model(
-            email=self.normalize_email(email),
+            phone_number=phone_number,
+            username=username
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, phone_number, username, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
-            email,
+            phone_number=phone_number,
+            username=username,
             password=password,
 
         )
@@ -36,14 +36,20 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(
-        verbose_name=('Адрес электронной почты'),
-        max_length=255,
+    # email = models.EmailField(
+    #     verbose_name=('Адрес электронной почты'),
+    #     max_length=255,
+    #     unique=True,
+    # )
+    username = models.CharField(
+        max_length=50,
+        verbose_name='Имя пользователя',
         unique=True,
     )
     phone_number = PhoneNumberField(
         region='KG',
-        verbose_name=('Номер телефона')
+        verbose_name=('Номер телефона'),
+        unique=True
     )
     status = models.PositiveSmallIntegerField(
         choices=(
@@ -68,11 +74,11 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 
     objects = MyUserManager()
 
-    USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['email', ]
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = ['username', ]
 
     def __str__(self):
-        return str(self.email)
+        return self.username
 
     def has_perm(self, perm, obj=None):
         """Does the user have a specific permission?"""

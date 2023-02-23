@@ -13,24 +13,13 @@ class StudyingTime(models.Model):
         verbose_name_plural = 'Время обучения'
 
 
-class LearningFormat(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Название')
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Формат обучения'
-        verbose_name_plural = 'Форматы обучения'
-
-
 class CourseForLanding(models.Model):
     title = models.CharField(max_length=123, verbose_name=('Название'))
     slug = models.SlugField()
     cover = models.ImageField(upload_to='media/image/', verbose_name=('Обложка'))
     description = models.TextField(verbose_name=('Описание о языке'))
     studying_time = models.ManyToManyField(StudyingTime, verbose_name='Время обучения')
-    format = models.ManyToManyField(LearningFormat, verbose_name='Формат обучения')
+    format = models.ManyToManyField('srm.LearningFormat', verbose_name='Формат обучения')
     additional_info = models.TextField(verbose_name='Информация о курсе', blank=True, null=True)
     teacher = models.ForeignKey('srm.Employee', on_delete=models.PROTECT, verbose_name='Ментор')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=('Дата создания'))

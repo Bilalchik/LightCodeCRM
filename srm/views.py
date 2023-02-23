@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -5,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import ListView, CreateView
 
 from .forms import LeadForm, StudentForm, IncomeForm, ExpenseForm
-from .filters import IncomeFilter, ExpenseFilter, StudentFilter
+from .filters import IncomeFilter, ExpenseFilter, StudentFilter, LeadFilter
 from .models import Lead, Student, Income, Expense
 
 def leads_view(request):
@@ -45,10 +46,13 @@ class StudentListView(FilteredListView):
 def lead_add(request):
     if request.method == 'POST':
         form = LeadForm(data=request.POST)
+        print(request.POST)
+        print('99999999999999999')
         if form.is_valid():
+            print('++++++++++++++')
             lead = form.save()
             return redirect('students')
-
+    messages.error(request, 'Заполните поля в правильном формате.')
     form = LeadForm()
     return render(request, template_name='srm/lead_add.html', context={'form': form})
 
@@ -74,11 +78,37 @@ def lead_delete(request, pk):
     return HttpResponseRedirect(reverse('leads'))
 
 
-def student_list(request):
-    leads = Lead.objects.all().order_by('-id')
+class FilteredListView(ListView):
+    filterset_class = None
 
-    return render(request, template_name='srm/students.html', context={
-        'leads': leads})
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return context
+
+# def student_list(request):
+#     leads = Lead.objects.all().order_by('-id')
+#
+#     return render(request, template_name='srm/students.html', context={
+#         'leads': leads})
+
+class StudentList(FilteredListView):
+    model = Lead
+    queryset = Lead.objects.all().order_by('-id')
+    filterset_class = LeadFilter
+    template_name = 'srm/students.html'
+    context_object_name = 'leads'
 
 
 def student_detail(request, pk):
@@ -88,7 +118,7 @@ def student_detail(request, pk):
         if form.is_valid():
             form.save()
             if request.POST['is_payed'] == 'on':
-                return redirect('income_add')
+                return redirect('income_add_for_manager')
             return redirect('leads')
     else:
         form = StudentForm(instance=student)
@@ -108,14 +138,18 @@ def student_add(request):
     if request.method == 'POST':
         print(request.POST)
         form = StudentForm(data=request.POST)
+        print('++++++++++++++++++')
         if form.is_valid():
+            print('vls,dvls,clsd,clsc,lsc,l')
             lead = form.save()
+            print('1234567890')
             if request.POST['is_payed'] == 'on':
                 return redirect('income_add')
             return redirect('leads')
-
+    messages.error(request, 'Заполните поля в правильном формате.')
     form = StudentForm()
     return render(request, template_name='srm/student_add.html', context={'form': form})
+
 
 class FilteredListView(ListView):
     filterset_class = None
@@ -209,7 +243,8 @@ def income_add(request):
         form = IncomeForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
-            return redirect('leads')
+            return redirect('income_list')
+    messages.error(request, 'Заполните поля в правильном формате.')
     form = IncomeForm()
     return render(request, template_name='srm/income_add.html', context={'form': form})
 
@@ -260,7 +295,7 @@ def expense_add(request):
         if form.is_valid():
             lead = form.save()
             return redirect('income_list')
-
+    messages.error(request, 'Заполните поля в правильном формате.')
     form = ExpenseForm()
     return render(request, template_name='srm/expense_add.html', context={'form': form})
 
@@ -289,5 +324,16 @@ def manager(request):
 
 def admin_choice(request):
     return render(request, template_name='srm/admin_choice.html')
+
+
+def income_add_for_manager(request):
+    if request.method == 'POST':
+        form = IncomeForm(data=request.POST)
+        if form.is_valid():
+            lead = form.save()
+            return redirect('leads')
+    messages.error(request, 'Заполните поля в правильном формате.')
+    form = IncomeForm()
+    return render(request, template_name='srm/income_add_for_manager.html', context={'form': form})
 
 

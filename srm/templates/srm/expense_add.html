@@ -4,15 +4,18 @@
 
 {% block content %}
   <br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br>
 <div class="container">
   <a style="font-size: 22px;" href="{% url 'income_list' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
 <center>
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <h3>Расход</h3>
   <br>
       <div class="container mt-3" style="width: 55%; fon-size: 10px;">
@@ -26,7 +29,6 @@
             <div class="col-6" >
                 {{ form.value|as_crispy_field }}
             </div>
-
         </div>
         <div class="col-6" >
                 {{ form.flow_type|as_crispy_field }}

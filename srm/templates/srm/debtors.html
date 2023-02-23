@@ -3,15 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br>
 <div class="container">
   <a style="font-size: 22px;" href="{% url 'admin_choice' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
@@ -31,14 +23,14 @@
         {{ filterset.form.is_graduate|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.course__studying_time|as_crispy_field }}
+        {{ filterset.form.studying_time|as_crispy_field }}
       </div>
        <div class="col-6" >
-        {{ filterset.form.course__format|as_crispy_field }}
+        {{ filterset.form.format|as_crispy_field }}
       </div>
     </div>
     <div class="col-6" >
-        {{ filterset.form.course__teacher|as_crispy_field }}
+        {{ filterset.form.teacher|as_crispy_field }}
       </div>
     <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
@@ -73,6 +65,7 @@
       <th style="text-align: center; margin: 0 10px;" >ФИО</th>
       <th style="text-align: center; margin: 0 10px;" >Номер телефона</th>
       <th style="text-align: center; margin: 0 10px;" >Курс</th>
+      <th style="text-align: center; margin: 0 10px;" >Ментор</th>
       <th style="text-align: center; margin: 0 10px;" >Формат обучения</th>
       <th style="text-align: center; margin: 0 10px;" >Сертификат</th>
       <th style="text-align: center; margin: 0 10px;" >URL</th>
@@ -90,10 +83,11 @@
       {% if student.course %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.course }}</td>
       {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
+        <td style="text-align: center; margin: 0 10px;" >{{ student.teacher }}</td>
       {% endif %}
+        <td style="text-align: center; margin: 0 10px;" ></td>
       {% if student.tariff %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.tariff }}</td>
+        <td style="text-align: center; margin: 0 10px;" >{{ student.format }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
@@ -104,7 +98,7 @@
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
       {% if student.time %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.get_time_display }}</td>
+        <td style="text-align: center; margin: 0 10px;" >{{ student.get_studying_time_display }}</td>
       {% else %}
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}

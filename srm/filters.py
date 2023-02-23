@@ -2,7 +2,7 @@ import django_filters
 from django_filters import DateFromToRangeFilter
 from django import forms
 
-from .models import Income, Expense, Student, Course
+from .models import Income, Expense, Student, Course, Lead
 
 
 class RangeWidget(forms.MultiWidget):
@@ -59,11 +59,11 @@ class IncomeFilter(django_filters.FilterSet):
         fields = [
             'created_date',
             'student',
-            'student__course__title',
+            'student__course',
             'payment_method',
-            'student__course__format',
-            'student__course__studying_time',
-            'student__course__teacher',
+            'student__format',
+            'student__studying_time',
+            'student__teacher',
             'currency']
 
 
@@ -95,8 +95,18 @@ class StudentFilter(django_filters.FilterSet):
         fields = [
             'course',
             'is_graduate',
-            'course__studying_time',
-            'course__format',
-            'course__teacher',
+            'studying_time',
+            'format',
+            'teacher',
             'created_date']
+
+
+class LeadFilter(django_filters.FilterSet):
+    created_date = DateFromToRangeFilter(
+        field_name='created_date',
+        widget=DateRangeWidget(attrs={'class': 'form-control'})
+    )
+    class Meta:
+        model = Lead
+        fields = ['created_date']
 

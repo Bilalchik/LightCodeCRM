@@ -3,15 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br>
 <div class="container">
   <a style="font-size: 22px;" href="{% url 'admin_choice' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
@@ -29,7 +21,7 @@
         {{ filterset.form.student|as_crispy_field }}
       </div>
       <div class="col-6" >
-        {{ filterset.form.student__course__title|as_crispy_field }}
+        {{ filterset.form.student__course|as_crispy_field }}
       </div>
       <div class="col-6" >
         {{ filterset.form.payment_method|as_crispy_field }}
@@ -38,13 +30,13 @@
         {{ filterset.form.currency|as_crispy_field }}
       </div>
         <div class="col-6" >
-        {{ filterset.form.student__course__format|as_crispy_field }}
+        {{ filterset.form.student__format|as_crispy_field }}
       </div>
         <div class="col-6" >
-        {{ filterset.form.student__course__studying_time|as_crispy_field }}
+        {{ filterset.form.student__studying_time|as_crispy_field }}
       </div>
            <div class="col-6" >
-        {{ filterset.form.student__course__teacher|as_crispy_field }}
+        {{ filterset.form.student__teacher|as_crispy_field }}
       </div>
         <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
@@ -121,12 +113,13 @@
       <th style="text-align: center; margin: 0 10px;" >Цена</th>
       <th style="text-align: center; margin: 0 10px;" >Валюта</th>
       <th style="text-align: center; margin: 0 10px;" >Способ оплаты</th>
+      <th style="text-align: center; margin: 0 10px;" >Дата оплаты</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
     </tr>
     {% for income in object_list %}
     <tr>
       <td style="text-align: center; margin: 0 10px;"><a href="{% url 'income_detail' income.id %}" >{{ income.student }}</a></td>
-      <td style="text-align: center; margin: 0 10px;" >{{ income.student.course.title }}</td>
+      <td style="text-align: center; margin: 0 10px;" >{{ income.student.course }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.value }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.currency }}</td>
         {% if income.payment_method %}
@@ -134,6 +127,7 @@
         {% else %}
           <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ income.date_of_payment }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ income.created_date }}</td>
       <td><a href="{% url 'income_delete' income.id %}">Удалить</a></td>
     </tr>

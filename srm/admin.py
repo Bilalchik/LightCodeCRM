@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Role, Employee, Student, Expense, Income, Currency, PaymentMethod, Lead, Course
+from .models import Role, Employee, Student, Expense, Income, Currency, PaymentMethod, Lead, Course, StudyingTime, LearningFormat
 
 
 class RoleAdmin(admin.ModelAdmin):
@@ -7,16 +7,19 @@ class RoleAdmin(admin.ModelAdmin):
 
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'cover_image', 'role', 'is_active']
-    list_filter = ('created_date', 'role', 'is_active')
+    list_display = ['full_name', 'role', 'is_active']
+    list_filter = ('created_date', 'studying_time', 'format', 'course', 'role', 'is_active')
     search_fields = ['full_name', 'role']
 
 
 class StudentAdmin(admin.ModelAdmin):
-    readonly_fields = ('total_payment', 'last_payment_date')
+    readonly_fields = ('last_payment_date', )
     list_display = [
         'full_name',
         'course',
+        'teacher',
+        'studying_time',
+        'format',
         'certificate',
         'is_graduate',
         'created_date',
@@ -26,12 +29,6 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['full_name', 'phone_number']
 
 
-# class StudentPaymentAdmin(admin.ModelAdmin):
-#     list_display = ['student', 'value', 'currency_names', 'payment_method_names', 'created_date']
-#     list_filter = ('created_date', 'currency', 'payment_method')
-#     search_fields = ['student', ]
-
-
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = ['title', 'value', 'flow_type', 'created_date']
     list_filter = ('flow_type', 'created_date')
@@ -39,14 +36,14 @@ class ExpenseAdmin(admin.ModelAdmin):
 
 
 class IncomeAdmin(admin.ModelAdmin):
-    list_display = ['student', 'payment_method', 'value', 'currency', 'created_date']
+    list_display = ['student', 'payment_method', 'value', 'currency', 'date_of_payment', 'created_date']
     list_filter = (
         'created_date',
-        'student__course__title',
+        'student__course',
         'payment_method',
-        'student__course__format',
-        'student__course__studying_time',
-        'student__course__teacher')
+        'student__format',
+        'student__studying_time',
+        'student__teacher')
     search_fields = ['student', ]
 
 
@@ -57,8 +54,8 @@ class LeadAdmin(admin.ModelAdmin):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['title', 'studying_time', 'teacher', 'format', 'created_date', 'is_active']
-    list_filter = ('studying_time', 'format', 'created_date', 'is_active')
+    list_display = ['title', 'created_date', 'is_active']
+    list_filter = ('created_date', 'is_active')
 
 
 admin.site.register(Role, RoleAdmin)
@@ -70,5 +67,8 @@ admin.site.register(Currency)
 admin.site.register(PaymentMethod)
 admin.site.register(Lead, LeadAdmin)
 admin.site.register(Course, CourseAdmin)
+admin.site.register(StudyingTime)
+admin.site.register(LearningFormat)
+
 
 

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'landing',
     'account',
     'srm',
+    'classroom',
     # external apps
     'django_select2',
     "phonenumber_field",

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Lead, Student, Income, Expense
+from .models import Lead, Student, Income, Expense, Course, Employee
 from django_select2 import forms as s2forms
 
 
@@ -12,7 +12,7 @@ class StudentWidget(s2forms.ModelSelect2Widget):
 class LeadForm(forms.ModelForm):
     class Meta:
         model = Lead
-        fields = ['full_name', 'phone_number', 'course', 'description', 'is_add']
+        fields = ['full_name', 'phone_number', 'course', 'is_add', 'description']
 
 
 class StudentForm(forms.ModelForm):
@@ -20,10 +20,11 @@ class StudentForm(forms.ModelForm):
         attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
         required=False
     )
+    remainder = forms.DecimalField(label='Общая оплата за курс')
 
     class Meta:
         model = Student
-        fields = ['full_name', 'phone_number', 'course', 'certificate', 'url', 'is_graduate']
+        fields = ['full_name', 'phone_number', 'course', 'teacher', 'studying_time', 'format', 'certificate', 'url', 'is_graduate', 'remainder', 'description']
 
 
 class IncomeForm(forms.ModelForm):
@@ -31,13 +32,18 @@ class IncomeForm(forms.ModelForm):
         queryset=Student.objects.all(),
         widget=StudentWidget
     )
+    date_of_payment = forms.DateField(widget=forms.widgets.DateInput(
+        attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
+        label='Дата оплаты'
+    )
 
     class Meta:
         model = Income
-        fields = ['student', 'value', 'payment_method', 'currency']
+        fields = ['student', 'value', 'payment_method', 'currency', 'date_of_payment']
         # widgets = {
         #     "student": StudentWidget,
         # }
+
 
 class ExpenseForm(forms.ModelForm):
     class Meta:
