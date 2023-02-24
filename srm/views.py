@@ -49,6 +49,8 @@ def lead_add(request):
         print(request.POST)
         if form.is_valid():
             lead = form.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('lead_add')
             return redirect('students')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = LeadForm()
@@ -136,13 +138,12 @@ def student_add(request):
     if request.method == 'POST':
         print(request.POST)
         form = StudentForm(data=request.POST)
-        print('++++++++++++++++++')
         if form.is_valid():
-            print('vls,dvls,clsd,clsc,lsc,l')
             lead = form.save()
-            print('1234567890')
             if request.POST['is_payed'] == 'on':
                 return redirect('income_add')
+            elif request.POST['is_next'] == 'on':
+                return redirect('student_add')
             return redirect('leads')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = StudentForm()
@@ -242,6 +243,8 @@ def income_add(request):
         form = IncomeForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('income_add')
             return redirect('income_list')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = IncomeForm()
@@ -325,6 +328,8 @@ def expense_add(request):
         form = ExpenseForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('expense_add')
             return redirect('income_list')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = ExpenseForm()
@@ -366,6 +371,8 @@ def income_add_for_manager(request):
         form = IncomeForm(data=request.POST)
         if form.is_valid():
             lead = form.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('income_add_for_manager')
             return redirect('leads')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = IncomeForm()

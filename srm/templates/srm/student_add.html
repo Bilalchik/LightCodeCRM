@@ -55,10 +55,15 @@
         <div class="col-6" >
                 {{ form.description|as_crispy_field }}
             </div>
-        <button type="submit">Сохранить</button>
+        <button type="submit">Сохранить</button><br><br>
         <br><br>
         <h5>Студент хочет оплатить сразу?</h5>
         <select name="is_payed">
+            <option value="no">Нет</option>
+            <option value="on">Да</option>
+        </select><br><br>
+        <h5>Хотите сохранить и добавить другой объект?</h5>
+        <select name="is_next">
             <option value="no">Нет</option>
             <option value="on">Да</option>
         </select>
