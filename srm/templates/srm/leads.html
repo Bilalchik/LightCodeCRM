@@ -79,9 +79,9 @@
       {% if student.course %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.course }}</td>
       {% else %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.teacher }}</td>
-      {% endif %}
         <td style="text-align: center; margin: 0 10px;" ></td>
+      {% endif %}
+        <td style="text-align: center; margin: 0 10px;" >{{ student.teacher }}</td>
         <td style="text-align: center; margin: 0 10px;" >{{ student.format }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
       {% if student.url %}

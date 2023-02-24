@@ -150,7 +150,7 @@ class Student(models.Model):
     #     return super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.full_name} | {self.course} | {self.teacher} | {self.studying_time} | {self.format}'
+        return f'{self.full_name}  | {self.teacher} | {self.studying_time} | {self.format}'
 
     class Meta:
         verbose_name = 'Студент'

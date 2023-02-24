@@ -12,6 +12,10 @@
 <br>
 <br>
 <div class="container mt-3" style="width: 55%; fon-size: 10px;">
+    <a href="{% url 'incomes' %}"><h4 style="color: blue;" >Доходы: {{ income_total }}</h4></a>
+    <br><br><br>
+    <a href="{% url 'expenses_list' %}"><h4 style="color: blue;" >Расходы: {{ expense_total }}</h4></a>
+    <br><br><br>
     <a href="{% url 'income_list' %}"><h4 style="color: blue;" >Чистая прибыль</h4></a>
     <br><br><br>
     <a href="{% url 'debtor' %}"><h4 style="color: blue;" >Должники</h4></a>

@@ -47,9 +47,7 @@ def lead_add(request):
     if request.method == 'POST':
         form = LeadForm(data=request.POST)
         print(request.POST)
-        print('99999999999999999')
         if form.is_valid():
-            print('++++++++++++++')
             lead = form.save()
             return redirect('students')
     messages.error(request, 'Заполните поля в правильном формате.')
@@ -175,7 +173,7 @@ class IncomeListView(FilteredListView):
     model = Income
     queryset = Income.objects.all().order_by('-id')
     filterset_class = IncomeFilter
-    template_name = 'srm/incomes.html'
+    template_name = 'srm/incomes_and_expense.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -211,6 +209,7 @@ class FilteredListView(ListView):
         # Pass the filterset to the template - it provides the form.
         context['filterset'] = self.filterset
         return context
+
 
 class Debtor(FilteredListView):
     model = Student
@@ -276,6 +275,38 @@ class ExpenseListView(FilteredListView):
         return context
 
 
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return context
+
+
+class IncomesView(FilteredListView):
+    model = Income
+    queryset = Income.objects.all().order_by('-id')
+    filterset_class = IncomeFilter
+    template_name = 'srm/incomes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
+        return context
+
+
 def expense_detail(request, pk):
     expense = get_object_or_404(Expense, id=pk)
     if request.method == 'POST':
@@ -323,7 +354,11 @@ def manager(request):
 
 
 def admin_choice(request):
-    return render(request, template_name='srm/admin_choice.html')
+    expense = Expense.objects.all()
+    expense_total = expense.aggregate(total=Sum('value'))['total']
+    income = Income.objects.all()
+    income_total = income.aggregate(total=Sum('value'))['total']
+    return render(request, template_name='srm/admin_choice.html', context={'expense_total': expense_total, 'income_total': income_total})
 
 
 def income_add_for_manager(request):

@@ -1,6 +1,7 @@
 import django_filters
 from django_filters import DateFromToRangeFilter
 from django import forms
+from django_select2 import forms as s2forms
 
 from .models import Income, Expense, Student, Course, Lead
 
@@ -23,6 +24,19 @@ class RangeWidget(forms.MultiWidget):
             forms.TextInput(attrs=get_widget_attrs()),
         )
         super(RangeWidget, self).__init__(widgets, attrs)
+
+
+class StudentWidget(s2forms.ModelSelect2Widget):
+    model = Student
+    search_fields = [
+        "full_name__iregex",
+    ]
+
+
+class LeadWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "phone_number__icontains"
+    ]
 
 
 class DateRangeWidget(forms.widgets.MultiWidget):
@@ -49,6 +63,10 @@ class IncomeFilter(django_filters.FilterSet):
     created_date = DateFromToRangeFilter(
         field_name='created_date',
         widget=DateRangeWidget(attrs={'class': 'form-control'})
+    )
+    student = django_filters.ModelChoiceFilter(
+        queryset=Student.objects.all(),
+        widget=StudentWidget,
     )
     student__course__title = django_filters.ModelChoiceFilter(
         queryset=Course.objects.all()
@@ -106,7 +124,16 @@ class LeadFilter(django_filters.FilterSet):
         field_name='created_date',
         widget=DateRangeWidget(attrs={'class': 'form-control'})
     )
+    full_name = django_filters.ModelChoiceFilter(
+        queryset=Lead.objects.all(),
+        widget=StudentWidget
+    )
+    phone_number = django_filters.ModelChoiceFilter(
+        queryset=Lead.objects.all(),
+        widget=LeadWidget
+    )
+
     class Meta:
         model = Lead
-        fields = ['created_date']
+        fields = ['full_name', 'phone_number', 'created_date']
 

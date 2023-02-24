@@ -8,14 +8,23 @@
   <a style="font-size: 22px;" href="{% url 'manager' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
 <center>
+  {{ filterset.form.media.css }}
   <h3>Фильтрация для Лидов</h3>
     <div class="container mt-3" style="width: 55%; fon-size: 10px;">
   <form method="get" id="incomes">
+    <div class="col-6" >
+        {{ filterset.form.full_name|as_crispy_field }}
+      </div>
+    <div class="col-6" >
+        {{ filterset.form.phone_number|as_crispy_field }}
+      </div>
     <div class="col-6" >
         {{ filterset.form.created_date|as_crispy_field }}
       </div>
     <button type="submit">Применить фильтр</button>
 </form>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ filterset.form.media.js }}
   </div>
 <br><br><br>
   <h3>Лиды</h3>

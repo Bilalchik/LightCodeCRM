@@ -3,15 +3,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 <div class="container">
-  <a style="font-size: 22px;" href="{% url 'admin_choice' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+  <a style="font-size: 22px;" href="{% url 'personal' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
 <center>
-
-    <div class="d-flex justify-content-around">
-      <div class="left col-5">
-    <div align="left">
+  {{ filterset.form.media.css }}
   <div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <h3 align="left">Фильтрация для Доходов</h3><br>
   <form method="get" id="incomes">
@@ -42,69 +39,18 @@
         {{ filterset.form.created_date|as_crispy_field }}
       </div>
     </div>
-      </div>
-        </div>
-    </div>
-
-  <div class="left col-5">
-<div class="container mt-3" style="width: 55%; fon-size: 10px;">
-  <h3 align="right">Фильтрация для Расходов</h3>
-<br>
-    <div align="right">
-    <div class="row">
-    <div class="col-6">
-      {{ gg.form.flow_type|as_crispy_field }}
-      </div>
-      <div class="col-6">
-        {{ gg.form.created_date|as_crispy_field }}
-      </div>
-        </div>
-    </div>
-        </div>
-  </div>
-      </div>
-  <button type="submit">Применить фильтр</button>
-</form>
-
-
-  {% for obj in object_list %}
-  {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
-    {{ obj }}
-  {% endif %}
-{% endfor %}
-
-    {% for obj in kaka %}
-  {% if obj.created_date|date:"Y-m-d" >= start_date|date:"Y-m-d" and obj.created_date|date:"Y-m-d" <= end_date|date:"Y-m-d" %}
-    {{ obj }}
-  {% endif %}
-{% endfor %}
-  <br>
-<br>
-<br>
-  <h2>Чистая прибыль</h2>
-         <h3>{{ net_profit }}</h3>
-  <br>
-  <br>
-  <br>
-
-  <div class="d-flex justify-content-around">
-    <div class="left col-5">
-          <h2>Общая сумма дохода</h2>
-  <h4>{{total_incomes}}</h4>
-      <br>
-      <br>
-      <br>
-  <h3>Доходы</h3>
-  <br>
-      <a style="font-size: 22px;" href="{% url 'income_add' %}">Добавить Доход <i class="fa fa-arrow-right"></i></a>
-<br>
-<br>
-<style>
+    <style>
   table, th, td {
     border: 1px solid black;
   }
 </style>
-
+    <h2>Общая сумма дохода</h2>
+    <h4>{{total_incomes}}</h4>
+    <br><br><br>
+    <h3>Доходы</h3>
+    <br>
+    <a style="font-size: 22px;" href="{% url 'income_add' %}">Добавить Доход <i class="fa fa-arrow-right"></i></a>
+<br><br><br><br><br>
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -134,86 +80,8 @@
     {% endfor %}
   </tbody>
 </table>
-  <br>
-  <br>
-  <div>
-
-    </div>
-  <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-    </div>
-    <div class="right col-5">
-
-<!--    <form method="POST" action=".">-->
-<!--  {% csrf_token %}-->
-<!-- {{ form.as_p }}-->
-<!--<button type="submit">Сохранить</button>-->
-<!--  </form>-->
-<!--  <h3>Фильтрация</h3><br>-->
-<!--    <div class="container mt-3" style="width: 55%; fon-size: 10px;">-->
-<!--    <form method="get" id="expenses">-->
-<!--      <div class="col-6">-->
-<!--      {{ gg.form.flow_type|as_crispy_field }}-->
-<!--      </div>-->
-<!--      <div class="col-6">-->
-<!--        {{ gg.form.created_date|as_crispy_field }}-->
-<!--      </div>-->
-<!--    <button type="submit">Применить фильтр</button>-->
-<!--</form>-->
-<!--      </div>-->
-
-    <h2>Общая сумма расходов</h2>
-  <h4>{{ total_expenses }}</h4>
-          <br>
-<br>
-<br>
-      <h3>Расходы</h3>
-  <br>
-      <a style="font-size: 22px;" href="{% url 'expense_add' %}">Добавить Расход <i class="fa fa-arrow-right"></i></a>
-<br>
-<br>
-<style>
-  table, th, td {
-    border: 1px solid black;
-  }
-</style>
-  <table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th style="text-align: center; margin: 0 10px;" >Наименование расхода</th>
-      <th style="text-align: center; margin: 0 10px;" >Значение</th>
-      <th style="text-align: center; margin: 0 10px;" >Тип расхода</th>
-      <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
-    </tr>
-    {% for expense in expenses  %}
-    <tr>
-      <td style="text-align: center; margin: 0 10px;"><a href="{% url 'expense_detail' expense.id %}" >{{ expense.title }}</a></td>
-      <td style="text-align: center; margin: 0 10px;" >{{ expense.value }}</td>
-      <td style="text-align: center; margin: 0 10px;" >{{ expense.get_flow_type_display }}</td>
-      <td style="text-align: center; margin: 0 10px;" >{{ expense.created_date }}</td>
-        <td><a href="{% url 'expense_delete' expense.id %}">Удалить</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-  <br>
-  <br>
-  <div>
-
-    </div>
-  <br>
-<br>
-<br>
-    </div>
-  </div>
-
-<!--<hr style="height: 2px; color: black;" >-->
-
-
-</>
+  </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ filterset.form.media.js }}
+</center>
 {% endblock %}
-
