@@ -116,18 +116,14 @@
 <!--    {% endfor %}-->
 <!--  </tbody>-->
 <!--</table>-->
+  <div class="container mt-3" style="width: 70%; fon-size: 10px;">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
   <table class="table table-bordered">
   <tbody>
     <tr>
       <th style="text-align: center; margin: 0 10px;" >ФИО</th>
       <th style="text-align: center; margin: 0 10px;" >Номер телефона</th>
-      <th style="text-align: center; margin: 0 10px;" >Курс</th>
       <th style="text-align: center; margin: 0 10px;" >Ментор</th>
-      <th style="text-align: center; margin: 0 10px;" >Формат обучения</th>
-      <th style="text-align: center; margin: 0 10px;" >Сертификат</th>
-      <th style="text-align: center; margin: 0 10px;" >URL</th>
-      <th style="text-align: center; margin: 0 10px;" >Время обучения</th>
-      <th style="text-align: center; margin: 0 10px;" >Выпускник</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
       <th style="text-align: center; margin: 0 10px;" >Общая оплата</th>
       <th style="text-align: center; margin: 0 10px;" >Остаток</th>
@@ -137,21 +133,7 @@
     <tr>
       <td style="text-align: center; margin: 0 10px;"><a href="{% url 'student_detail' student.id %}" >{{ student.full_name }}</a></td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.phone_number }}</td>
-      {% if student.course %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.course }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
         <td style="text-align: center; margin: 0 10px;" >{{ student.teacher }}</td>
-        <td style="text-align: center; margin: 0 10px;" >{{ student.format }}</td>
-      <td style="text-align: center; margin: 0 10px;" >{{ student.certificate }}</td>
-      {% if student.url %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.url }}</td>
-      {% else %}
-        <td style="text-align: center; margin: 0 10px;" ></td>
-      {% endif %}
-        <td style="text-align: center; margin: 0 10px;" >{{ student.get_studying_time_display }}</td>
-      <td style="text-align: center; margin: 0 10px;" >{{ student.is_graduate }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.created_date }}</td>
         <td style="text-align: center; margin: 0 10px;" >{{ student.total_payment }}</td>
       <td style="text-align: center; margin: 0 10px;" >{{ student.remainder }}</td>
@@ -165,7 +147,8 @@
     {% endfor %}
   </tbody>
 </table>
-
+  </div>
+  </div>
   <br>
 <br>
 <br>

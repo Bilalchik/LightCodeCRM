@@ -363,7 +363,15 @@ def admin_choice(request):
     expense_total = expense.aggregate(total=Sum('value'))['total']
     income = Income.objects.all()
     income_total = income.aggregate(total=Sum('value'))['total']
-    return render(request, template_name='srm/admin_choice.html', context={'expense_total': expense_total, 'income_total': income_total})
+    students = Student.objects.all()
+    debtors = students.aggregate(total=Sum('remainder'))['total']
+    net_profit = income_total - expense_total
+
+    return render(request, template_name='srm/admin_choice.html', context={
+        'expense_total': expense_total,
+        'income_total': income_total,
+        'debtors': debtors,
+        'net_profit': net_profit})
 
 
 def income_add_for_manager(request):

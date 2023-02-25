@@ -78,7 +78,7 @@ def unenroll_class(request, classroom_id):
 
 
 @login_required(login_url='login')
-@teacher_required('home')
+# @teacher_required('home')
 def delete_class(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     teacher_mapping = Teacher.objects.get(teacher=request.user, classroom=classroom)
@@ -148,7 +148,7 @@ def join_class_request(request):
 
 # assignments -->
 @login_required(login_url='login')
-@teacher_required('home')
+# @teacher_required('home')
 def create_assignment(request, classroom_id):
     teacher_mapping = Teacher.objects.filter(teacher=request.user).select_related('classroom')
     student_mapping = Student.objects.filter(student=request.user).select_related('classroom')
@@ -174,7 +174,7 @@ def create_assignment(request, classroom_id):
 
 
 @login_required(login_url='login')
-@teacher_required('home')
+# @teacher_required('home')
 def assignment_summary(request, assignment_id):
     assignment = Assignment.objects.filter(pk=assignment_id).first()
     submissions = Submission.objects.filter(assignment=assignment)
@@ -189,7 +189,7 @@ def assignment_summary(request, assignment_id):
 
 
 @login_required(login_url='login')
-@teacher_required('home')
+# @teacher_required('home')
 def delete_assignment(request, assignment_id):
     try:
         assignment = Assignment.objects.get(pk=assignment_id)
@@ -202,30 +202,33 @@ def delete_assignment(request, assignment_id):
 
 
 # submission -->
-@csrf_exempt
-@login_required(login_url='login')
-# @student_required('home')
-def submit_assignment_request(request, assignment_id):
-    assignment = Assignment.objects.get(pk=assignment_id)
-    student = Student.objects.get(classroom=assignment.classroom, student=request.user.id)
-    file_name = request.FILES.get('myfile')
-
-    try:
-        submission = Submission.objects.get(assignment=assignment, student=student)
-        submission.submission_file = file_name
-        submission.save()
-        return JsonResponse({'status': 'SUCCESS'})
-
-    except Exception as e:
-        print(str(e))
-        submission = Submission(assignment=assignment, student=student, submission_file=file_name)
-        dt1 = datetime.now()
-        dt2 = datetime.combine(assignment.due_date, assignment.due_time)
-        time = timesince(dt1, dt2)
-        if time[0] == '0':
-            submission.submitted_on_time = False
-        submission.save()
-        return JsonResponse({'status': 'SUCCESS'})
+# @csrf_exempt
+# @login_required(login_url='login')
+# # @student_required('home')
+# def submit_assignment_request(request, assignment_id):
+#     assignment = Assignment.objects.get(pk=assignment_id)
+#     student = Student.objects.get(classroom=assignment.classroom, student=request.user.id)
+#     file_name = request.POST.get('my')
+#     print(request.POST)
+#
+#     try:
+#         submission = Submission.objects.get(assignment=assignment, student=student)
+#         submission.submission_file = file_name
+#         submission.save()
+#         # return JsonResponse({'status': 'SUCCESS'})
+#         return render(request, template_name='classroom/sending_a_task.html')
+#
+#     except Exception as e:
+#         print(str(e))
+#         submission = Submission(assignment=assignment, student=student, submission_file=file_name)
+#         dt1 = datetime.now()
+#         dt2 = datetime.combine(assignment.due_date, assignment.due_time)
+#         time = timesince(dt1, dt2)
+#         if time[0] == '0':
+#             submission.submitted_on_time = False
+#         submission.save()
+#         # return JsonResponse({'status': 'SUCCESS'})
+#     return render(request, template_name='classroom/sending_a_task.html')
 
 
 
@@ -241,12 +244,17 @@ def mark_submission_request(request, submission_id, teacher_id):
 def sending_a_task(request, pk):
     assignment = Assignment.objects.get(pk=pk)
     student = Student.objects.get(classroom=assignment.classroom, student=request.user.id)
+    print(request.POST)
+    file = request.POST.get('lol')
     if request.method == 'POST':
-        form = SubmitAssignmentForm(data=request.POST)
-        if form.is_valid():
-            submission = Submission(assignment=assignment, student=student, submission_file=form)
+        print('post')
+        # form = SubmitAssignmentForm(data=request.POST)
+        if file:
+            print('valid')
+            submission = Submission(assignment=assignment, student=student, submission_file=file)
             submission.save()
-            return redirect('render_class')
-    form = SubmitAssignmentForm()
-    return render(request, template_name='classroom/sending_a_task.html', context={'form': form})
+            return redirect('home')
+        print('not valid')
+    # form = SubmitAssignmentForm()
+    return render(request, template_name='classroom/sending_a_task.html')
 

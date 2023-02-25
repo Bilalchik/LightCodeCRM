@@ -12,13 +12,29 @@
 <br>
 <br>
 <div class="container mt-3" style="width: 55%; fon-size: 10px;">
-    <a href="{% url 'incomes' %}"><h4 style="color: blue;" >Доходы: {{ income_total }}</h4></a>
+    {% if income_total %}
+    <a href="{% url 'incomes' %}"><h4 style="color: blue;" >Доходы: <span style="color: black;" >{{ income_total }}</span></h4></a>
+    {% else %}
+    <a href="{% url 'incomes' %}"><h4 style="color: blue;" >Доходы: <span style="color: black;" >0</span></h4></a>
+    {% endif %}
     <br><br><br>
-    <a href="{% url 'expenses_list' %}"><h4 style="color: blue;" >Расходы: {{ expense_total }}</h4></a>
+    {% if expense_total %}
+    <a href="{% url 'expenses_list' %}"><h4 style="color: blue;" >Расходы: <span style="color: black;" >{{ expense_total }}</span></h4></a>
+    {% else %}
+    <a href="{% url 'expenses_list' %}"><h4 style="color: blue;" >Расходы: <span style="color: black;" >0</span></h4></a>
+    {% endif %}
     <br><br><br>
-    <a href="{% url 'income_list' %}"><h4 style="color: blue;" >Чистая прибыль</h4></a>
+    {% if income_total and expense_total %}
+    <a href="{% url 'income_list' %}"><h4 style="color: blue;" >Чистая прибыль: <span style="color: black;" >{{ net_profit }}</span></h4></a>
+    {% else %}
+    <a href="{% url 'income_list' %}"><h4 style="color: blue;" >Чистая прибыль: <span style="color: black;" >0</span></h4></a>
+    {% endif %}
     <br><br><br>
-    <a href="{% url 'debtor' %}"><h4 style="color: blue;" >Должники</h4></a>
+    {% if debtors %}
+    <a href="{% url 'debtor' %}"><h4 style="color: blue;" >Должники: <span style="color: black;" >{{ debtors }}</span></h4></a>
+    {% else %}
+    <a href="{% url 'debtor' %}"><h4 style="color: blue;" >Должники: <span style="color: black;" >0</span></h4></a>
+    {% endif %}
 </div>
 </center>
 {% endblock %}

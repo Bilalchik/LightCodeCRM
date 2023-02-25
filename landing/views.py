@@ -12,7 +12,7 @@ def index(request):
     courses = CourseForLanding.objects.all()
     reviews = Review.objects.all()
     employees = Employee.objects.filter(is_active=True)
-
+    print(reviews)
     if request.method == 'POST':
         if request.POST.get('name'):
             user_name = request.POST.get('name')
@@ -26,7 +26,6 @@ def index(request):
             user_email = request.POST.get('email')
             user_password = request.POST.get('password')
 
-            # Check if user already exists
             if MyUser.objects.filter(email=user_email).exists():
                 messages.error(request, 'Пользователь с такой почтой уже существует.')
             else:

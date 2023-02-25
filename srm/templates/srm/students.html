@@ -44,7 +44,6 @@
       <th style="text-align: center; margin: 0 10px;" >Курс</th>
       <th style="text-align: center; margin: 0 10px;" >Описание</th>
       <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
-      <th style="text-align: center; margin: 0 10px;" >Добавить</th>
     </tr>
     {% for lead in leads %}
     <tr>
@@ -61,7 +60,6 @@
         <td style="text-align: center; margin: 0 10px;" ></td>
       {% endif %}
       <td style="text-align: center; margin: 0 10px;" >{{ lead.created_date }}</td>
-      <td style="text-align: center; margin: 0 10px;" >{{ lead.is_add }}</td>
       <td><a href="{% url 'lead_delete' lead.id %}">Удалить</a></td>
     </tr>
     {% endfor %}
