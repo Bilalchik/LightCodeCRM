@@ -33,8 +33,8 @@
                   </li>
                   <li class="nav-item active">
                     <a class="nav-link mybtn myinfo" href="{% url 'logout' %}">Выйти<span class="sr-only"></span></a>
-                  <li class="nav-item">
-                    <a class="nav-link mybtn myinfo" href="{% url 'render_class' assignment.classroom.id %}">Назад</a>
+                    <li class="nav-item">
+                    <a class="nav-link mybtn myinfo" href="{% url 'assignment_summary' submission.assignment.id %}">Назад</a>
                   </li>
                   <li class="nav-item active">
                     <div class="image_cropper">
@@ -45,38 +45,47 @@
         </div>
         </nav>    
         </div>
-    
-    <input type="hidden" id="submission" name="submission">
-    <input type="hidden" id="assignment" name="assignment">
-    <input type="hidden" id="user" name="user" >
     <br>
-    <h4>&emsp;&emsp;&emsp;&emsp;&emsp; Количество студентов: {{ no_of_students.count }} &emsp;&emsp;&emsp;&emsp;&emsp; Выполнили: {{ submissions.count }} &emsp;&emsp;&emsp;&emsp;&emsp; <a href="{% url 'delete_assignment' assignment.id %}">Удалить задание</a></h4>
-    {% for submission in submissions %} 
     <div class="container_of_submissions">
       <br>   
         <div class="card-body submission-card">
-            <h5 class="card-title">{{ submission.student.student.username }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Отправлено в {{ submission.submitted_time }} и {{ submission.submitted_date }}</h6>
-            <h6 class="card-subtitle mb-2 text-muted">{{ submission.marks_alloted }} / {{ submission.assignment.total_marks }}</h6>
-            <h6 class="card-subtitle mb-2 text-muted">Сроки: {{ submission.assignment.due_time }}  {{ submission.assignment.due_date }}</h6>
+            <h4 class="card-title">{{ submission.student.student.username }}</h4>
+            <h5 class="card-subtitle mb-2 text-muted">Отправлено в {{ submission.submitted_time }} и {{ submission.submitted_date }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">{{ submission.marks_alloted }} / {{ submission.assignment.total_marks }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Сроки: {{ submission.assignment.due_time }}  {{ submission.assignment.due_date }}</h5>
             {% if submission.submitted_on_time %}
-            <h6 class="card-subtitle mb-2 text-muted">Отправлено вовремя</h6>
+            <h5 class="card-subtitle mb-2 text-muted">Отправлено вовремя</h5>
             {% else %}
-            <h6 class="card-subtitle mb-2 text-muted" style="color: crimson !important;">Ой! немного опоздал</h6>
+            <h5 class="card-subtitle mb-2 text-muted" style="color: crimson !important;">Ой! немного опоздал</h5>
             {% endif %}
             {% if submission.status == 1 %}
-                <h5 class="card-subtitle mb-2 text-muted">Статус: {{ submission.get_status_display }}</h5>
+                <h5 class="card-subtitle mb-2 text-muted" >Статус: {{ submission.get_status_display }}</h5>
             {% elif submission.status == 2 %}
                 <h5 class="card-subtitle mb-2 text-muted">Статус: <span style="color: red" >{{ submission.get_status_display }}</span></h5>
             {% elif submission.status == 3 %}
                 <h5 class="card-subtitle mb-2 text-muted">Статус: <span style="color: green" >{{ submission.get_status_display }}</span></h5>
             {% endif %}
             <a  href="{% get_media_prefix %}{{ submission.submission_file }}" download> Скачать представленный файл </a>
-            <br>
-            <a href="{% url 'mark_submission' submission.id %}">Оценка</a>
+            <br><br>
+            <h6>Ваша оценка</h6>
+            <div class="row">
+            <form method="POST" action=".">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="number" name="submission_marks" class="form-control" id="submission_marks" placeholder="Оценка">
+                  </div>
+                  <label for="status">Статус:</label>
+                      <select name="status" id="status">
+                        <option value="1">Отправлено</option>
+                        <option value="2">Переделать</option>
+                        <option value="3">Выполнено</option>
+                      </select>
+                        <br><br>
+                  <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+                </div>
         </div>
     </div>
-    {% endfor %}
 </body>
 <script>
    $('a[href$="#mark_assignment"]').on( "click", function() {

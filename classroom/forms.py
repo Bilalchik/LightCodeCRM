@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from account.models import MyUser
 from datetime import datetime
+from .models import Student
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -74,4 +75,9 @@ class JoinClassForm(forms.Form):
 class SubmitAssignmentForm(forms.Form):
     submission_file = forms.FileField(label='Файл')
 
+
+class StudentAddForm(forms.Form):
+    student = forms.ModelChoiceField(
+        queryset=MyUser.objects.all()
+    )
 

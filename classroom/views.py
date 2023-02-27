@@ -9,9 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
 from .decorators import login_excluded, student_required, access_class, teacher_required, student_required
-from .forms import UserAuthenticationForm, UserRegistrationForm, CreateAssignmentForm, SubmitAssignmentForm
+from .forms import UserAuthenticationForm, UserRegistrationForm, CreateAssignmentForm, SubmitAssignmentForm,\
+    StudentAddForm
 from .models import Student, Teacher, Classroom, Assignment, Submission
 from .utils import generate_class_code
+from account.models import MyUser
 
 
 # home -->
@@ -100,8 +102,8 @@ def render_class(request, id):
         students = Student.objects.filter(classroom=id)
     except Exception as e:
         students = None
-
     teachers = Teacher.objects.filter(classroom=id)
+
     teacher_mapping = Teacher.objects.filter(teacher=request.user).select_related('classroom')
     student_mapping = Student.objects.filter(student=request.user).select_related('classroom')
     mappings = chain(teacher_mapping, student_mapping)
@@ -183,6 +185,8 @@ def assignment_summary(request, assignment_id):
     student_mapping = Student.objects.filter(student=request.user).select_related('classroom')
     no_of_students = Student.objects.filter(classroom=assignment.classroom)
     mappings = chain(teacher_mapping, student_mapping)
+    print(request.POST)
+    mark = request.POST.get('submission_marks')
     return render(request, 'classroom/assignment_summary.html',
                   {'assignment': assignment, 'submissions': submissions, 'mappings': mappings,
                    'no_of_students': no_of_students})
@@ -231,30 +235,51 @@ def delete_assignment(request, assignment_id):
 #     return render(request, template_name='classroom/sending_a_task.html')
 
 
-
-def mark_submission_request(request, submission_id, teacher_id):
-    if request.POST.get('action') == 'post':
+def mark_submission(request, submission_id):
+    submission = Submission.objects.get(pk=submission_id)
+    if request.method == 'POST':
         marks = request.POST.get('submission_marks')
-        submission = Submission.objects.get(pk=submission_id)
+        status = request.POST.get('status')
         submission.marks_alloted = marks
+        submission.status = status
         submission.save()
-        return JsonResponse({'status': 'SUCCESS'})
+        return redirect('assignment_summary', submission.assignment.id)
+    return render(request, template_name='classroom/mark_submission.html', context={'submission': submission})
 
 
 def sending_a_task(request, pk):
     assignment = Assignment.objects.get(pk=pk)
     student = Student.objects.get(classroom=assignment.classroom, student=request.user.id)
-    print(request.POST)
+    submission = Submission.objects.filter(assignment=assignment, student=student).first()
     file = request.POST.get('lol')
     if request.method == 'POST':
-        print('post')
         # form = SubmitAssignmentForm(data=request.POST)
         if file:
             print('valid')
             submission = Submission(assignment=assignment, student=student, submission_file=file)
             submission.save()
-            return redirect('home')
-        print('not valid')
+            return redirect('render_class', assignment.classroom.id)
     # form = SubmitAssignmentForm()
-    return render(request, template_name='classroom/sending_a_task.html')
+    return render(request, template_name='classroom/sending_a_task.html', context={'submission': submission, 'assignment': assignment})
+
+
+def group_list(request, pk):
+    classroom = Classroom.objects.get(id=pk)
+    students = Student.objects.filter(classroom=classroom)
+    teacher = Teacher.objects.get(classroom=classroom)
+    user = MyUser.objects.filter(is_active=True)
+    # mentor = Student.objects.filter(student=user.statu)
+    return render(request, template_name='classroom/group_list.html', context={'classroom': classroom, 'students': students, 'teacher': teacher})
+
+
+def add_student(request, pk):
+    classroom = Classroom.objects.get(id=pk)
+    form = StudentAddForm()
+    if request.method == 'POST':
+        print(form)
+        if form.is_valid():
+            student = Student.objects.create(student=form, classroom=classroom)
+            return redirect('render_class', classroom.id)
+        form = StudentAddForm()
+    return render(request, template_name='classroom/add_student.html', context={'classroom': classroom, 'form': form})
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{classroom.classroom_name}}</title>
+    <title>LightCode</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/base_class.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/hamburger.css' %}">
     {% block head %}{% endblock %}
@@ -50,6 +50,9 @@
                 <li class="nav-item active">
                   <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'delete_class' classroom.id %}" style="text-decoration: none;">Удалить класс</a>
                 </li>
+                <li class="nav-item active">
+                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'add_student' classroom.id %}" style="text-decoration: none;">Добавить студента</a>
+                </li>
               {% endif %}
               {% endfor %}
               <li class="nav-item active">
@@ -65,11 +68,6 @@
               {% endfor %}
               <li class="nav-item active">
                 <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'logout' %}" style="text-decoration: none;">Выйти<span class="sr-only"></span></a>
-              </li>
-              <li class="nav-item active">
-                <div class="image_cropper">
-                  <img src="{% get_media_prefix %}{{ user.profile_photo }}" alt="Profile Pic" class="profile_pic_style">
-                </div>
               </li>
             </ul>
         </div>

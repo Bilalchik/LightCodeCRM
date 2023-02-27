@@ -6,17 +6,23 @@
 
 
 {% block hamburger %}
-<div class="container mt-3" style="width: 90%; fon-size: 10px;">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="login-page">
-            <div class="myform">
-                <form method="POST" class="login-form" action=".">
-                    {% csrf_token %}
-                    <input type="file" id="lol" name="lol"><br><br>
-                    <button type="submit" class="btn btn-primary">Отправить задание</button>
-                </form>
-            </div>
-        </div>
+<div class="jumbotron jumbotron-fluid class_jumbotron">
+    <div class="container">
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <input type="file" id="lol" name="lol"><br><br>
+            <button type="submit" class="btn btn-primary">Отправить задание</button>
+        </form>
+        <br>
+        <h3>{{ submission.marks_alloted }}/{{ assignment.total_marks }}</h3><br>
+        {% if submission.status == 1 %}
+            <h3>{{ submission.get_status_display }}</h3>
+        {% elif submission.status == 2 %}
+            <h3 style="color: red;" >{{ submission.get_status_display }}</h3>
+        {% elif submission.status == 3 %}
+            <h3 style="color: green;" >{{ submission.get_status_display }}</h3>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

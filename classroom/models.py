@@ -64,6 +64,14 @@ class Submission(models.Model):
     submitted_on_time = models.BooleanField(default=True, verbose_name='Отправлено вовремя?')
     marks_alloted = models.PositiveSmallIntegerField(default=0, verbose_name='Оценка')
     submission_file = models.FileField(upload_to='documents', verbose_name='Файл')
+    status = models.PositiveSmallIntegerField(
+        choices=(
+            (1, 'Отправлено'),
+            (2, 'Переделать'),
+            (3, 'Выполнено'),
+        ),
+        default=1
+    )
 
     def __str__(self):
         return str(self.student)
