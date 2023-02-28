@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import CourseForLanding, Review
+from .models import CourseForLanding, Review, Section
 from srm.models import Employee, Lead
 from account.models import MyUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from django.contrib import messages
+from classroom.models import Student, Teacher
 
 
 def index(request):
@@ -54,3 +54,34 @@ def employee_detail(request, pk):
     return render(request, template_name='landing/employee.html', context={'employee': employee, 'courses': course})
 
 
+def personal_area(request):
+    user = MyUser.objects.get(id=request.user.id)
+    students = Student.objects.filter(student=request.user.id)
+    tt = Teacher.objects.filter()
+    print(tt)
+    return render(request, template_name='landing/personal_area.html', context={'user': user, 'students': students})
+
+
+# main_categories = Category.objects.filter(parent_id=None)
+#
+# for category in main_categories:
+#     category.children.all()
+#
+# # children id 1
+# # children id 2
+# # children id 3
+# # children id 4
+#
+# main_categories = Category.objects.get(id=3)
+#
+# for category in main_categories:
+#     category.children.all()
+
+def tutorial_view(request, pk=None):
+
+    if pk is None:
+        sections = Section.objects.filter(id_section=None)
+    else:
+        sections = Section.objects.get(id=pk).children.all()
+
+    return render(request, template_name='landing/tutorials.html', context={'sections': sections})

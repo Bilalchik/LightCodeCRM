@@ -1,5 +1,10 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth import get_user_model
+from ckeditor.fields import RichTextField
+
+
+User = get_user_model()
 
 
 class StudyingTime(models.Model):
@@ -53,4 +58,43 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
 
 
+class Tutorial(models.Model):
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Ментор')
+    created_date = models.DateField(auto_now_add=True, verbose_name='Дата создания')
 
+    def __str__(self):
+        return str(self.teacher)
+
+    class Meta:
+        verbose_name = 'Туториал'
+        verbose_name_plural = 'Туториалы'
+
+
+class Section(models.Model):
+    title = models.CharField(max_length=123, verbose_name='Название')
+    id_section = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
+
+    def __str__(self):
+        full_path = [self.title]
+        k = self.id_section
+        while k is not None:
+            full_path.append(k.title)
+            k = k.id_section
+        return ' -> '.join(full_path[::-1])
+
+    class Meta:
+        verbose_name = 'Раздел'
+        verbose_name_plural = 'Разделы'
+
+
+class Article(models.Model):
+    body = RichTextField(verbose_name='Контент')
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='Раздел')
+    teacher = models.ForeignKey(Tutorial, on_delete=models.CASCADE, verbose_name='Туториал')
+
+    def __str__(self):
+        return str(self.section)
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
