@@ -62,26 +62,21 @@ def personal_area(request):
     return render(request, template_name='landing/personal_area.html', context={'user': user, 'students': students})
 
 
-# main_categories = Category.objects.filter(parent_id=None)
-#
-# for category in main_categories:
-#     category.children.all()
-#
-# # children id 1
-# # children id 2
-# # children id 3
-# # children id 4
-#
-# main_categories = Category.objects.get(id=3)
-#
-# for category in main_categories:
-#     category.children.all()
+def category_view(request, slug=None):
 
-def tutorial_view(request, pk=None):
-
-    if pk is None:
+    if slug is None:
         sections = Section.objects.filter(id_section=None)
     else:
-        sections = Section.objects.get(id=pk).children.all()
+        sections = Section.objects.get(slug=slug).children.all()
 
     return render(request, template_name='landing/tutorials.html', context={'sections': sections})
+
+
+def category_detail(request, slug):
+    section = Section.objects.get(slug=slug)
+    sections = Section.objects.get(slug=slug).children.all()
+    return render(request, template_name='landing/category-detail.html', context={'sections': sections, 'section': section})
+
+
+def theme_view(request):
+    ...

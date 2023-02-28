@@ -13,21 +13,18 @@
           <div class="section-heading">
             <div class="col-lg-6">
               <div class="box-item">
-                <h4><em>Туториалы</em></h4>
+                <h4><em>{{ section.title }}</em></h4>
               </div>
             </div>
-            <br>
-            <h5>Развивайтесь в IT совершенно бесплатно: список курсов для самообразования</h5>
             <div class="gradient-button">
-                <a><h5>"Ваша жизнь не улучшится, <br>пока вы не начнёте делать что-то новое"<br><br><h5 align="right">- Жим Рон.</h5></h5></a>
+                <a><h5>"Если вы хотите достичь чего-то, что вы никогда <br>не достигали, вам нужно делать то, что вы никогда не делали."<br><br><h5 align="right">- Дженни Роуз.</h5></h5></a>
               </div>
-            <br><br>
+            <br>
           <div class="row" style="width: 80%">
             {% for section in sections %}
               <div class="col-lg-6" >
               <div class="box-item">
-
-                <a href="{% url 'tutorial-detail' section.slug %}">
+                <a href="#">
                   <h3 style="color: blue;">{{ section.title }}</h3>
                 </a>
               </div>
