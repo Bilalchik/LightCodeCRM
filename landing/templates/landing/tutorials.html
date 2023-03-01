@@ -39,6 +39,19 @@
           </div>
         </div>
   </div>
-
+<div style="height: 100vh !important; overflow-y: auto; padding: none !important; margin:0% !important" >
+                {% if mappings %}
+                  <h4 class="hamburger_heading"><b>Все классы</b></h4>
+                  <div class="Overlapped_white"></div>
+                  <br><br><br>
+                    {% for mapping in mappings %}
+                        {% if classroom == mapping.classroom %}
+                          <a href="{% url 'render_class' mapping.classroom.id %}"><li class="hamburger_current_class">{{mapping.classroom.classroom_name|truncatechars:30 }}</li></a>
+                        {% else %}
+                        <a href="{% url 'render_class' mapping.classroom.id %}"><li class="highlights">{{mapping.classroom.classroom_name|truncatechars:30 }}</li></a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+              </div>
 {% endblock %}
 

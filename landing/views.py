@@ -58,7 +58,6 @@ def personal_area(request):
     user = MyUser.objects.get(id=request.user.id)
     students = Student.objects.filter(student=request.user.id)
     tt = Teacher.objects.filter()
-    print(tt)
     return render(request, template_name='landing/personal_area.html', context={'user': user, 'students': students})
 
 
