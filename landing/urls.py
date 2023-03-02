@@ -9,4 +9,7 @@ urlpatterns = [
     path('personal_area/', views.personal_area, name='personal_area'),
     path('category/', views.category_view, name='tutorials'),
     path('category/<slug:slug>/', views.category_detail, name='tutorial-detail'),
+    path('tutorial-content/', views.theme_view, name='tutorial-content'),
+    path('add-category/', views.add_category, name='add_category'),
+    path('add-article/', views.add_article, name='add_article'),
 ]

@@ -17,6 +17,20 @@
               </div>
             </div>
             <br>
+            {% if request.user.status == 4 %}
+            {% endif %}
+              <div class="col-lg-6">
+                <div class="box-item">
+                  <h3><a href="{% url 'add_category' %}" ><em>Создать раздел для курсов</em></a></h3>
+                </div>
+              </div>
+            <br>
+             <div class="col-lg-6">
+                <div class="box-item">
+                  <h3><a href="{% url 'add_article' %}" ><em>Создать статью для курсов</em></a></h3>
+                </div>
+              </div>
+            <br>
             <h5>Развивайтесь в IT совершенно бесплатно: список курсов для самообразования</h5>
             <div class="gradient-button">
                 <a><h5>"Ваша жизнь не улучшится, <br>пока вы не начнёте делать что-то новое"<br><br><h5 align="right">- Жим Рон.</h5></h5></a>
@@ -39,19 +53,5 @@
           </div>
         </div>
   </div>
-<div style="height: 100vh !important; overflow-y: auto; padding: none !important; margin:0% !important" >
-                {% if mappings %}
-                  <h4 class="hamburger_heading"><b>Все классы</b></h4>
-                  <div class="Overlapped_white"></div>
-                  <br><br><br>
-                    {% for mapping in mappings %}
-                        {% if classroom == mapping.classroom %}
-                          <a href="{% url 'render_class' mapping.classroom.id %}"><li class="hamburger_current_class">{{mapping.classroom.classroom_name|truncatechars:30 }}</li></a>
-                        {% else %}
-                        <a href="{% url 'render_class' mapping.classroom.id %}"><li class="highlights">{{mapping.classroom.classroom_name|truncatechars:30 }}</li></a>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-              </div>
 {% endblock %}
 

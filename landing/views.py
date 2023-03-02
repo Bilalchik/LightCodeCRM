@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from .models import CourseForLanding, Review, Section
+from django.shortcuts import render, redirect
+from .models import CourseForLanding, Review, Section, Article
 from srm.models import Employee, Lead
 from account.models import MyUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
 from classroom.models import Student, Teacher
+from .forms import SectionForm, ArticleForm
+
 
 
 def index(request):
@@ -78,4 +80,37 @@ def category_detail(request, slug):
 
 
 def theme_view(request):
-    ...
+    articles = Article.objects.all()
+    return render(request, template_name='landing/tutorial_content.html', context={'articles': articles})
+
+
+def add_category(request):
+    if request.method == 'POST':
+        form = SectionForm(data=request.POST)
+        if form.is_valid():
+            section = form.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('add_category')
+            return redirect('tutorials')
+    messages.error(request, 'Заполните поля в правильном формате.')
+    form = SectionForm()
+    return render(request, template_name='landing/add-category.html', context={'form': form})
+
+
+def add_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(data=request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.teacher = MyUser.objects.get(id=request.user.id)
+            obj.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('add_article')
+            return redirect('tutorials')
+    messages.error(request, 'Заполните поля в правильном формате.')
+    form = ArticleForm()
+    return render(request, template_name='landing/add-article.html', context={'form': form})
+
+
+
+

@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
+from django.template.defaultfilters import slugify
 
 
 User = get_user_model()
@@ -71,6 +72,10 @@ class Section(models.Model):
             k = k.id_section
         return ' -> '.join(full_path[::-1])
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
@@ -78,13 +83,18 @@ class Section(models.Model):
 
 class Article(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Ментор')
-    topic_name = models.CharField(max_length=50)
+    topic_name = models.CharField(max_length=50, verbose_name='Название темы')
+    slug = models.SlugField()
     body = RichTextField(verbose_name='Контент')
     section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='Раздел')
     created_date = models.DateField(auto_now_add=True, verbose_name='Дата создания')
 
     def __str__(self):
         return str(self.section)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.topic_name)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Статья'

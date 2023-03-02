@@ -9,7 +9,8 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['teacher', 'section',]
+    list_display = ['teacher', 'topic_name', 'section', 'created_date']
+    prepopulated_fields = {'slug': ('topic_name',)}
     list_filter = ('created_date', )
 
 
