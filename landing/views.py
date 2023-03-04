@@ -79,19 +79,32 @@ def category_detail(request, slug):
     return render(request, template_name='landing/category-detail.html', context={'sections': sections, 'section': section})
 
 
-def theme_view(request):
-    articles = Article.objects.all()
-    return render(request, template_name='landing/tutorial_content.html', context={'articles': articles})
+def theme_view(request, slug):
+    section = Section.objects.get(slug=slug)
+    articles = Article.objects.filter(section=section)
+    return render(request, template_name='landing/tutorial_content.html', context={
+        'articles': articles,
+        'section': section})
+
+
+def content_view(request, slug):
+    article = Article.objects.get(slug=slug)
+    articles = Article.objects.filter(section=article.section)
+    print(articles)
+    return render(request, template_name='landing/content-detail.html', context={'article': article, 'articles': articles})
 
 
 def add_category(request):
     if request.method == 'POST':
         form = SectionForm(data=request.POST)
+        print(form, 'пришёл')
         if form.is_valid():
             section = form.save()
+            print('сохранился')
             if request.POST['is_next'] == 'on':
                 return redirect('add_category')
             return redirect('tutorials')
+        print('не не ')
     messages.error(request, 'Заполните поля в правильном формате.')
     form = SectionForm()
     return render(request, template_name='landing/add-category.html', context={'form': form})
@@ -110,7 +123,4 @@ def add_article(request):
     messages.error(request, 'Заполните поля в правильном формате.')
     form = ArticleForm()
     return render(request, template_name='landing/add-article.html', context={'form': form})
-
-
-
 

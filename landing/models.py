@@ -72,9 +72,9 @@ class Section(models.Model):
             k = k.id_section
         return ' -> '.join(full_path[::-1])
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Раздел'
@@ -92,9 +92,10 @@ class Article(models.Model):
     def __str__(self):
         return str(self.section)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.topic_name)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.topic_name)
+    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Статья'

@@ -199,23 +199,7 @@ CKEDITOR_CONFIGS = {
             'xml': 'XML',
         },
         'toolbar': 'MyCustomToolbar',
-        'extraPlugins': ','.join([
-            'codesnippet',
-            'uploadimage', # the upload image feature
-            # your extra plugins here
-            'div',
-            'autolink',
-            'autoembed',
-            'embedsemantic',
-            'autogrow',
-            # 'devtools',
-            # 'widget',
-            'lineutils',
-            'clipboard',
-            'dialog',
-            'dialogui',
-            'elementspath'
-        ]),
+        'extraPlugins': 'codesnippet',
         'tabSpaces': 4,
     }
 }

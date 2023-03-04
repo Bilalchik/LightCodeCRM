@@ -7,7 +7,7 @@ class SectionForm(forms.ModelForm):
 
     class Meta:
         model = Section
-        fields = ['title', 'id_section']
+        fields = ['title', 'slug', 'id_section']
 
 
 class ArticleForm(forms.ModelForm):
@@ -15,6 +15,6 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['topic_name', 'section', 'body']
+        fields = ['topic_name', 'slug', 'section', 'body']
 
 

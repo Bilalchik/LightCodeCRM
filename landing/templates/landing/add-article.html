@@ -29,9 +29,12 @@
                 {{ form.topic_name|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.section|as_crispy_field }}
+                {{ form.slug|as_crispy_field }}
             </div>
         </div>
+        <div class="col-6" >
+                {{ form.section|as_crispy_field }}
+            </div>
         <div class="col-6" >
                 {{ form.body|as_crispy_field }}
             </div>
@@ -44,6 +47,25 @@
         </select>
   </form>
       </div>
+    <script>
+$(document).ready(function(){
+    $('#id_topic_name').on('keyup', function(){
+        var topic_name = $(this).val();
+        var slug = '';
+        if (/^[a-zA-Z0-9]+$/.test(topic_name)) {
+            slug = topic_name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        } else if (/^[а-яА-Яa-zA-Z0-9\s]+$/.test(topic_name)) {
+            var rus_to_lat = {
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', ' ': '-'
+            };
+            slug = topic_name.toLowerCase().replace(/[^\u0000-\u007E]/g, function(c) {
+                return (typeof rus_to_lat[c] != 'undefined') ? rus_to_lat[c] : '-';
+            }).replace(/[^a-zA-Z0-9\-]+/g, '-').replace(/(^-|-$)+/g, '');
+        }
+        $('#id_slug').val(slug);
+    });
+});
+</script>
 </center>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>

@@ -24,7 +24,7 @@
             {% for section in sections %}
               <div class="col-lg-6" >
               <div class="box-item">
-                <a href="{% url 'tutorial-content' %}">
+                <a href="{% url 'tutorial-content' section.slug %}">
                   <h3 style="color: blue;">{{ section.title }}</h3>
                 </a>
               </div>
