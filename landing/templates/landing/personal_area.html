@@ -23,6 +23,11 @@
                 <h3 style="color: blue;">Classroom</h3>
                 {% for student in students %}
                   <h5>{{ student.classroom }}</h5>
+                <h6>Ментор:
+        {% for teacher in student.classroom.teacher_set.all %}
+            {{ teacher.teacher.username }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </h6>
                   <hr>
                 {% endfor %}
               </div>

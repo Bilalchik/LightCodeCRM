@@ -60,6 +60,9 @@ https://templatemo.com/tm-570-chain-app-dev
               <li class="scroll-to-section"><a href="#lol">О нас</a></li>
               <li class="scroll-to-section"><a href="#rewiews">Отзывы</a></li>
               <li class="scroll-to-section"><a href="#newsletter">Контакты</a></li>
+              {% if user.is_admin or user.status == 4 %}
+                <li class="scroll-to-section"><a href="{% url 'add_url_stream' %}">Создать ссылку на прямой эфир</a></li>
+              {% endif %}
               <li class="scroll-to-section"><a href="{% url 'tutorials' %}">Туториалы</a></li>
               <li class="scroll-to-section"><a href="{% url 'personal' %}">SRM</a></li>
               <li><div class="gradient-button"><a id="modal_trigger" href="{% url 'personal_area' %}">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">

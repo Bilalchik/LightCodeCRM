@@ -123,4 +123,22 @@ class SubscriptionToCourse(models.Model):
         unique_together = ['user', 'course']
 
 
+class Stream(models.Model):
+    url = models.TextField(verbose_name='Ссылка на прямой эфир')
+    start_time = models.DateTimeField(verbose_name='Время начала стрима')
+    end_time = models.DateTimeField(verbose_name='Время окончания стрима')
+    is_active = models.BooleanField(verbose_name='Актуально?')
+    # def save(self, *args, **kwargs):
+    #     # Получить все объекты Stream кроме текущего
+    #     other_streams = Stream.objects.exclude(pk=self.pk)
+    #     # Удалить все полученные объекты
+    #     other_streams.delete()
+    #     super(Stream, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Прямой эфир'
+        verbose_name_plural = 'Прямой эфир'
+
+
+
 

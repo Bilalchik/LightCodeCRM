@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CourseForLanding, Review, StudyingTime, Article, Section, SubscriptionToCourse
+from .models import CourseForLanding, Review, StudyingTime, Article, Section, SubscriptionToCourse, Stream
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -29,3 +29,4 @@ admin.site.register(StudyingTime)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(SubscriptionToCourse, SubscriptionToCourseAdmin)
+admin.site.register(Stream)

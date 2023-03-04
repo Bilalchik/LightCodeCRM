@@ -1,22 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import CourseForLanding, Review, Section, Article, SubscriptionToCourse
+from .models import CourseForLanding, Review, Section, Article, SubscriptionToCourse, Stream
 from srm.models import Employee, Lead
 from account.models import MyUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
-from classroom.models import Student, Teacher
+from classroom.models import Student, Teacher, Classroom
 from classroom.forms import UserRegistrationForm, UserAuthenticationForm
-from .forms import SectionForm, ArticleForm
+from .forms import SectionForm, ArticleForm, StreamForm
+from django.utils import timezone
+now = timezone.now()
 
 
 def index(request):
     courses = CourseForLanding.objects.all()
     reviews = Review.objects.all()
     employees = Employee.objects.filter(is_active=True)
-    print(reviews)
+    stream = Stream.objects.filter(is_active=True, start_time__lte=now, end_time__gte=now).last()
     if request.method == 'POST':
         if request.POST.get('name'):
             user_name = request.POST.get('name')
@@ -37,7 +39,8 @@ def index(request):
     return render(request, template_name='landing/index.html', context={
         'courses': courses,
         'reviews': reviews,
-        'employees': employees})
+        'employees': employees,
+        'stream': stream})
 
 
 @receiver(post_save, sender=Lead)
@@ -64,13 +67,17 @@ def personal_area(request):
     students = Student.objects.filter(student=request.user.id)
     sections = SubscriptionToCourse.objects.filter(user=request.user)
     subscriptions = SubscriptionToCourse.objects.filter(user=request.user)
-    mentors = [s.course.article_set.first().teacher for s in subscriptions]
+    classrooms = Classroom.objects.filter(student__student=request.user).distinct()
+    mentors = {}
+    for classroom in classrooms:
+        teacher = classroom.teacher_set.first().teacher
+        mentors[classroom.id] = teacher
     return render(request, template_name='landing/personal_area.html', context={
         'user': user,
         'students': students,
         'sections': sections,
         'subscriptions': subscriptions,
-
+        'mentors': 'mentors'
     })
 
 
@@ -173,4 +180,17 @@ def authentication_view(request):
             return render(request, 'landing/authentication.html', {'form': form})
     form = UserAuthenticationForm()
     return render(request, 'landing/authentication.html', {'form': form})
+
+
+@user_passes_test(lambda u: u.is_superuser or u.status == 4, login_url='/registration/')
+def add_url_stream(request):
+    if request.method == 'POST':
+        form = StreamForm(data=request.POST)
+        if form.is_valid():
+            url = form.save()
+            return redirect('index')
+    messages.error(request, 'Заполните поля в правильном формате.')
+    form = StreamForm()
+    return render(request, template_name='landing/add_url_stream.html', context={'form': form})
+
 

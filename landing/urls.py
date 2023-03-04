@@ -15,4 +15,5 @@ urlpatterns = [
     path('add-article/', views.add_article, name='add_article'),
     path('registration/', views.register_view, name='registration'),
     path('authentication/', views.authentication_view, name='authentication'),
+    path('add-url-stream/', views.add_url_stream, name='add_url_stream'),
 ]
