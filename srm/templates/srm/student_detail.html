@@ -29,6 +29,7 @@
 {% endblock nav %}
 {% block content %}
 <br><br><br><br><br><br><br><br><br>
+{{ form.media.css }}
 <div class="container">
   <a style="font-size: 22px;" href="{% url 'leads' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
@@ -147,6 +148,8 @@
             <option value="on">Да</option>
         </select>
   </form>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ form.media.js }}
       </div>
 
 </center>
