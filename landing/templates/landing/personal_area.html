@@ -13,16 +13,16 @@
                 <h4><em>Личный кабинет</em></h4>
               </div>
             </div>
+            <h5>Добро пожаловать в ваш личный кабинет!</h5>&nbsp;
             <h4>{{ user.username }}</h4>
             <img src="../static/images/heading-line-dec.png" alt="">
-            <br>&nbsp;<h5>Добро пожаловать в ваш личный кабинет!</h5>
           </div>
           <div class="row">
             <div class="col-lg-6">
               <div class="box-item">
                 <h3 style="color: blue;">Classroom</h3>
                 {% for student in students %}
-                  <h5>{{ student.classroom }}</h5>
+                  <a href="{% url 'render_class' student.classroom.id %}" style="color: black;"><h5>{{ student.classroom }}</h5></a>
                 <h6>Ментор:
         {% for teacher in student.classroom.teacher_set.all %}
             {{ teacher.teacher.username }}{% if not forloop.last %}, {% endif %}
@@ -36,7 +36,7 @@
               <div class="box-item">
                 <h4 style="color: blue;">Онлайн курсы</h4>
                 {% for subscription in subscriptions %}
-            <h5>{{ subscription.course }}</h5>
+                  <a href="{% url 'tutorial-content' subscription.course.slug %}" style="color: black;"><h5>{{ subscription.course }}</h5></a>
             <h6>Ментор: {{ subscription.course.article_set.first.teacher }}</h6>
             <hr>
         {% endfor %}

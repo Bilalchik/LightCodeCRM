@@ -63,6 +63,7 @@ class Section(models.Model):
     title = models.CharField(max_length=123, verbose_name='Название')
     slug = models.SlugField()
     id_section = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
+    description = models.TextField(verbose_name='Описание для подраздела', blank=True, null=True)
 
     def __str__(self):
         full_path = [self.title]

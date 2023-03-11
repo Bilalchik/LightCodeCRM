@@ -16,6 +16,9 @@
       <div class="card-body">
       <h3 class="card-title">Менторы</h3><br>
       <h5 style="color: blue;">{{ teacher }}</h5>
+      {% for assistant in assistants %}
+        <h5 style="color: blue;">{{ assistant }}</h5>
+      {% endfor %}
       </div>
       </div>
       </div>
@@ -25,7 +28,7 @@
       <div class="card-body">
       <h3 class="card-title">Студенты</h3><br>
           {% for student in students %}
-          <h5 style="color: black">{{ student }} </h5>
+            <h5 style="color: black; display: inline-block;">{{ student }}</h5>{% if user.is_admin or user.status == 4 %} <a href="{% url 'delete_student' student.id classroom.id %}" style="margin-left: 10px;">Удалить</a> {% endif %}
           {% endfor %}
       </div>
       </div>

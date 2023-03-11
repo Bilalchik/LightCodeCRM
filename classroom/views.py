@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout, authenticate, login
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from itertools import chain
 from django.contrib import messages
+from django.urls import reverse
 from django.utils.timesince import timesince
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
@@ -72,7 +73,7 @@ def logout_view(request):
 
 # class -->
 @login_required(login_url='login')
-@student_required('home')
+# @student_required('home')
 def unenroll_class(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     student_mapping = Student.objects.filter(student=request.user, classroom=classroom).delete()
@@ -80,7 +81,7 @@ def unenroll_class(request, classroom_id):
 
 
 @login_required(login_url='login')
-@user_passes_test(lambda u: u.is_superuser or u.status == 4, login_url='/register/')
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/register/')
 def delete_class(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     teacher_mapping = Teacher.objects.get(teacher=request.user, classroom=classroom)
@@ -265,21 +266,37 @@ def sending_a_task(request, pk):
 
 def group_list(request, pk):
     classroom = Classroom.objects.get(id=pk)
-    students = Student.objects.filter(classroom=classroom)
+    students = Student.objects.filter(classroom=classroom).exclude(student__status=4)
     teacher = Teacher.objects.get(classroom=classroom)
-    user = MyUser.objects.filter(is_active=True)
-    # mentor = Student.objects.filter(student=user.statu)
-    return render(request, template_name='classroom/group_list.html', context={'classroom': classroom, 'students': students, 'teacher': teacher})
+    assistants = Student.objects.filter(classroom=classroom, student__status=4)
+    return render(request, template_name='classroom/group_list.html', context={
+        'classroom': classroom,
+        'students': students,
+        'teacher': teacher,
+        "assistants": assistants})
 
 
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/register/')
 def add_student(request, pk):
     classroom = Classroom.objects.get(id=pk)
-    form = StudentAddForm()
+    form = StudentAddForm(data=request.POST, classroom=classroom)
     if request.method == 'POST':
-        print(form)
         if form.is_valid():
-            student = Student.objects.create(student=form, classroom=classroom)
+            obj = form.save(commit=False)
+            obj.classroom = classroom
+            obj.save()
+            if request.POST['is_next'] == 'on':
+                return redirect('add_student', classroom.id)
             return redirect('render_class', classroom.id)
         form = StudentAddForm()
     return render(request, template_name='classroom/add_student.html', context={'classroom': classroom, 'form': form})
+
+
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/register/')
+def delete_student(request, pk, classroom_id):
+    classroom = Classroom.objects.get(id=classroom_id)
+    student = Student.objects.get(id=pk)
+    student.delete()
+
+    return HttpResponseRedirect(reverse('group_list', args=[classroom.id]))
 

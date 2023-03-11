@@ -9,6 +9,12 @@ class StudentWidget(s2forms.ModelSelect2Widget):
     ]
 
 
+class TeacherWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "full_name__iregex",
+    ]
+
+
 class LeadForm(forms.ModelForm):
     class Meta:
         model = Lead
@@ -36,14 +42,14 @@ class LeadForm(forms.ModelForm):
 #             company=kwargs['instance'].company_branch.company
 #         )
 
-class CustomSelectWidget(forms.Select):
-    def create_option(self, name, value, *args, **kwargs):
-        option = super().create_option(name, value, *args, **kwargs)
-        if value:
-            option['attrs']['data-courses'] = value.instance.course_names  # set option attribute
-            option['attrs']['data-studying_time'] = value.instance.studying_time_names  # set option attribute
-            option['attrs']['data-format'] = value.instance.format_names  # set option attribute
-        return option
+# class CustomSelectWidget(forms.Select):
+#     def create_option(self, name, value, *args, **kwargs):
+#         option = super().create_option(name, value, *args, **kwargs)
+#         if value:
+#             option['attrs']['data-courses'] = value.instance.course_names  # set option attribute
+#             option['attrs']['data-studying_time'] = value.instance.studying_time_names  # set option attribute
+#             option['attrs']['data-format'] = value.instance.format_names  # set option attribute
+#         return option
 
 
 class StudentForm(forms.ModelForm):
@@ -54,7 +60,7 @@ class StudentForm(forms.ModelForm):
     remainder = forms.DecimalField(label='Общая оплата за курс')
     teacher = forms.ModelChoiceField(
         queryset=Employee.objects.all(),
-        widget=CustomSelectWidget
+        widget=TeacherWidget
     )
 
     class Meta:
@@ -81,6 +87,11 @@ class IncomeForm(forms.ModelForm):
 
 
 class ExpenseForm(forms.ModelForm):
+    date_of_payment = forms.DateField(widget=forms.widgets.DateInput(
+        attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
+        label='Дата'
+    )
+
     class Meta:
         model = Expense
-        fields = ['title', 'value', 'flow_type']
+        fields = ['title', 'value', 'flow_type', 'date_of_payment']

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from account.models import MyUser
 from datetime import datetime
 from .models import Student
+from django_select2 import forms as s2forms
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -60,7 +61,7 @@ class CreateAssignmentForm(forms.Form):
 
 class CreateClassForm(forms.Form):
 
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         super(CreateClassForm,self).__init__()
         self.fields['class_name'].label = ''
         self.fields['section'].label = ''
@@ -76,8 +77,32 @@ class SubmitAssignmentForm(forms.Form):
     submission_file = forms.FileField(label='Файл')
 
 
-class StudentAddForm(forms.Form):
+class StudentsWidget(s2forms.ModelSelect2Widget):
+    model = Student
+    search_fields = [
+        "username__iregex",
+    ]
+
+
+class StudentAddForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        classroom = kwargs.pop('classroom', None)
+        print('classroom:', classroom)
+        super().__init__(*args, **kwargs)
+        if classroom:
+            self.fields['student'].queryset = MyUser.objects.exclude(
+                id__in=Student.objects.filter(classroom=classroom).values_list('student_id'))
+        print('queryset:', self.fields['student'].queryset)
+
     student = forms.ModelChoiceField(
-        queryset=MyUser.objects.all()
+        queryset=MyUser.objects.all(),
+        widget=StudentsWidget
     )
+
+    class Meta:
+        model = Student
+        fields = ['student']
+
+
+
 

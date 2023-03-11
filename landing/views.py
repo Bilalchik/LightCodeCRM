@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import CourseForLanding, Review, Section, Article, SubscriptionToCourse, Stream
 from srm.models import Employee, Lead
@@ -121,7 +121,7 @@ def content_view(request, slug):
     return render(request, template_name='landing/content-detail.html', context={'article': article, 'articles': articles})
 
 
-@user_passes_test(lambda u: u.is_superuser or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
 def add_category(request):
     if request.method == 'POST':
         form = SectionForm(data=request.POST)
@@ -135,7 +135,7 @@ def add_category(request):
     return render(request, template_name='landing/add-category.html', context={'form': form})
 
 
-@user_passes_test(lambda u: u.is_superuser or u.status == 4, login_url='/register/')
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
 def add_article(request):
     if request.method == 'POST':
         form = ArticleForm(data=request.POST)
@@ -158,7 +158,7 @@ def register_view(request):
             user = form.save()
             user_phone_number = form.cleaned_data.get('phone_number')
             login(request, user)
-            return redirect('tutorials')
+            return redirect('index')
         else:
             return render(request, 'landing/registration.html', {'form': form})
     form = UserRegistrationForm()
@@ -174,7 +174,7 @@ def authentication_view(request):
             user = authenticate(username=user_phone_number, password=password)
             if user != None:
                 login(request, user)
-                return redirect('tutorials')
+                return redirect('index')
         else:
             messages.success(request, 'Неправильный пароль')
             return render(request, 'landing/authentication.html', {'form': form})
@@ -182,7 +182,7 @@ def authentication_view(request):
     return render(request, 'landing/authentication.html', {'form': form})
 
 
-@user_passes_test(lambda u: u.is_superuser or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
 def add_url_stream(request):
     if request.method == 'POST':
         form = StreamForm(data=request.POST)
@@ -192,5 +192,21 @@ def add_url_stream(request):
     messages.error(request, 'Заполните поля в правильном формате.')
     form = StreamForm()
     return render(request, template_name='landing/add_url_stream.html', context={'form': form})
+
+
+def error_404(request, exception):
+    return render(request, 'landing/404error.html')
+
+
+def error_500(request):
+    return render(request, 'landing/500error.html')
+
+
+@login_required(login_url='/registration/')
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+
 
 

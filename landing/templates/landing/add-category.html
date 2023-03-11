@@ -9,6 +9,7 @@
   <a style="font-size: 22px;" href="{% url 'tutorials' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
 <br><br><br><br><br>
+    {{ form.media.css }}
 <center>
         <h3>Раздел</h3>
   <br>
@@ -21,20 +22,22 @@
     {% endif %}
       <div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <form method="POST" action=".">
-  {% csrf_token %}
-<!-- {{ form|crispy }}-->
+        {% csrf_token %}
         <div class="row" >
             <div class="col-6" >
                 {{ form.title|as_crispy_field }}
             </div>
-            <div class="col-6" >
+            <div class="col-6 d-none" >
                 {{ form.slug|as_crispy_field }}
+            </div>
+            <div class="col-6" >
+                {{ form.id_section|as_crispy_field }}
             </div>
         </div>
         <div class="col-6" >
-                {{ form.id_section|as_crispy_field }}
+                {{ form.description|as_crispy_field }}
             </div>
-<button type="submit">Сохранить</button>
+        <button type="submit">Сохранить</button>
         <br><br>
         <h5>Хотите сохранить и добавить другой объект?</h5>
         <select name="is_next">
@@ -42,21 +45,23 @@
             <option value="on">Да</option>
         </select>
   </form>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ form.media.js }}
       </div>
-    <script>
+<script>
 $(document).ready(function(){
     $('#id_title').on('keyup', function(){
         var title = $(this).val();
         var slug = '';
-        if (/^[a-zA-Z0-9]+$/.test(title)) {
-            slug = title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        if (/^[a-zA-Z0-9\/\\|#.+ ]+$/.test(title)) {
+        slug = title.toLowerCase().replace(/[^a-zA-Z0-9\/\\|#.+]+/g, '-').replace(/[^\w\/\\|#.+]+/g, '-').replace(/[\\/|]/g, '_').replace(/#/g, '-sharp-').replace(/\+/g, '-plus-').replace(/\./g, '-dot-').replace(/ /g, '-').replace(/\//g, '(/)').replace(/\|/g, '(|)').replace(/\\/g, '(\\)').replace(/(^-|-$|_)+/g, '');
         } else if (/^[а-яА-Яa-zA-Z0-9\s]+$/.test(title)) {
             var rus_to_lat = {
-                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', ' ': '-'
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', ' ': '-', '#': '_sharp_', '+': '_plus_', '.': '_dot_', '/': '(/)', '|': '(|)', '\\': '(\\)'
             };
             slug = title.toLowerCase().replace(/[^\u0000-\u007E]/g, function(c) {
                 return (typeof rus_to_lat[c] != 'undefined') ? rus_to_lat[c] : '-';
-            }).replace(/[^a-zA-Z0-9\-]+/g, '-').replace(/(^-|-$)+/g, '');
+            }).replace(/[^\w]+/g, '-').replace(/[\\/|]/g, '_').replace(/(^-|-$|_)+/g, '');
         }
         $('#id_slug').val(slug);
     });

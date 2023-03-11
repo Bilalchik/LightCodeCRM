@@ -8,6 +8,7 @@
         <div class="container">
         <h1 class="display-4 class_title">{{ classroom.classroom_name }}</h1>
         <p class="lead class_code">Код класса: {{ classroom.class_code }}</p>
+        <h6 class="lead class_code" ><a style="color: white;" href="{% url 'group_list' classroom.id %}">Список учителей и студентов</a></h6>
         </div>
     </div>
     <input type="hidden" id="assignment" name="assignment">
@@ -15,7 +16,7 @@
         {% if assignments %}
             {% for assignment in assignments %}
                 {% for teacher in teachers %}
-                    {% if teacher.teacher.id == user.id %}
+                    {% if teacher.teacher.id == user.id or user.status == 4 %}
                         <a href="{% url 'assignment_summary' assignment.id %}">
                     {% else %}
                         <a href="{% url 'sending_a_task' assignment.id %}" data-value="{{ assignment.id }}">

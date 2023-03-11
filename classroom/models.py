@@ -14,7 +14,7 @@ class Classroom(models.Model):
 
 
 class Student(models.Model):
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Студент')
+    student = models.ForeignKey('account.MyUser', on_delete=models.CASCADE, verbose_name='Студент')
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
@@ -23,8 +23,9 @@ class Student(models.Model):
 
     def save(self, *args, **kwargs):
         user = self.student
-        user.status = 2
-        user.save()
+        if user.status != 4:
+            user.status = 2
+            user.save()
         return super().save(*args, **kwargs)
 
     class Meta:
