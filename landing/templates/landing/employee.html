@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block content %}
-
+<style>
+  @media (max-width: 991px) {
+    #right-images-for-hidden {
+    display: none
+    }
+  }
+</style>
 <div id="about" class="about-us section">
     <div class="container" >
       <div class="row" style="flex-direction: row-reverse;">
@@ -55,7 +61,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div id="right-images-for-hidden" class="col-lg-6">
           <div class="right-image">
             <div class="container mt-3" style="width: 98%; height: 98%; fon-size: 10px;">
             <img src="{{ employee.image.url }}" style="width: 250px; height: 300px; object-fit: cover;" class="card-img-top" alt="...">

@@ -6,6 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 {% block content %}
+<style>
+    @media ( max-width: 400px ) {
+       .carousel-cell p {
+            font-size: 10px;
+       }
+    }
+</style>
 <link rel="stylesheet" href="{% static 'css/sudo.css' %}">
 <script src="{% static 'js/sudo.js' %}"></script>
 <link
@@ -13,6 +20,7 @@
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
 <div style="background-image: url(https://oir.mobi/uploads/posts/2021-03/1616435811_9-p-belii-fon-gradient-11.png);">
+
 <body>
   <div id="modal" class="popupContainer" style="display:none;">
     <div class="popupHeader">
@@ -116,7 +124,7 @@
                     <p style="font-size: 20px;" >Научись программировать за 3 месяца, обучаясь 5 дней в неделю по 3 часа в день только практика только хардкор</p>
                         {% if stream %}
                         <div class="gradient-button">
-                            <a href="{{ stream.url }}"><h4>Не пропустите уникальную возможность услышать экспертов по программированию в прямом эфире прямо сейчас!</h4></a>
+                            <a href="{{ stream.url }}"><h5>Не пропустите уникальную возможность услышать экспертов по программированию в прямом эфире прямо сейчас!</h5></a>
                         </div>
                         <p>Прямой эфир начётся: {{ stream.start_time }}</p>
                         {% endif %}
@@ -191,7 +199,7 @@
       </div>
     </div>
   </div>
-  <div id="lol">
+  <div id="lol" style="position: relative; z-index: 10;">
 <br>
 <br>
 <br>
@@ -208,7 +216,7 @@
 <br>
 <br>
   <center>
-  <div  id="ourteam" class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+  <div  style="position: relative; z-index: 10; display: block!important;" class="section-heading">
     <h1>Наша Команда</h1>
   </div>
   <br>
@@ -427,8 +435,8 @@
         <div class="carousel-wrapper" style="margin-top:400px;">
           <div class="carousel" data-flickity>
               {% for rewiew in reviews %}
-              <div class="container mt-3" style="width: 90%; fon-size: 10px;">
-            <div class="carousel-cell">
+              <div class="container mt-3" style="width: 90%;">
+            <div class="carousel-cell" style="width: 65%; word-wrap: break-word;">
               <h4 style="color: black;" >{{ rewiew.name }}</h4>
               <p style="color: blue;">{{ rewiew.direction }}</p>
                 <p style="color: black;">{{ rewiew.description }}</p>

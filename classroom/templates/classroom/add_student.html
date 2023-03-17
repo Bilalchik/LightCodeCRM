@@ -24,6 +24,14 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
+    <style>
+@media (max-width: 400px) {
+    .classroom-card-title {
+        font-weight: 700;
+        font-size: 25px;
+    }
+}
+</style>
 <body class="container-fluid">
     <div>
     <nav class="navbar navbar-expand-lg navbar-light navbar_custom">
@@ -35,7 +43,7 @@
             <span></span>
           </div>
           </nav>
-          <div class="navbar-brand" href="#" style="font-size:250% !important; color:#2e45c7 !important; margin-left: 7%; margin-right: 20%"><b>Classroom</b></div>
+          <div class="navbar-brand" href="{% url 'home' %}" style="font-size:250% !important; color:#2e45c7 !important; margin-left: 7%; margin-right: 20%"><b>Classroom</b></div>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -52,7 +60,7 @@
         </div>
         <div class="jumbotron jumbotron-fluid class_jumbotron">
         <div class="container">
-        <h1 class="display-4 class_title">{{ classroom.classroom_name }}</h1>
+        <h1 class="display-4 class_title classroom-card-title">{{ classroom.classroom_name }}</h1>
         <p class="lead class_code">Код класса: {{ classroom.class_code }}</p>
         </div>
     </div>
@@ -62,6 +70,15 @@
         {{ form.media.css }}
         <div class="card-body submission-card">
             <center>
+                <div class="container" style="width: 25%;">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
                 <div class="container mt-3" style="width: 35%; fon-size: 10px;">
                     <form method="POST" action=".">
                         {% csrf_token %}

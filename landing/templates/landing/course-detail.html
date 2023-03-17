@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block content %}
-
+<style>
+  @media (max-width: 991px) {
+    #right-images-for-hidden {
+    display: none
+    }
+  }
+</style>
 <div id="about" class="about-us section">
     <div class="container" >
       <div class="row" >
@@ -48,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div id="right-images-for-hidden" class="col-lg-6">
           <div class="right-image">
             <img src="https://templatemo.com/templates/templatemo_570_chain_app_dev/assets/images/about-right-dec.png" alt="">
           </div>

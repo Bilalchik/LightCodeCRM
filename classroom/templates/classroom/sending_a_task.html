@@ -6,8 +6,25 @@
 
 
 {% block hamburger %}
+<style>
+@media (max-width: 400px) {
+    .classroom-card-title {
+        font-weight: 700;
+        font-size: 25px;
+    }
+}
+</style>
 <div class="jumbotron jumbotron-fluid class_jumbotron">
     <div class="container">
+        <div class="container" style="width: 25%;">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         <form method="POST" action=".">
             {% csrf_token %}
             <input type="file" id="lol" name="lol"><br><br>

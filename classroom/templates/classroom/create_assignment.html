@@ -24,7 +24,7 @@
           </ul>
         </div>
       </nav>
-    <a class="navbar-brand" href="#" style="font-size:250% !important; color:#2e45c7 !important; margin-left: 7%; margin-right: 30%"><b>Classroom</b></a>
+    <a class="navbar-brand" href="{% url 'home' %}" style="font-size:250% !important; color:#2e45c7 !important; margin-left: 7%; margin-right: 30%"><b>Classroom</b></a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           
@@ -50,6 +50,15 @@
 {% block content_right %}
     <div class="login-page">
         <div class="myform">
+            <div class="container" style="width: 25%;">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         <form class="login-form" method="POST">
             {% csrf_token %}
             {{form|crispy}}

@@ -57,10 +57,10 @@ def login_view(request):
             user = authenticate(username=user_phone_number, password=password)
             if user != None:
                 login(request, user)
-                return redirect('home')
-        else:
-            messages.success(request, 'Неправильный пароль')
-            return render(request, 'classroom/login.html', {'form': form})
+                return redirect('index')
+            else:
+                messages.error(request, 'Неверный номер телефона или пароль')
+                return render(request, 'classroom/login.html', {'form': form})
     form = UserAuthenticationForm()
     return render(request, 'classroom/login.html', {'form': form})
 
@@ -171,6 +171,7 @@ def create_assignment(request, classroom_id):
             assignment.save()
             return redirect('render_class', id=classroom.id)
         else:
+            messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
             return render(request, 'classroom/create_assignment.html', {'form': form, 'mappings': mappings})
     form = CreateAssignmentForm()
     return render(request, 'classroom/create_assignment.html', {'form': form, 'mappings': mappings})
@@ -260,6 +261,7 @@ def sending_a_task(request, pk):
             submission = Submission(assignment=assignment, student=student, submission_file=file)
             submission.save()
             return redirect('render_class', assignment.classroom.id)
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     # form = SubmitAssignmentForm()
     return render(request, template_name='classroom/sending_a_task.html', context={'submission': submission, 'assignment': assignment})
 
@@ -288,6 +290,7 @@ def add_student(request, pk):
             if request.POST['is_next'] == 'on':
                 return redirect('add_student', classroom.id)
             return redirect('render_class', classroom.id)
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
         form = StudentAddForm()
     return render(request, template_name='classroom/add_student.html', context={'classroom': classroom, 'form': form})
 
@@ -297,6 +300,5 @@ def delete_student(request, pk, classroom_id):
     classroom = Classroom.objects.get(id=classroom_id)
     student = Student.objects.get(id=pk)
     student.delete()
-
     return HttpResponseRedirect(reverse('group_list', args=[classroom.id]))
 

@@ -59,64 +59,149 @@
 {% endblock nav %}
 {% block content %}
 <style>
-.topnav {
-  background-color: #63707D;
-  overflow: hidden;
-  width: 15%;
+.sideBar {
+  position: fixed;
+  height: auto;
+  top: 0;
+  left: 0;
+  width: auto;
+  background: transparent;: #ccc;
+  list-style: none;
+  padding: 5px;
+  transition: 0.5s;
+  z-index: 999;
 }
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+.sideBarInner {
+  display: grid;
+  justify-content: start;
+  gap: 12px 0;
 }
 
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
+.sideBarMenu {
+  height: 700px;
+  overflow-y: auto;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  background: #F9F9F9;
+}
+.sideBarMenuIcon {
+  cursor: pointer;
+}
+
+.sideBarItem {
+  cursor: pointer;
+  padding: 0 10px;
+  transition: 0.3s;
+}
+.sideBarItem:hover {
+  text-decoration: aliceblue;
+}
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
   color: black;
+  content: "/\00a0";
 }
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
 }
 
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
 </style>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <div style="background-image: url(https://oir.mobi/uploads/posts/2021-03/1616435811_9-p-belii-fon-gradient-11.png)">
-<div style="display: flex;">
-    <menu class="topnav" style=" margin-top: 100px !important;">
-        <h5><strong>{{ section.title }}:</strong></h5>
+         <div style="display: flex;">
+   <div class="sideBar">
+      <div class="sideBarInner">
+        <div class="sideBarMenuIcon">
+            <br><br><br><br>
+          <svg viewBox="0 0 100 80" width="30" height="30">
+            <rect width="100" height="10"></rect>
+            <rect y="30" width="100" height="10"></rect>
+            <rect y="60" width="100" height="10"></rect>
+          </svg>
+        </div>
+
+        <menu class="sideBarMenu">
+          <h5><strong>{{ section.title }}:</strong></h5>
         {% for section in sections %}
-            <li><a href="{% url 'tutorial-content' section.slug %}">{{ section.title }}</a></li><hr style="color: white;">
+            <li><a href="{% url 'tutorial-content' section.slug %}">{{ section.title }}</a></li><hr style="color: gray;">
         {% endfor %}
     </menu>
+        </menu>
+      </div>
+    </div>
     <div class="container mt-3" style="width: 75%; fon-size: 10px; display: flex; flex-wrap: wrap;">
   <div id="about" class="about-us section" style="display: flex; flex-wrap: wrap;">
       <div class="col-lg-6" style="width: 100%;">
           <center>
-          <div class="box-item" style="width: 30%;">
-              <center><h4 style="color: blue;"><em>{{ section.title }}</em></h4></center>
-          </div>
-              </center>
+              <div class="box-item" style="width: 30%;">
+                  <center><h4 style="color: blue;"><em>{{ section.title }}</em></h4></center>
+              </div>
+          </center>
+      </div>
+      <div class="container" style="text-align: center;">
+          <ul class="breadcrumb">
+              <li><a href="{% url 'index' %}">Главная</a></li>
+              <li><a href="{% url 'tutorials' %}">Туториалы</a></li>
+              <li><a>...</a></li>
+          </ul>
       </div>
       <div class="container mt-3" style="width: 75%; fon-size: 10px; display: flex; flex-wrap: wrap;">
-          <h2 style="">О разделе</h2>
-          <h10 style="color: black;">{{ section.description }}</h10>
-          <div class="gradient-button">
-              <a>Спасибо за посещение сайта.</a>
-          </div>
+          {% if section.description %}
+              <h2 style="">О разделе</h2>
+              <h10 style="color: black;">{{ section.description }}</h10>
+              <div class="gradient-button">
+                  <a>Спасибо за посещение сайта.</a>
+              </div>
+          {% else %}
+            <h5 style="color: black;">Данный курс находится на стадии разработки</h5>
+          {% endif %}
       </div>
   </div>
 </div>
 </div>
+<script>
+const menu = document.querySelector('.sideBarMenuIcon')
+const sideBar = document.querySelector('.sideBar')
+const sideBarMenu = document.querySelector('.sideBarMenu')
+
+menu.onclick = () => {
+const displayStatus = sideBarMenu.style.display
+if (displayStatus === 'none') {
+  sideBar.style.height = '100vh'
+  sideBarMenu.style.display = 'grid'
+} else {
+  sideBar.style.height = 'auto'
+  sideBarMenu.style.display = 'none'
+}
+}
+</script>
 {% endblock %}
 

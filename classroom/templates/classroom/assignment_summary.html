@@ -50,7 +50,7 @@
     <input type="hidden" id="assignment" name="assignment">
     <input type="hidden" id="user" name="user" >
     <br>
-    <h4>&emsp;&emsp;&emsp;&emsp;&emsp; Количество студентов: {{ no_of_students.count }} &emsp;&emsp;&emsp;&emsp;&emsp; Выполнили: {{ submissions.count }} &emsp;&emsp;&emsp;&emsp;&emsp; <a href="{% url 'delete_assignment' assignment.id %}">Удалить задание</a></h4>
+    <h4>Количество студентов: {{ no_of_students.count }}<br>Выполнили: {{ submissions.count }}<br><a href="{% url 'delete_assignment' assignment.id %}">Удалить задание</a></h4>
     {% for submission in submissions %} 
     <div class="container_of_submissions">
       <br>   

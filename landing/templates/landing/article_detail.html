@@ -44,16 +44,38 @@
   <!-- ***** Header Area End ***** -->
 {% endblock nav %}
 {% block content %}
-  <br>
-<br><br><br><br><br>
-<div class="container">
-  <a style="font-size: 22px;" href="{% url 'tutorials' %}"><i class="fa fa-arrow-left"></i>Назад </a>
-</div>
-<br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
     {{ form.media.css }}
+<div class="container">
+  <a style="font-size: 22px;" href="{% url 'article_list' %}"><i class="fa fa-arrow-left"></i>Назад </a>
+</div>
 <center>
-        <h3>Раздел</h3>
+    <h3>Статья</h3>
   <br>
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
+<div class="container">
+    <table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th style="text-align: center; margin: 0 10px;" >Название темы</th>
+      <th style="text-align: center; margin: 0 10px;" >Раздел</th>
+      <th style="text-align: center; margin: 0 10px;" >Дата создания</th>
+    </tr>
+    <tr>
+      <td style="text-align: center; margin: 0 10px;"><a href="#" >{{ article.topic_name }}</a></td>
+      <td style="text-align: center; margin: 0 10px;" >{{ article.section }}</td>
+      <td style="text-align: center; margin: 0 10px;" >{{ article.created_date }}</td>
+        <td><a href="#">Удалить</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <br><br><br>
+  <h4>Изменить объект</h4><br>
     <div class="container" style="width: 25%;">
     {% if messages %}
         {% for message in messages %}
@@ -65,44 +87,40 @@
         </div>
       <div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <form method="POST" action=".">
-        {% csrf_token %}
+  {% csrf_token %}
+<!-- {{ form|crispy }}-->
+        {{ form.media }}
         <div class="row" >
             <div class="col-6" >
-                {{ form.title|as_crispy_field }}
+                {{ form.topic_name|as_crispy_field }}
             </div>
             <div class="col-6 d-none" >
                 {{ form.slug|as_crispy_field }}
             </div>
             <div class="col-6" >
-                {{ form.id_section|as_crispy_field }}
+                {{ form.section|as_crispy_field }}
             </div>
         </div>
         <div class="col-6" >
-                {{ form.description|as_crispy_field }}
+                {{ form.body|as_crispy_field }}
             </div>
-        <button type="submit">Сохранить</button>
-        <br><br>
-        <h5>Хотите сохранить и добавить другой объект?</h5>
-        <select name="is_next">
-            <option value="no">Нет</option>
-            <option value="on">Да</option>
-        </select>
+<button type="submit">Сохранить</button>
   </form>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{ form.media.js }}
       </div>
 <script>
 $(document).ready(function(){
-    $('#id_title').on('keyup', function(){
-        var title = $(this).val();
+    $('#id_topic_name').on('keyup', function(){
+        var topic_name = $(this).val();
         var slug = '';
-        if (/^[a-zA-Z0-9\/\\|#.+ ]+$/.test(title)) {
-        slug = title.toLowerCase().replace(/[^a-zA-Z0-9\/\\|#.+]+/g, '-').replace(/[^\w\/\\|#.+]+/g, '-').replace(/[\\/|]/g, '_').replace(/#/g, '-sharp-').replace(/\+/g, '-plus-').replace(/\./g, '-dot-').replace(/ /g, '-').replace(/\//g, '(/)').replace(/\|/g, '(|)').replace(/\\/g, '(\\)').replace(/(^-|-$|_)+/g, '');
-        } else if (/^[а-яА-Яa-zA-Z0-9\s]+$/.test(title)) {
+        if (/^[a-zA-Z0-9\/\\|#.+ ]+$/.test(topic_name)) {
+        slug = topic_name.toLowerCase().replace(/[^a-zA-Z0-9\/\\|#.+]+/g, '-').replace(/[^\w\/\\|#.+]+/g, '-').replace(/[\\/|]/g, '_').replace(/#/g, '-sharp-').replace(/\+/g, '-plus-').replace(/\./g, '-dot-').replace(/ /g, '-').replace(/\//g, '(/)').replace(/\|/g, '(|)').replace(/\\/g, '(\\)').replace(/(^-|-$|_)+/g, '');
+        } else if (/^[а-яА-Яa-zA-Z0-9\s]+$/.test(topic_name)) {
             var rus_to_lat = {
                 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', ' ': '-', '#': '_sharp_', '+': '_plus_', '.': '_dot_', '/': '(/)', '|': '(|)', '\\': '(\\)'
             };
-            slug = title.toLowerCase().replace(/[^\u0000-\u007E]/g, function(c) {
+            slug = topic_name.toLowerCase().replace(/[^\u0000-\u007E]/g, function(c) {
                 return (typeof rus_to_lat[c] != 'undefined') ? rus_to_lat[c] : '-';
             }).replace(/[^\w]+/g, '-').replace(/[\\/|]/g, '_').replace(/(^-|-$|_)+/g, '');
         }
@@ -110,7 +128,8 @@ $(document).ready(function(){
     });
 });
 </script>
-
+      </div>
 
 </center>
 {% endblock %}
+

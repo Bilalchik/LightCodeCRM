@@ -61,7 +61,7 @@ def lead_add(request):
             if request.POST['is_next'] == 'on':
                 return redirect('lead_add')
             return redirect('students')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = LeadForm()
     return render(request, template_name='srm/lead_add.html', context={'form': form})
 
@@ -74,6 +74,7 @@ def leads_detail(request, pk):
         if form.is_valid():
             form.save()
             return redirect('leads')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     else:
         form = LeadForm(instance=lead)
 
@@ -108,12 +109,6 @@ class FilteredListView(ListView):
         context['filterset'] = self.filterset
         return context
 
-# def student_list(request):
-#     leads = Lead.objects.all().order_by('-id')
-#
-#     return render(request, template_name='srm/students.html', context={
-#         'leads': leads})
-
 
 class StudentList(FilteredListView):
     model = Lead
@@ -137,6 +132,7 @@ def student_detail(request, pk):
             if request.POST['is_payed'] == 'on':
                 return redirect('income_add_for_manager')
             return redirect('leads')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     else:
         form = StudentForm(instance=student)
 
@@ -164,7 +160,7 @@ def student_add(request):
             elif request.POST['is_next'] == 'on':
                 return redirect('student_add')
             return redirect('leads')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = StudentForm()
     return render(request, template_name='srm/student_add.html', context={'form': form})
 
@@ -260,6 +256,7 @@ def income_detail(request, pk):
         if form.is_valid():
             form.save()
             return redirect('income_list')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     else:
         form = IncomeForm(instance=income)
 
@@ -275,15 +272,9 @@ def income_add(request):
             if request.POST['is_next'] == 'on':
                 return redirect('income_add')
             return redirect('income_list')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = IncomeForm()
     return render(request, template_name='srm/income_add.html', context={'form': form})
-
-# class IncomeCreate(CreateView):
-#     form_class = IncomeForm
-#     model = Income
-#     template_name = 'srm/income_add.html'
-#     success_url = 'income_list'
 
 
 @user_passes_test(lambda u: u.is_admin, login_url='/registration/')
@@ -356,6 +347,7 @@ def expense_detail(request, pk):
         if form.is_valid():
             form.save()
             return redirect('income_list')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     else:
         form = ExpenseForm(instance=expense)
 
@@ -371,7 +363,7 @@ def expense_add(request):
             if request.POST['is_next'] == 'on':
                 return redirect('expense_add')
             return redirect('income_list')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = ExpenseForm()
     return render(request, template_name='srm/expense_add.html', context={'form': form})
 
@@ -404,12 +396,9 @@ def manager(request):
 @user_passes_test(lambda u: u.is_admin, login_url='/registration/')
 def admin_choice(request):
     expense = Expense.objects.all()
-    # expense_total = expense.aggregate(total=Sum('value'))['total']
     income = Income.objects.all()
-    # income_total = income.aggregate(total=Sum('value'))['total']
     students = Student.objects.all()
     debtors = students.aggregate(total=Sum('remainder'))['total']
-    # net_profit = income_total - expense_total
     expense_total = expense.aggregate(total=Sum('value'))['total'] or 0
     income_total = income.aggregate(total=Sum('value'))['total'] or 0
 
@@ -434,7 +423,7 @@ def income_add_for_manager(request):
             if request.POST['is_next'] == 'on':
                 return redirect('income_add_for_manager')
             return redirect('leads')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = IncomeForm()
     return render(request, template_name='srm/income_add_for_manager.html', context={'form': form})
 

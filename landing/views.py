@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import CourseForLanding, Review, Section, Article, SubscriptionToCourse, Stream
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from srm.models import Employee, Lead
 from account.models import MyUser
 from django.db.models.signals import post_save
@@ -10,6 +11,7 @@ from django.contrib import messages
 from classroom.models import Student, Teacher, Classroom
 from classroom.forms import UserRegistrationForm, UserAuthenticationForm
 from .forms import SectionForm, ArticleForm, StreamForm
+from .models import CourseForLanding, Review, Section, Article, SubscriptionToCourse, Stream
 from django.utils import timezone
 now = timezone.now()
 
@@ -28,14 +30,7 @@ def index(request):
                 full_name=user_name,
                 phone_number=user_phone_number
             )
-        elif request.POST.get('email'):
-            user_email = request.POST.get('email')
-            user_password = request.POST.get('password')
-
-            if MyUser.objects.filter(email=user_email).exists():
-                messages.error(request, 'Пользователь с такой почтой уже существует.')
-            else:
-                MyUser.objects.create_user(email=user_email, password=user_password)
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     return render(request, template_name='landing/index.html', context={
         'courses': courses,
         'reviews': reviews,
@@ -117,8 +112,14 @@ def content_view(request, slug):
     articles = Article.objects.filter(section=article.section)
     is_subscribed = SubscriptionToCourse.objects.filter(user=request.user, course=article.section).exists()
     if not is_subscribed:
-        return redirect('tutorial-content', article.section.slug)
-    return render(request, template_name='landing/content-detail.html', context={'article': article, 'articles': articles})
+        return redirect('content_view', article.slug)
+    if request.method == 'POST':
+        SubscriptionToCourse.objects.create(user=request.user, course=article.section)
+        return redirect('content_view', article.slug)
+    return render(request, template_name='landing/content-detail.html', context={
+        'article': article,
+        'articles': articles,
+        'is_subscribed': is_subscribed})
 
 
 @user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
@@ -130,7 +131,7 @@ def add_category(request):
             if request.POST['is_next'] == 'on':
                 return redirect('add_category')
             return redirect('tutorials')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = SectionForm()
     return render(request, template_name='landing/add-category.html', context={'form': form})
 
@@ -146,7 +147,7 @@ def add_article(request):
             if request.POST['is_next'] == 'on':
                 return redirect('add_article')
             return redirect('tutorials')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = ArticleForm()
     return render(request, template_name='landing/add-article.html', context={'form': form})
 
@@ -175,9 +176,9 @@ def authentication_view(request):
             if user != None:
                 login(request, user)
                 return redirect('index')
-        else:
-            messages.success(request, 'Неправильный пароль')
-            return render(request, 'landing/authentication.html', {'form': form})
+            else:
+                messages.error(request, 'Неверный номер телефона или пароль')
+                return render(request, 'landing/authentication.html', {'form': form})
     form = UserAuthenticationForm()
     return render(request, 'landing/authentication.html', {'form': form})
 
@@ -189,7 +190,7 @@ def add_url_stream(request):
         if form.is_valid():
             url = form.save()
             return redirect('index')
-    messages.error(request, 'Заполните поля в правильном формате.')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
     form = StreamForm()
     return render(request, template_name='landing/add_url_stream.html', context={'form': form})
 
@@ -208,5 +209,34 @@ def logout_view(request):
     return redirect('index')
 
 
+@login_required(login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+def article_list(request):
+    articles = Article.objects.filter(teacher=request.user.id).order_by('-id')
+    return render(request, template_name='landing/list_articles.html', context={'articles': articles})
+
+
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+def article_detail(request, pk):
+    article = get_object_or_404(Article, id=pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('tutorials')
+        messages.error(request, 'Повторите попытку, убедитесь что поля заполнены в правильном формате')
+    else:
+        form = ArticleForm(instance=article)
+
+    return render(request, template_name='landing/article_detail.html', context={'article': article, 'form': form})
+
+
+@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+def article_delete(request, pk):
+
+    article = Article.objects.get(id=pk)
+    article.delete()
+
+    return HttpResponseRedirect(reverse('article_list'))
 
 

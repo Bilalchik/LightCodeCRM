@@ -4,9 +4,17 @@
 {% endblock %}
 
 {% block hamburger %}
+<style>
+@media (max-width: 400px) {
+    .classroom-card-title {
+        font-weight: 700;
+        font-size: 25px;
+    }
+}
+</style>
     <div class="jumbotron jumbotron-fluid class_jumbotron">
         <div class="container">
-        <h1 class="display-4 class_title">{{ classroom.classroom_name }}</h1>
+        <h1 class="display-4 class_title classroom-card-title">{{ classroom.classroom_name }}</h1>
         <p class="lead class_code">Код класса: {{ classroom.class_code }}</p>
         </div>
     </div>
@@ -28,7 +36,7 @@
       <div class="card-body">
       <h3 class="card-title">Студенты</h3><br>
           {% for student in students %}
-            <h5 style="color: black; display: inline-block;">{{ student }}</h5>{% if user.is_admin or user.status == 4 %} <a href="{% url 'delete_student' student.id classroom.id %}" style="margin-left: 10px;">Удалить</a> {% endif %}
+            <h5 style="color: black; display: inline-block;">{{ student }}</h5>{% if user.is_admin or user.status == 4 %} <a href="{% url 'delete_student' student.id classroom.id %}" style="margin-left: 10px;">Удалить</a> {% endif %}<br>
           {% endfor %}
       </div>
       </div>
