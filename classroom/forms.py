@@ -30,15 +30,6 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserAuthenticationForm(forms.Form):
-
-    # def __init__(self, *args, **kwargs):
-    #     super(UserAuthenticationForm, self).__init__(*args, **kwargs)
-    #     # self.fields['username'].label = ''
-    #     self.fields['phone_number'].label = ''
-    #     self.fields['password'].label = ''
-    #     self.fields['phone_number'].widget.attrs['placeholder'] = 'Номер телефона (+996)'
-    #     # self.fields['username'].widget.attrs['placeholder'] = 'Имя пользователя'
-    #     self.fields['password'].widget.attrs['placeholder'] = 'Пароль'
     phone_number = forms.CharField(label='Введите номер телефона',
                                    widget=forms.TextInput(attrs={'placeholder': '+996'}))
 

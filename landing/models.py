@@ -84,7 +84,7 @@ class Section(models.Model):
 
 class Article(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Ментор')
-    topic_name = models.CharField(max_length=50, verbose_name='Название темы')
+    topic_name = models.CharField(max_length=80, verbose_name='Название темы')
     slug = models.SlugField()
     body = RichTextField(verbose_name='Контент')
     section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='Раздел')
