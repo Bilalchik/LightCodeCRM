@@ -1,0 +1,614 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-30 20:27+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\classroom\templates\classroom\assignment_summary.html:60
+#: .\classroom\templates\classroom\create_assignment.html:27
+#: .\classroom\templates\classroom\create_assignment.html:62
+#: .\classroom\templates\classroom\login.html:17
+#: .\classroom\templates\classroom\mark_submission.html:65
+#: .\classroom\templates\classroom\register.html:17
+#: .\landing\templates\base.html:59
+#: .\landing\templates\landing\authentication.html:20
+#: .\landing\templates\landing\category-detail.html:194
+#: .\landing\templates\landing\content-detail.html:164
+#: .\landing\templates\landing\registration.html:20
+#: .\landing\templates\landing\tutorial_content.html:187
+msgid "Главная"
+msgstr "Башкы бет"
+
+#: .\classroom\templates\classroom\assignment_summary.html:63
+#: .\classroom\templates\classroom\create_assignment.html:31
+#: .\classroom\templates\classroom\create_assignment.html:66
+#: .\classroom\templates\classroom\hamburger.html:65
+#: .\classroom\templates\classroom\mark_submission.html:68
+#: .\landing\templates\base.html:85
+#: .\landing\templates\landing\category-detail.html:41
+#: .\landing\templates\landing\content-detail.html:26
+#: .\landing\templates\landing\tutorial_content.html:26
+#: .\landing\templates\landing\tutorials.html:41
+msgid "Выйти"
+msgstr "Чыгуу"
+
+#: .\classroom\templates\classroom\assignment_summary.html:65
+#: .\classroom\templates\classroom\mark_submission.html:70
+msgid "Назад"
+msgstr "Артка"
+
+#: .\classroom\templates\classroom\assignment_summary.html:74
+msgid "Количество студентов"
+msgstr "Студенттердин саны"
+
+#: .\classroom\templates\classroom\assignment_summary.html:74
+msgid "Выполнили"
+msgstr "Бүтүргөн"
+
+#: .\classroom\templates\classroom\assignment_summary.html:74
+msgid "Удалить задание"
+msgstr "Жумушту жок кылуу"
+
+#: .\classroom\templates\classroom\assignment_summary.html:80
+#: .\classroom\templates\classroom\mark_submission.html:86
+msgid "Отправлено в"
+msgstr "Жөнөтүлдү"
+
+#: .\classroom\templates\classroom\assignment_summary.html:82
+#: .\classroom\templates\classroom\mark_submission.html:88
+msgid "Сроки"
+msgstr "Мөөнөтү"
+
+#: .\classroom\templates\classroom\assignment_summary.html:84
+#: .\classroom\templates\classroom\mark_submission.html:90
+msgid "Отправлено вовремя"
+msgstr "Өз убагында жөнөтүлдү"
+
+#: .\classroom\templates\classroom\assignment_summary.html:86
+#: .\classroom\templates\classroom\mark_submission.html:92
+msgid "Ой! немного опоздал"
+msgstr "О! Бир аз кеч"
+
+#: .\classroom\templates\classroom\assignment_summary.html:95
+#: .\classroom\templates\classroom\mark_submission.html:101
+msgid "Скачать представленный файл"
+msgstr "Тапшырылган файлды жүктөп алыңыз"
+
+#: .\classroom\templates\classroom\assignment_summary.html:97
+#: .\classroom\templates\classroom\class_page.html:52
+msgid "Оценка"
+msgstr "Баа"
+
+#: .\classroom\templates\classroom\class_page.html:20
+#: .\classroom\templates\classroom\group_list.html:20
+msgid "Код класса"
+msgstr "Класс коду"
+
+#: .\classroom\templates\classroom\class_page.html:21
+msgid "Список учителей и студентов"
+msgstr "Мугалимдердин жана студенттердин тизмеси"
+
+#: .\classroom\templates\classroom\class_page.html:38
+msgid "Задание опубликовано"
+msgstr "Көнүгүү жарыяланды"
+
+#: .\classroom\templates\classroom\class_page.html:39
+msgid "Срок выполнения задания в"
+msgstr "Тапшырманы аткаруунун акыркы мөөнөтү"
+
+#: .\classroom\templates\classroom\class_page.html:60
+#: .\classroom\templates\classroom\class_page.html:73
+#: .\classroom\templates\classroom\group_list.html:27
+msgid "Менторы"
+msgstr "Мугалимдер"
+
+#: .\classroom\templates\classroom\create_assignment.html:96
+msgid "Создать задание"
+msgstr "Тапшырма түзүү"
+
+#: .\classroom\templates\classroom\group_list.html:39
+msgid "Студенты"
+msgstr "Студенттер"
+
+#: .\classroom\templates\classroom\group_list.html:41
+msgid "Удалить"
+msgstr "Жок кылуу"
+
+#: .\classroom\templates\classroom\hamburger.html:58
+#: .\classroom\templates\classroom\hamburger.html:75
+msgid "Создать класс"
+msgstr "Класс түзүү"
+
+#: .\classroom\templates\classroom\hamburger.html:62
+#: .\classroom\templates\classroom\hamburger.html:101
+msgid "Присоединиться к классу"
+msgstr "Класска кошулу"
+
+#: .\classroom\templates\classroom\hamburger.html:89
+#: .\classroom\templates\classroom\hamburger.html:112
+#: .\classroom\templates\classroom\mark_submission.html:117
+msgid "Отправить"
+msgstr "Жөнөтүү"
+
+#: .\classroom\templates\classroom\landing.html:44
+msgid ""
+"это бесплатный сервис, разработанный для учебных заведений, цель которого — "
+"упростить создание, распространение и оценивание заданий."
+msgstr ""
+"Билим берүү мекемелери үчүн арналган акысыз кызмат болуп саналат, анын "
+"максаты болуп саналат Тапшырмаларды түзүүнү, бөлүштүрүүнү жана баалоону "
+"жөнөкөйлөтүү."
+
+#: .\classroom\templates\classroom\landing.html:45
+#: .\classroom\templates\classroom\login.html:36
+#: .\classroom\templates\classroom\login.html:55
+#: .\classroom\templates\classroom\register.html:21
+#: .\landing\templates\landing\authentication.html:39
+#: .\landing\templates\landing\authentication.html:51
+#: .\landing\templates\landing\registration.html:24
+msgid "Войти"
+msgstr "Кирүү"
+
+#: .\classroom\templates\classroom\landing.html:71
+msgid ""
+"Основная цель Classroom — упростить процесс обмена файлами отправки между "
+"учителями и учениками."
+msgstr ""
+"Classroom негизги максаты - тапшыруу файлдарын бөлүшүүнү жеңилдетүү "
+"мугалимдер жана студенттер."
+
+#: .\classroom\templates\classroom\landing.html:79
+msgid ""
+"Класс экономит время и бумагу, а также позволяет легко создавать классы, "
+"распределять задания, общаться и оставаться организованным."
+msgstr ""
+"Класс убакытты жана кагазды үнөмдөйт жана класстарды түзүүнү жеңилдетет, "
+"тапшырмаларды бөлүштүрүү, баарлашуу жана уюшкандыкта болуу."
+
+#: .\classroom\templates\classroom\landing.html:87
+msgid ""
+"Учащиеся могут отслеживать свои задания на странице «Задания» и приступать к "
+"работе одним щелчком мыши. Учителя могут быстро увидеть, кто выполнил или не "
+"выполнил задание, и поставить оценки прямо в Классе."
+msgstr ""
+"Студенттер тапшырмаларды Тапшырма бетинен көзөмөлдөп, баштай алышат бир "
+"чыкылдатуу менен иштөө. Мугалимдер кимде бар же жок экенин бат эле көрө "
+"алышат тапшырманы аткарып, түздөн-түз класста баа койду."
+
+#: .\classroom\templates\classroom\landing.html:112
+msgid ""
+"Учителя могут добавлять учеников напрямую или делиться кодом со своим "
+"классом, чтобы присоединиться. Настройка занимает всего несколько минут."
+msgstr ""
+"Мугалимдер студенттерди түздөн-түз кошуп же кодду алар менен бөлүшө алышат "
+"кошулуу үчүн класс. Орнотуу бир нече мүнөттү гана алат."
+
+#: .\classroom\templates\classroom\landing.html:131
+msgid ""
+"Простой безбумажный рабочий процесс заданий позволяет учителям быстро "
+"создавать, просматривать и оценивать задания в одном месте."
+msgstr ""
+"Жөнөкөй кагазсыз тапшырмалардын иштөө процесси мугалимдерге тез жардам берет "
+"бир жерден тапшырмаларды түзүү, көрүү жана баалоо."
+
+#: .\classroom\templates\classroom\login.html:20
+#: .\landing\templates\landing\authentication.html:23
+msgid "Регистрация"
+msgstr "Катталуу"
+
+#: .\classroom\templates\classroom\login.html:37
+#: .\landing\templates\landing\authentication.html:40
+msgid "Войдите, если вы уже создали учетную запись"
+msgstr "Эгер сиз буга чейин каттоо эсебин түзгөн болсоңуз, кириңиз"
+
+#: .\classroom\templates\classroom\mark_submission.html:112
+msgid "Отправлено"
+msgstr "Жөнөтүлдү"
+
+#: .\classroom\templates\classroom\mark_submission.html:113
+msgid "Переделать"
+msgstr "Кайра жасоо"
+
+#: .\classroom\templates\classroom\mark_submission.html:114
+msgid "Выполнено"
+msgstr "Даяр"
+
+#: .\classroom\templates\classroom\parent_class.html:75
+msgid "Все классы"
+msgstr "Бардык класстар"
+
+#: .\classroom\templates\classroom\register.html:38
+#: .\landing\templates\landing\registration.html:41
+msgid "Зарегистрироваться"
+msgstr "Катталыңыз"
+
+#: .\classroom\templates\classroom\register.html:39
+#: .\landing\templates\landing\registration.html:42
+msgid ""
+"Создайте новую учетную запись, указав номер телефона, имя пользователя, и "
+"новый пароль."
+msgstr ""
+"Телефон номериңиз, колдонуучу атыңыз жана жаңы каттоо эсебин түзүңүз жаңы "
+"Сыр сөз."
+
+#: .\classroom\templates\classroom\register.html:43
+#: .\landing\templates\landing\registration.html:46
+msgid "Зарегестрироваться"
+msgstr "Каттоо"
+
+#: .\classroom\templates\classroom\sending_a_task.html:32
+msgid "Отправить задание"
+msgstr "Тапшырма тапшыруу"
+
+#: .\landing\templates\base.html:60
+#: .\landing\templates\landing\employee.html:25
+msgid "Курсы"
+msgstr "Курстар"
+
+#: .\landing\templates\base.html:61 .\landing\templates\landing\index.html:154
+msgid "О нас"
+msgstr "Биз жөнүндө"
+
+#: .\landing\templates\base.html:62
+msgid "Отзывы"
+msgstr "Ой-пикирлер"
+
+#: .\landing\templates\base.html:63 .\landing\templates\base.html:220
+msgid "Контакты"
+msgstr "Байланыш"
+
+#: .\landing\templates\base.html:79
+#: .\landing\templates\landing\category-detail.html:195
+#: .\landing\templates\landing\content-detail.html:21
+#: .\landing\templates\landing\content-detail.html:165
+#: .\landing\templates\landing\tutorial_content.html:21
+#: .\landing\templates\landing\tutorial_content.html:188
+#: .\landing\templates\landing\tutorials.html:36
+msgid "Туториалы"
+msgstr "Үйрөткүчтөр"
+
+#: .\landing\templates\base.html:82
+#: .\landing\templates\landing\category-detail.html:38
+#: .\landing\templates\landing\content-detail.html:23
+#: .\landing\templates\landing\tutorial_content.html:23
+#: .\landing\templates\landing\tutorials.html:38
+msgid "Авторизация"
+msgstr "Авторизация"
+
+#: .\landing\templates\base.html:115
+msgid "Оставьте свой номер"
+msgstr "Номериңизди калтырыңыз"
+
+#: .\landing\templates\base.html:115
+msgid "а мы вам перезвоним"
+msgstr "жана биз сизге кайра чалабыз"
+
+#: .\landing\templates\base.html:132
+msgid "Заказать консультацию"
+msgstr "Консультацияга заказ бериңиз"
+
+#: .\landing\templates\landing\404error.html:13
+msgid ""
+"К сожалению, запрашиваемая вами страница не может быть найдена. Вероятно, "
+"адрес страницы был неверно введен или страница была удалена."
+msgstr ""
+"Кечиресиз, сиз сураган баракча табылган жок. Балким, беттин дареги туура "
+"эмес киргизилген же барак өчүрүлгөн."
+
+#: .\landing\templates\landing\404error.html:14
+msgid "Чтобы решить эту проблему, вы можете попробовать следующее"
+msgstr "Бул көйгөйдү чечүү үчүн сиз төмөнкүлөрдү аракет кылсаңыз болот"
+
+#: .\landing\templates\landing\404error.html:15
+msgid ""
+"Проверьте правильность адреса страницы, чтобы убедиться, что он был "
+"правильно набран."
+msgstr ""
+"Туура терилгендигин текшерүү үчүн беттин дарегинин тууралыгын текшериңиз."
+
+#: .\landing\templates\landing\404error.html:16
+msgid "Используйте поиск на сайте, чтобы найти нужную информацию."
+msgstr "Керектүү маалыматты табуу үчүн сайттан издөөнү колдонуңуз"
+
+#: .\landing\templates\landing\404error.html:17
+msgid ""
+"Перейдите на главную страницу сайта и попробуйте найти информацию, которую "
+"вы искали."
+msgstr ""
+"Сайттын башкы бетине өтүп, сиз издеп жаткан маалыматты табууга аракет "
+"кылыңыз."
+
+#: .\landing\templates\landing\404error.html:18
+#: .\landing\templates\landing\500error.html:15
+msgid "Вернуться на главную страницу"
+msgstr "Башкы бетке кайтуу"
+
+#: .\landing\templates\landing\500error.html:13
+msgid "К сожалению, возникла ошибка 500"
+msgstr "Тилекке каршы, 500 ката кетти"
+
+#: .\landing\templates\landing\500error.html:14
+msgid ""
+"Это означает, что на сервере произошла внутренняя ошибка и запрошенная вами "
+"страница не может быть загружена. Наша команда работает над исправлением "
+"проблемы, но если проблема не исчезнет, пожалуйста, свяжитесь с нами, чтобы "
+"мы могли помочь вам получить доступ к необходимой информации. Приносим "
+"извинения за неудобства, и благодарим вас за ваше терпение."
+msgstr ""
+"Бул серверде ички ката кетти жана сиз сураган баракты жүктөө мүмкүн эмес "
+"дегенди билдирет. Биздин команда көйгөйдү чечүүнүн үстүндө иштеп жатат, "
+"бирок көйгөй чечилбесе, сизге керектүү маалыматты алууга жардам берүү үчүн "
+"биз менен байланышыңыз. Ыңгайсыздык үчүн кечирим сурайбыз жана "
+"сабырдуулугуңуз үчүн рахмат."
+
+#: .\landing\templates\landing\category-detail.html:201
+#: .\landing\templates\landing\tutorial_content.html:207
+msgid "О разделе"
+msgstr "Бөлүм жөнүндө"
+
+#: .\landing\templates\landing\category-detail.html:204
+#: .\landing\templates\landing\tutorials.html:230
+msgid "Спасибо за посещение сайта."
+msgstr "Сайтка кирүү үчүн рахмат."
+
+#: .\landing\templates\landing\category-detail.html:207
+msgid "Данный курс находится на стадии разработки"
+msgstr "Бул курс иштелип чыгууда."
+
+#: .\landing\templates\landing\course-detail.html:18
+msgid "Курс по"
+msgstr "Курс"
+
+#: .\landing\templates\landing\course-detail.html:25
+#: .\landing\templates\landing\employee.html:43
+msgid "Время обучения"
+msgstr "Окуу убактысы"
+
+#: .\landing\templates\landing\course-detail.html:32
+#: .\landing\templates\landing\employee.html:33
+msgid "Формат обучения"
+msgstr "Окуу форматы"
+
+#: .\landing\templates\landing\course-detail.html:40
+#: .\landing\templates\landing\personal_area.html:35
+#: .\landing\templates\landing\personal_area.html:49
+#: .\landing\templates\landing\tutorial_content.html:181
+msgid "Ментор"
+msgstr "Мугалимдер"
+
+#: .\landing\templates\landing\course-detail.html:46
+#: .\landing\templates\landing\employee.html:53
+msgid "Начало курса"
+msgstr "Курстун башталышы"
+
+#: .\landing\templates\landing\course-detail.html:47
+#: .\landing\templates\landing\employee.html:54
+msgid "Идёт набор на данный курс успей записаться"
+msgstr "Бул курска катталуу жүрүп жатат"
+
+#: .\landing\templates\landing\course-detail.html:51
+#: .\landing\templates\landing\employee.html:58
+msgid "Готовим востребованных разработчиков с личным ментором с любого этапа."
+msgstr ""
+"Биз талап кылынган иштеп чыгуучуларды каалаган баскычтан жеке устат менен "
+"окутуп жатабыз."
+
+#: .\landing\templates\landing\course-detail.html:51
+#: .\landing\templates\landing\employee.html:58
+msgid "Наши менторы будут с тобой от заявки и до твоего выпускного."
+msgstr ""
+"Биздин насаатчылар арыз тапшыргандан баштап бүтүрүүңүзгө чейин сиз менен "
+"болушат."
+
+#: .\landing\templates\landing\course-detail.html:53
+#: .\landing\templates\landing\employee.html:60
+#: .\landing\templates\landing\index.html:77
+msgid "Записаться на курс"
+msgstr "Курска жазылыңыз"
+
+#: .\landing\templates\landing\index.html:68
+msgid "Курсы програмирования Бишкек"
+msgstr "Программалоо курстары Бишкек"
+
+#: .\landing\templates\landing\index.html:69
+msgid ""
+"Научись программировать за 3 месяца, обучаясь 5 дней в неделю по 3 часа в "
+"день только практика только хардкор"
+msgstr ""
+"Аптасына 5 күн окуп, күнүнө 3 сааттан гана хардкор менен машыгып, 3 айдын "
+"ичинде коддоону үйрөнүңүз"
+
+#: .\landing\templates\landing\index.html:72
+msgid ""
+"Не пропустите уникальную возможность услышать экспертов по программированию "
+"в прямом эфире прямо сейчас!"
+msgstr ""
+"Программалоо боюнча эксперттерди азыр түз ободо угуу үчүн уникалдуу "
+"мүмкүнчүлүктү колдон чыгарбаңыз!"
+
+#: .\landing\templates\landing\index.html:74
+msgid "Прямой эфир начнётся"
+msgstr "Түз эфир башталат"
+
+#: .\landing\templates\landing\index.html:100
+msgid ""
+"Это программа обучения включающая в себя в основном лишь только практику "
+"совмещая интеракивы. Light Code готовит специалистов, способных работать в "
+"динамично развивающейся отрасли."
+msgstr ""
+"Бул окутуу программасы, ал негизинен интерактивдүү иш-аракеттерди "
+"айкалыштырган практиканы гана камтыйт. Light Code динамикалуу өнүгүп жаткан "
+"тармакта иштөөгө жөндөмдүү адистерди даярдайт."
+
+#: .\landing\templates\landing\index.html:116
+msgid "Чему мы обучаем?"
+msgstr "Биз эмнени үйрөтөбүз?"
+
+#: .\landing\templates\landing\index.html:136
+msgid "Подробнее"
+msgstr "Көбүрөөк"
+
+#: .\landing\templates\landing\index.html:138
+msgid "На данный момент набора нету"
+msgstr "Учурда комплект жок"
+
+#: .\landing\templates\landing\index.html:155
+msgid "Важно не заучивание, а понимание сути"
+msgstr "Маанилүү жаттоо эмес, маңызын түшүнүү"
+
+#: .\landing\templates\landing\index.html:165
+msgid "Наша Команда"
+msgstr "Биздин команда"
+
+#: .\landing\templates\landing\index.html:200
+msgid "Что мне нужно иметь для учебы?"
+msgstr "Окуу үчүн эмне кылышым керек?"
+
+#: .\landing\templates\landing\index.html:202
+msgid "Главное наличия ноутбука и желания учиться!"
+msgstr "Эң негизгиси ноутбуктун болушу жана үйрөнүүгө болгон каалоо!"
+
+#: .\landing\templates\landing\index.html:222
+msgid "Почему я должен/должна учиться у вас?"
+msgstr "Эмне үчүн мен сизден үйрөнүшүм керек?"
+
+#: .\landing\templates\landing\index.html:224
+msgid "Обучение 15 часов неделю"
+msgstr "Жумасына 15 саат машыгуу"
+
+#: .\landing\templates\landing\index.html:225
+msgid "3 месяца сплошной практики"
+msgstr "3 ай үзгүлтүксүз практика"
+
+#: .\landing\templates\landing\index.html:226
+msgid "180 часов за 3 месяца"
+msgstr "3 айда 180 саат"
+
+#: .\landing\templates\landing\index.html:227
+#, python-format
+msgid "Обучение 20%% теории 80%% практики через"
+msgstr "20 пайыз теория 80 пайыз практика аркылуу үйрөтүү"
+
+#: .\landing\templates\landing\index.html:227
+msgid "интерактивы, разборы и реальные кейсы"
+msgstr "интерактивдүү, анализдер жана реалдуу учурлар"
+
+#: .\landing\templates\landing\index.html:248
+msgid "Нужен ли мне свой ноутбук?"
+msgstr "Мага ноутбук керекпи?"
+
+#: .\landing\templates\landing\index.html:250
+msgid ""
+"Да. Необходимо иметь свой ноутбук. Характеристики: минимум 4 ГБ оперативной "
+"памяти, 2 ядровый процессор. В идеале: 8 ГБ оперативной памяти и процессор с "
+"4 ядрами."
+msgstr ""
+"Ооба. Сиздин жеке ноутбук болушу керек. Мүнөздөмөлөрү: кеминде 4 ГБ "
+"оперативдүү эс тутум, 2 негизги процессор. Идеалында: 8 ГБ оперативдик эс "
+"жана 4 ядролуу процессор."
+
+#: .\landing\templates\landing\index.html:371
+msgid "Отзывы наших учеников"
+msgstr "Биздин студенттердин пикири"
+
+#: .\landing\templates\landing\personal_area.html:21
+msgid "Личный кабинет"
+msgstr "Жеке бөлмө"
+
+#: .\landing\templates\landing\personal_area.html:24
+msgid "Добро пожаловать в ваш личный кабинет!"
+msgstr "Жеке аккаунтуңузга кош келиңиз!"
+
+#: .\landing\templates\landing\personal_area.html:46
+msgid "Онлайн курсы"
+msgstr "Онлайн курстар"
+
+#: .\landing\templates\landing\personal_area.html:55
+msgid ""
+"Спасибо за интерес к школе IT-технологий LightCode! Мы предлагаем курсы по "
+"программированию, веб-разработке, аналитике данных и многому другому. Наши "
+"опытные преподаватели помогут вам освоить новые навыки и стать экспертом в "
+"выбранной области."
+msgstr ""
+"LightCode IT мектебине кызыгууңуз үчүн рахмат! Биз программалоо, веб иштеп "
+"чыгуу, маалыматтарды аналитика жана башкалар боюнча курстарды сунуштайбыз. "
+"Биздин тажрыйбалуу окутуучулар жаңы көндүмдөрдү үйрөнүүгө жана сиз тандаган "
+"тармактын адиси болууга жардам берет."
+
+#: .\landing\templates\landing\personal_area.html:55
+msgid ""
+"У нас есть гибкая система обучения, которая позволяет выбрать удобное "
+"расписание и формат занятий. Вы можете выбрать индивидуальные занятия, "
+"групповые курсы или дистанционное обучение."
+msgstr ""
+"Бизде ийкемдүү окутуу системасы бар, ал сизге ыңгайлуу графикти жана "
+"сабактардын форматын тандоого мүмкүндүк берет. Сиз жеке сабактарды, топтук "
+"курстарды же аралыктан окутууну тандай аласыз."
+
+#: .\landing\templates\landing\personal_area.html:55
+msgid ""
+"Мы также предлагаем практические задания и проекты, которые помогут вам "
+"укрепить свои знания и подготовиться к реальным задачам на рынке труда."
+msgstr ""
+"Биз ошондой эле билимиңизди чыңдоого жана эмгек рыногундагы реалдуу "
+"кыйынчылыктарга даярданууга жардам берүүчү практикалык тапшырмаларды жана "
+"долбоорлорду сунуштайбыз."
+
+#: .\landing\templates\landing\personal_area.html:55
+msgid ""
+"Присоединяйтесь к LightCode и начните свой путь в мире IT-технологий уже "
+"сегодня!"
+msgstr "LightCode'го кошулуп, IT дүйнөсүндө саякатыңызды бүгүн баштаңыз!"
+
+#: .\landing\templates\landing\personal_area.html:60
+msgid "Учитесь программированию вместе с LightCode"
+msgstr "LightCode менен коддоону үйрөнүңүз"
+
+#: .\landing\templates\landing\tutorial_content.html:199
+msgid "Только до конца этой недели!"
+msgstr "Ушул жуманын аягына чейин гана!"
+
+#: .\landing\templates\landing\tutorial_content.html:199
+msgid "Запишитесь на курс и получите бесплатный доступ к материалам"
+msgstr "Курска катталып, материалдарга акысыз мүмкүнчүлүк алыңыз"
+
+#: .\landing\templates\landing\tutorial_content.html:199
+msgid "которые помогут вам стать экспертом в"
+msgstr "бул сизге адис болууга жардам берет"
+
+#: .\landing\templates\landing\tutorial_content.html:215
+msgid "Записаться"
+msgstr "Жазылуу"
+
+#: .\landing\templates\landing\tutorials.html:227
+msgid "О сайте"
+msgstr "Сайт жөнүндө"
+
+#: .\landing\templates\landing\tutorials.html:228
+msgid ""
+"Данный сайт посвящен различным языкам и технологиям программирования, "
+"компьютерам, мобильным платформам и ИТ-технологиям. Здесь будут "
+"выкладываться различные руководства и учебные материалы, статьи и примеры."
+"<br><br>На сайте можно найти материалы по таким направлениям, как язык C# и "
+"семейство технологий .NET (ASP.NET, WPF, Entity Framework и т.д.), "
+"технологии на базе Java ( Java SE, программирование под ОС Андроид и т.д.), "
+"Python, Dart (в том числе Flutter), работа с базами данных (MS SQL Server, "
+"MySQL, MongoDB) а также WEB-технологии, такие как HTML5, AJAX, jQuery, Node."
+"js, ExtJS, Angular, React и др.<br><br>Поскольку жизнь не стоит на месте, "
+"все материалы по возможности дополняются и обновляются, чтобы "
+"соответствовать духу времени и не терять своей актуальности."
+msgstr "Бул сайт ар кандай программалоо тилдерине жана технологияларына, компьютерлерге, мобилдик платформаларга жана IT технологияларына арналган. Бул жерде ар кандай колдонмолор жана окуу куралдары, макалалар жана мисалдар жайгаштырылат.<br><br>Сайтта сиз C# тили жана .NET технологиялар үй-бүлөсү (ASP.NET, WPF, Entity Framework, ж.б.), Java негизиндеги технологиялар (Java SE, Android программалоо ж.б.), Python, Dart (анын ичинде Flutter), маалымат базалары (MS SQL Server, MySQL, MongoDB) жана HTML5, AJAX, jQuery сыяктуу WEB технологиялары , Node.js, ExtJS, Angular, React, ж.б.<br><br>Жашоо бир орунда турбагандыктан, бардык материалдар убакыттын духуна шайкеш келип, актуалдуулугун жоготпоо үчүн мүмкүн болушунча толукталат жана жаңыртылып турат."

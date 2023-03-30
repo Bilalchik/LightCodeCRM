@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block nav %}
+{% load i18n %}
+
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <nav class="main-nav">
+          <nav class="main-nav" style="width: 1300px;">
             <!-- ***** Logo Start ***** -->
             <a href="{% url 'index' %}" class="logo">
                 <h4 style="color: black;"><br><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
@@ -16,12 +18,27 @@
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li class="scroll-to-section"><a href="{% url 'tutorials' %}">Туториалы</a></li>
+<!--              {% if user.is_admin or user.status == 4 %}-->
+<!--              <li class="nav-item dropdown" style="color: black;">-->
+<!--                  <a class="nav-link dropdown-toggle" style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                      Прочее-->
+<!--                  </a>-->
+<!--                  <ul class="dropdown-menu" style="background: white; width: 390px; color: black;">-->
+<!--                      {% if user.is_admin or user.status == 4 %}-->
+<!--                        <li class="scroll-to-section" style="color: black;"><a href="{% url 'add_url_stream' %}" style="color: black;">&#9675; Создать ссылку на прямой эфир</a></li>-->
+<!--                      {% endif %}-->
+<!--                      {% if user.is_admin or user.status == 4 %}-->
+<!--                        <li class="scroll-to-section"><a href="{% url 'personal' %}">&#9675; CRM</a></li>-->
+<!--                      {% endif %}-->
+<!--                  </ul>-->
+<!--              </li>-->
+<!--              {% endif %}-->
+              <li class="scroll-to-section"><a href="{% url 'tutorials' %}">{% trans 'Туториалы' %}</a></li>
               {% if not user.is_authenticated %}
-              <li class="scroll-to-section"><a href="{% url 'registration' %}">Авторизация</a></li>
+              <li class="scroll-to-section"><a href="{% url 'registration' %}">{% trans 'Авторизация' %}</a></li>
               {% endif %}
               {% if user.is_authenticated %}
-                <li class="scroll-to-section"><a href="{% url 'exit' %}">Выйти</a></li>
+                <li class="scroll-to-section"><a href="{% url 'exit' %}">{% trans 'Выйти' %}</a></li>
                 <li>
                     <div class="gradient-button">
                         <a id="modal_trigger" href="{% url 'personal_area' %}">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -68,7 +85,7 @@
   overflow-y: auto;
   gap: 15px;
   list-style: none;
-  padding: 0;
+  padding: 10px;
   background: #F9F9F9;
 }
 .sideBarMenuIcon {
@@ -140,6 +157,19 @@ ul.breadcrumb li a:hover {
         font-size: 20px;
     }
 }
+@media screen and (max-width: 700px) {
+  div.section-heading {
+    font-size: 10px !important;
+  }
+}
+.sideBarMenu {
+    display: none;
+  }
+
+  /* Отображение меню, если localStorage содержит соответствующее значение */
+  .sideBarMenu.show {
+    display: block;
+  }
 </style>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -170,18 +200,18 @@ ul.breadcrumb li a:hover {
   <div id="about" class="about-us section" style="display: flex; flex-wrap: wrap;">
     {% if user.is_admin or user.status == 4 %}
       <div class="col-lg-6" style="flex-basis: 50%; max-width: 50%;">
-        <div class="section-heading" style="width: 100%;"><div class="container">
-    <div class="box-item">
-            <h3 class="room-card-title"><a href="{% url 'add_category' %}"><em>Создать раздел для курсов</em></a></h3>
-    </div>
-</div>
+        <div class="section-heading" style="width: 100%; font-size: 23px;"><div class="container">
+            <div class="box-item">
+                <a href="{% url 'add_category' %}">Создать раздел для курсов</a>
+            </div>
+        </div>
         </div>
       </div>
       <div class="col-lg-6" style="flex-basis: 50%; max-width: 50%;">
         <div class="section-heading" style="width: 100%;">
           <div class="box-item" style="width: 60%;">
               <div class="container">
-                  <h3 class="room-card-title"><a href="{% url 'article_list' %}" style="font-size: 23px;"><em>Статьи</em></a></h3>
+                  <a href="{% url 'article_list' %}" style="font-size: 23px;">Статьи</a>
               </div>
           </div>
         </div>
@@ -194,34 +224,32 @@ ul.breadcrumb li a:hover {
 <!--          </ul>-->
 <!--      </div>-->
       <div class="container mt-3" style="width: 75%; fon-size: 10px; display: flex; flex-wrap: wrap;">
-          <h2 style="">О сайте</h2>
-          <h10 style="color: black;">
-              Данный сайт посвящен различным языкам и технологиям программирования, компьютерам, мобильным платформам и ИТ-технологиям. Здесь будут выкладываться различные руководства и учебные материалы, статьи и примеры.<br><br>
-              На сайте можно найти материалы по таким направлениям, как язык C# и семейство технологий .NET (ASP.NET, WPF, Entity Framework и т.д.), технологии на базе Java ( Java SE, программирование под ОС Андроид и т.д.), Python, Dart (в том числе Flutter), работа с базами данных (MS SQL Server, MySQL, MongoDB) а также WEB-технологии, такие как HTML5, AJAX, jQuery, Node.js, ExtJS, Angular, React и др.<br><br>
-              Поскольку жизнь не стоит на месте, все материалы по возможности дополняются и обновляются, чтобы соответствовать духу времени и не терять своей актуальности.<br><br>
-          </h10>
+          <h2 style="">{% trans 'О сайте' %}</h2>
+          <h10 style="color: black;">{% trans "Данный сайт посвящен различным языкам и технологиям программирования, компьютерам, мобильным платформам и ИТ-технологиям. Здесь будут выкладываться различные руководства и учебные материалы, статьи и примеры.<br><br>На сайте можно найти материалы по таким направлениям, как язык C# и семейство технологий .NET (ASP.NET, WPF, Entity Framework и т.д.), технологии на базе Java ( Java SE, программирование под ОС Андроид и т.д.), Python, Dart (в том числе Flutter), работа с базами данных (MS SQL Server, MySQL, MongoDB) а также WEB-технологии, такие как HTML5, AJAX, jQuery, Node.js, ExtJS, Angular, React и др.<br><br>Поскольку жизнь не стоит на месте, все материалы по возможности дополняются и обновляются, чтобы соответствовать духу времени и не терять своей актуальности." %}<br><br></h10>
           <div class="gradient-button">
-              <a>Спасибо за посещение сайта.</a>
+              <a>{% trans 'Спасибо за посещение сайта.' %}</a>
           </div>
       </div>
   </div>
 </div>
 </div>
 <script>
-const menu = document.querySelector('.sideBarMenuIcon')
-const sideBar = document.querySelector('.sideBar')
-const sideBarMenu = document.querySelector('.sideBarMenu')
+  const menu = document.querySelector('.sideBarMenuIcon');
+  const sideBar = document.querySelector('.sideBar');
+  const sideBarMenu = document.querySelector('.sideBarMenu');
 
-menu.onclick = () => {
-const displayStatus = sideBarMenu.style.display
-if (displayStatus === 'none') {
-  sideBar.style.height = '100vh'
-  sideBarMenu.style.display = 'grid'
-} else {
-  sideBar.style.height = 'auto'
-  sideBarMenu.style.display = 'none'
-}
-}
+  // Проверяем, есть ли значение 'showMenu' в localStorage
+  const showMenu = localStorage.getItem('showMenu');
+  if (showMenu === 'true') {
+    sideBarMenu.classList.add('show');
+  }
+
+  menu.onclick = () => {
+    // Инвертируем состояние меню
+    sideBarMenu.classList.toggle('show');
+    // Сохраняем состояние меню в localStorage
+    localStorage.setItem('showMenu', sideBarMenu.classList.contains('show'));
+  }
 </script>
     {% endblock %}
 

@@ -66,8 +66,7 @@
       <div class="container mt-3" style="width: 55%; fon-size: 10px;">
     <form method="POST" action=".">
   {% csrf_token %}
-<!-- {{ form|crispy }}-->
-        {{ form.media }}
+        <!-- {{ form|crispy }}-->
         <div class="row" >
             <div class="col-6" >
                 {{ form.topic_name|as_crispy_field }}
@@ -79,9 +78,9 @@
                 {{ form.section|as_crispy_field }}
             </div>
         </div>
-        <div class="col-6" >
-                {{ form.body|as_crispy_field }}
-            </div>
+        <div class="col-6" style="margin-right: 300px;">
+            {{ form.body|as_crispy_field }}
+        </div>
 <button type="submit">Сохранить</button>
         <br><br>
         <h5>Хотите сохранить и добавить другой объект?</h5>
@@ -90,7 +89,7 @@
             <option value="on">Да</option>
         </select>
   </form>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          x<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{ form.media.js }}
       </div>
 <script>

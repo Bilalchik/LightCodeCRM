@@ -1,15 +1,17 @@
 {% extends 'classroom/hamburger.html' %}
 {% load static %}
+{% load i18n %}
+
 {% block head %}
    <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}">  
 {% endblock %}
 
 {% block hamburger %}
     {% if mappings %}
-    <div class="row">
+    <div class="row" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
         {% for mapping in mappings %}
             {% if forloop.counter|divisibleby:4 %}
-                    <div class="col-md-3">
+                    <div >
                         <div class="card custom_card card-margin" style="width: 18rem;">
                             <!-- <div> -->
                                     <div class="img-as-background colorme">
@@ -31,7 +33,7 @@
     <div class="row">
     {% endif %}
             {% else %}
-            <div class="col-md-3">
+            <div>
                 <div class="card custom_card card-margin" style="width: 18rem;">
                     <!-- <div> -->
                             <div class="img-as-background colorme">

@@ -2,14 +2,29 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
-from django.template.defaultfilters import slugify
+from googletrans import Translator
 
 
 User = get_user_model()
 
+translator = Translator(service_urls=[
+            'translate.google.com',
+            'translate.google.co.kr',
+        ])
+
 
 class StudyingTime(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
+
+    def save(self, *args, **kwargs):
+
+        text_title = self.title
+
+        ky_title = translator.translate(str(text_title), 'ky')
+        # print(a.text)
+        self.title_ky = ky_title.text
+
+        super().save()
 
     def __str__(self):
         return self.title
@@ -37,6 +52,26 @@ class CourseForLanding(models.Model):
     def format_names(self):
         return " %s" % (", ".join([formats.title for formats in self.format.all()]))
 
+    def save(self, *args, **kwargs):
+
+        text_title = self.title
+        text_description = self.description
+        text_additional_info = self.additional_info
+
+        ky_title = translator.translate(str(text_title), 'ky')
+        # print(a.text)
+        self.title_ky = ky_title.text
+
+        ky_description = translator.translate(str(text_description), 'ky')
+        # print(a.text)
+        self.description_ky = ky_description.text
+
+        ky_additional_info = translator.translate(str(text_additional_info), 'ky')
+        # print(a.text)
+        self.additional_info_ky = ky_additional_info.text
+
+        super().save()
+
     def __str__(self):
         return self.title
 
@@ -50,6 +85,26 @@ class Review(models.Model):
     direction = models.CharField(max_length=50, verbose_name='Направление')
     description = models.TextField(verbose_name=('Описание'), max_length=515)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name=('Дата создания'))
+
+    def save(self, *args, **kwargs):
+
+        text_name = self.name
+        text_direction = self.direction
+        text_description = self.description
+
+        ky_name = translator.translate(str(text_name), 'ky')
+        # print(a.text)
+        self.name_ky = ky_name.text
+
+        ky_direction = translator.translate(str(text_direction), 'ky')
+        # print(a.text)
+        self.direction_ky = ky_direction.text
+
+        ky_description = translator.translate(str(text_description), 'ky')
+        # print(a.text)
+        self.description_ky = ky_description.text
+
+        super().save()
 
     def __str__(self):
         return self.name
@@ -65,6 +120,21 @@ class Section(models.Model):
     id_section = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
     description = models.TextField(verbose_name='Описание для подраздела', blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+
+        text_title = self.title
+        text_description = self.description
+
+        ky_title = translator.translate(str(text_title), 'ky')
+        # print(a.text)
+        self.title_ky = ky_title.text
+
+        ky_description = translator.translate(str(text_description), 'ky')
+        # print(a.text)
+        self.description_ky = ky_description.text
+
+        super().save()
+
     def __str__(self):
         full_path = [self.title]
         k = self.id_section
@@ -72,10 +142,6 @@ class Section(models.Model):
             full_path.append(k.title)
             k = k.id_section
         return ' -> '.join(full_path[::-1])
-
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.title)
-    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Раздел'
@@ -94,6 +160,20 @@ class Article(models.Model):
         return str(self.section)
 
     def save(self, *args, **kwargs):
+        article = Article.objects.get(pk=1)
+        print(article._meta.get_field('body_ky').get_internal_type())
+
+        text_topic_name = self.topic_name
+        text_body = self.body
+
+        ky_topic_name = translator.translate(str(text_topic_name), 'ky')
+        # print(a.text)
+        self.topic_name_ky = ky_topic_name.text
+
+        ky_body = translator.translate(str(text_body), 'ky')
+        # print(a.text)
+        self.body_ky = ky_body.text
+
         user = self.teacher
         user.status = 4
         user.save()
@@ -114,8 +194,9 @@ class SubscriptionToCourse(models.Model):
 
     def save(self, *args, **kwargs):
         user = self.user
-        user.status = 2
-        user.save()
+        if user.status == 2 or user.status == 1:
+            user.status = 2
+            user.save()
         return super().save(*args, **kwargs)
 
     class Meta:

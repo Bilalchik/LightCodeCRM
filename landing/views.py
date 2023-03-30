@@ -97,13 +97,15 @@ def theme_view(request, slug):
     section = Section.objects.get(slug=slug)
     articles = Article.objects.filter(section=section)
     is_subscribed = SubscriptionToCourse.objects.filter(user=request.user, course=section).exists()
+    is_creator = Article.objects.filter(teacher=request.user, section=section).exists()
     if request.method == 'POST':
         SubscriptionToCourse.objects.create(user=request.user, course=section)
         return redirect('tutorial-content', section.slug)
     return render(request, template_name='landing/tutorial_content.html', context={
         'articles': articles,
         'section': section,
-        'is_subscribed': is_subscribed})
+        'is_subscribed': is_subscribed,
+        'is_creator': is_creator})
 
 
 @login_required(login_url='/registration/')
@@ -111,7 +113,8 @@ def content_view(request, slug):
     article = Article.objects.get(slug=slug)
     articles = Article.objects.filter(section=article.section)
     is_subscribed = SubscriptionToCourse.objects.filter(user=request.user, course=article.section).exists()
-    if not is_subscribed:
+    is_creator = Article.objects.filter(teacher=request.user, section=article.section).exists()
+    if not is_subscribed and not is_creator:
         return redirect('content_view', article.slug)
     if request.method == 'POST':
         SubscriptionToCourse.objects.create(user=request.user, course=article.section)

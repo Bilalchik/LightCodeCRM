@@ -33,6 +33,7 @@
   <a style="font-size: 22px;" href="{% url 'manager' %}"><i class="fa fa-arrow-left"></i>Назад </a>
 </div>
 <center>
+    {{ filterset.form.media.css }}
   <h3>Фильтрация для Студентов</h3>
     <div class="container mt-3" style="width: 55%; fon-size: 10px;">
   <form method="get" id="incomes">
@@ -59,6 +60,8 @@
       </div>
     <button type="submit">Применить фильтр</button>
 </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ filterset.form.media.js }}
   </div>
 
 

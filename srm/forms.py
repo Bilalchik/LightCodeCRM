@@ -55,12 +55,14 @@ class LeadForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
     last_payment_date = forms.DateField(widget=forms.widgets.DateInput(
         attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
-        required=False
+        required=False,
+        label='Дата последней оплаты'
     )
     remainder = forms.DecimalField(label='Общая оплата за курс')
     teacher = forms.ModelChoiceField(
         queryset=Employee.objects.all(),
-        widget=TeacherWidget
+        widget=TeacherWidget,
+        label='Ментор'
     )
 
     class Meta:
@@ -71,7 +73,8 @@ class StudentForm(forms.ModelForm):
 class IncomeForm(forms.ModelForm):
     student = forms.ModelChoiceField(
         queryset=Student.objects.all(),
-        widget=StudentWidget
+        widget=StudentWidget,
+        label='Студент'
     )
     date_of_payment = forms.DateField(widget=forms.widgets.DateInput(
         attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <head>
 
@@ -55,33 +56,33 @@ https://templatemo.com/tm-570-chain-app-dev
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul id="header-nav-ul" class="nav">
-              <li class="scroll-to-section"><a href="#top" class="active">Главная</a></li>
-              <li class="scroll-to-section"><a href="#services">Курсы</a></li>
-              <li class="scroll-to-section"><a href="#lol">О нас</a></li>
-              <li class="scroll-to-section"><a href="#rewiews">Отзывы</a></li>
-              <li class="scroll-to-section"><a href="#newsletter">Контакты</a></li>
-              {% if user.is_admin or user.status == 4 %}
+              <li class="scroll-to-section"><a href="#top" class="active">{% trans 'Главная' %}</a></li>
+              <li class="scroll-to-section"><a href="#services">{% trans 'Курсы' %}</a></li>
+              <li class="scroll-to-section"><a href="#lol">{% trans 'О нас' %}</a></li>
+              <li class="scroll-to-section"><a href="#rewiews">{% trans 'Отзывы' %}</a></li>
+              <li class="scroll-to-section"><a href="#newsletter">{% trans 'Контакты' %}</a></li>
+              {% if user.is_admin or user.status == 3 %}
               <li class="nav-item dropdown" style="color: black;">
                   <a class="nav-link dropdown-toggle" style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
                       Прочее
                   </a>
                   <ul class="dropdown-menu" style="background: white; width: 390px; color: black;">
-                      {% if user.is_admin or user.status == 4 %}
+                      {% if user.is_admin or user.status == 3 %}
                         <li class="scroll-to-section" style="color: black;"><a href="{% url 'add_url_stream' %}" style="color: black;">&#9675; Создать ссылку на прямой эфир</a></li>
                       {% endif %}
-                      {% if user.is_admin or user.status == 4 %}
+                      {% if user.is_admin or user.status == 3 %}
                         <li class="scroll-to-section"><a href="{% url 'personal' %}">&#9675; CRM</a></li>
                       {% endif %}
                   </ul>
               </li>
               {% endif %}
-              <li class="scroll-to-section"><a href="{% url 'tutorials' %}">Туториалы</a></li>
+              <li class="scroll-to-section"><a href="{% url 'tutorials' %}">{% trans 'Туториалы' %}</a></li>
               <li class="scroll-to-section"><a href="{% url 'landing_page' %}">Classroom</a></li>
               {% if not user.is_authenticated %}
-              <li class="scroll-to-section"><a href="{% url 'registration' %}">Авторизация</a></li>
+              <li class="scroll-to-section"><a href="{% url 'registration' %}">{% trans 'Авторизация' %}</a></li>
               {% endif %}
               {% if user.is_authenticated %}
-                <li class="scroll-to-section"><a href="{% url 'exit' %}">Выйти</a></li>
+                <li class="scroll-to-section"><a href="{% url 'exit' %}">{% trans 'Выйти' %}</a></li>
                 <li>
                     <div class="gradient-button">
                         <a id="modal_trigger" href="{% url 'personal_area' %}">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -111,7 +112,7 @@ https://templatemo.com/tm-570-chain-app-dev
         <div class="col-lg-8 offset-lg-2">
           <div class="section-heading">
               <br><br><br><br><br><br>
-            <h4>Оставьте свой номер,<br> а мы вам перезвоним</h4>
+            <h4>{% trans 'Оставьте свой номер' %},<br> {% trans 'а мы вам перезвоним' %}</h4>
           </div>
         </div>
         <div class="col-lg-6 offset-lg-3">
@@ -128,7 +129,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 </fieldset>
                   <br> &nbsp;
                   <fieldset>
-                  <button type="submit" class="main-button">Заказать консультацию <i class="fa fa-angle-right"></i></button>
+                  <button type="submit" class="main-button">{% trans 'Заказать консультацию' %} <i class="fa fa-angle-right"></i></button>
                 </fieldset>
               </div>
               <div class="col-lg-6 col-sm-6">
@@ -216,7 +217,7 @@ https://templatemo.com/tm-570-chain-app-dev
 </svg></p>
         <div class="col-lg-12">
           <div class="copyright-text">
-            <p>Контакты: +996 777 12 55 66</p>
+            <p>{% trans 'Контакты' %}: +996 777 12 55 66</p>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
 {% block head %}
 {% endblock %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 
 {% block hamburger %}
@@ -28,7 +29,7 @@
         <form method="POST" action=".">
             {% csrf_token %}
             <input type="file" id="lol" name="lol"><br><br>
-            <button type="submit" class="btn btn-primary">Отправить задание</button>
+            <button type="submit" class="btn btn-primary">{% trans 'Отправить задание' %}</button>
         </form>
         <br>
         <h3>{{ submission.marks_alloted }}/{{ assignment.total_marks }}</h3><br>
@@ -42,4 +43,23 @@
 
     </div>
 </div>
+<script>
+           const menu = document.querySelector('.sideBarMenuIcon');
+  const sideBar = document.querySelector('.sideBar');
+  const sideBarMenu = document.querySelector('.sideBarMenu');
+  console.log(menu)
+  // Проверяем, есть ли значение 'showMenu' в localStorage
+  const showMenu = localStorage.getItem('showMenu');
+  if (showMenu === 'true') {
+    sideBarMenu.classList.add('show');
+  }
+
+  menu.onclick = () => {
+      console.log('render')
+    // Инвертируем состояние меню
+    sideBarMenu.classList.toggle('show');
+    // Сохраняем состояние меню в localStorage
+    localStorage.setItem('showMenu', sideBarMenu.classList.contains('show'));
+  }
+</script>
 {% endblock %}

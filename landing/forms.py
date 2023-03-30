@@ -35,7 +35,8 @@ class ArticleForm(forms.ModelForm):
     body = forms.CharField(widget=CKEditorWidget())
     section = forms.ModelChoiceField(
         queryset=Section.objects.all(),
-        widget=SectionWidget
+        widget=SectionWidget,
+        label='Раздел'
     )
 
     class Meta:

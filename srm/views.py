@@ -12,7 +12,7 @@ from .filters import IncomeFilter, ExpenseFilter, StudentFilter, LeadFilter
 from .models import Lead, Student, Income, Expense
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def leads_view(request):
     leads = Lead.objects.all().order_by('-id')
     students = Student.objects.all().order_by('-id')
@@ -46,12 +46,12 @@ class StudentListView(FilteredListView):
     template_name = 'srm/leads.html'
     context_object_name = 'students'
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def lead_add(request):
     if request.method == 'POST':
         form = LeadForm(data=request.POST)
@@ -66,7 +66,7 @@ def lead_add(request):
     return render(request, template_name='srm/lead_add.html', context={'form': form})
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def leads_detail(request, pk):
     lead = get_object_or_404(Lead, id=pk)
     if request.method == 'POST':
@@ -81,7 +81,7 @@ def leads_detail(request, pk):
     return render(request, template_name='srm/leads_detail.html', context={'lead': lead, 'form': form})
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def lead_delete(request, pk):
 
     lead = Lead.objects.get(id=pk)
@@ -117,12 +117,12 @@ class StudentList(FilteredListView):
     template_name = 'srm/students.html'
     context_object_name = 'leads'
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def student_detail(request, pk):
     student = get_object_or_404(Student, id=pk)
     if request.method == 'POST':
@@ -139,7 +139,7 @@ def student_detail(request, pk):
     return render(request, template_name='srm/student_detail.html', context={'student': student, 'form': form})
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def student_delete(request, pk):
 
     student = Student.objects.get(id=pk)
@@ -148,7 +148,7 @@ def student_delete(request, pk):
     return HttpResponseRedirect(reverse('leads'))
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def student_add(request):
     if request.method == 'POST':
         print(request.POST)
@@ -206,7 +206,7 @@ class IncomeListView(FilteredListView):
 
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -243,7 +243,7 @@ class Debtor(FilteredListView):
         context['total_debtors'] = context['students'].aggregate(total=Sum('remainder'))['total']
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -298,7 +298,7 @@ class ExpenseListView(FilteredListView):
 
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -334,7 +334,7 @@ class IncomesView(FilteredListView):
         context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -377,12 +377,12 @@ def expense_delete(request, pk):
     return HttpResponseRedirect(reverse('income_list'))
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def personal(request):
     return render(request, template_name='srm/personal.html')
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def manager(request):
     leads = Lead.objects.all()
     lead_count = leads.count()
@@ -414,7 +414,7 @@ def admin_choice(request):
         'net_profit': net_profit})
 
 
-@user_passes_test(lambda u: u.is_admin or u.status == 4, login_url='/registration/')
+@user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/')
 def income_add_for_manager(request):
     if request.method == 'POST':
         form = IncomeForm(data=request.POST)
