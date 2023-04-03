@@ -30,18 +30,18 @@
             <menu class="sideBarMenu">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'home' %}" style="text-decoration: none;">Главная</a>
+                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'home' %}" style="text-decoration: none;">{% trans 'Главная' %}</a>
               </li>
               {% for teacher in teachers %}
               {% if teacher.teacher.id == user.id or user.status == 4 %}
                 <li class="nav-item active">
-                  <a href="{% url 'create_assignment' classroom.id %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">Создать задание</a>
+                  <a href="{% url 'create_assignment' classroom.id %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">{% trans 'Создать задание' %}</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'delete_class' classroom.id %}" style="text-decoration: none;">Удалить класс</a>
+                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'delete_class' classroom.id %}" style="text-decoration: none;">{% trans 'Удалить класс' %}</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'add_student' classroom.id %}" style="text-decoration: none;">Добавить студента</a>
+                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'add_student' classroom.id %}" style="text-decoration: none;">{% trans 'Добавить студента' %}</a>
                 </li>
               {% endif %}
               {% endfor %}
@@ -49,12 +49,12 @@
               {% for student in students %}
               {% if student.student.id == user.id %}
               <li class="nav-item">
-                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'unenroll_class' classroom.id %}" style="text-decoration: none;">Выйти из класса</a>
+                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'unenroll_class' classroom.id %}" style="text-decoration: none;">{% trans 'Выйти из класса' %}</a>
               </li>
               {% endif %}
               {% endfor %}
               <li class="nav-item active">
-                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'logout' %}" style="text-decoration: none;">Выйти<span class="sr-only"></span></a>
+                <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'logout' %}" style="text-decoration: none;">{% trans 'Выйти' %}<span class="sr-only"></span></a>
               </li>
             </ul>
         </menu>
@@ -98,13 +98,13 @@
               {% for teacher in teachers %}
               {% if teacher.teacher.id == user.id or user.status == 4 %}
                 <li class="nav-item active">
-                  <a href="{% url 'create_assignment' classroom.id %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">Создать задание</a>
+                    <a href="{% url 'create_assignment' classroom.id %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">Создать задание</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'delete_class' classroom.id %}" style="text-decoration: none;">Удалить класс</a>
+                    <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'delete_class' classroom.id %}" style="text-decoration: none;">Удалить класс</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'add_student' classroom.id %}" style="text-decoration: none;">Добавить студента</a>
+                    <a class="mybtn myinfo mybtn-active" type="button" href="{% url 'add_student' classroom.id %}" style="text-decoration: none;">Добавить студента</a>
                 </li>
               {% endif %}
               {% endfor %}

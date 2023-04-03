@@ -27,4 +27,10 @@ class SectionTranslationOptions(TranslationOptions):
 class ArticleTranslationOptions(TranslationOptions):
     body = RichTextField()
     fields = ('topic_name', 'body')
+    widgets = {
+        'body': RichTextField,
+    }
+
+
+
 

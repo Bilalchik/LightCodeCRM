@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-30 20:27+0600\n"
+"POT-Creation-Date: 2023-04-02 23:45+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,7 @@ msgstr ""
 #: .\classroom\templates\classroom\create_assignment.html:62
 #: .\classroom\templates\classroom\login.html:17
 #: .\classroom\templates\classroom\mark_submission.html:65
+#: .\classroom\templates\classroom\parent_class.html:33
 #: .\classroom\templates\classroom\register.html:17
 #: .\landing\templates\base.html:59
 #: .\landing\templates\landing\authentication.html:20
@@ -36,8 +37,10 @@ msgstr "Башкы бет"
 #: .\classroom\templates\classroom\assignment_summary.html:63
 #: .\classroom\templates\classroom\create_assignment.html:31
 #: .\classroom\templates\classroom\create_assignment.html:66
+#: .\classroom\templates\classroom\hamburger.html:42
 #: .\classroom\templates\classroom\hamburger.html:65
 #: .\classroom\templates\classroom\mark_submission.html:68
+#: .\classroom\templates\classroom\parent_class.html:57
 #: .\landing\templates\base.html:85
 #: .\landing\templates\landing\category-detail.html:41
 #: .\landing\templates\landing\content-detail.html:26
@@ -117,6 +120,7 @@ msgid "Менторы"
 msgstr "Мугалимдер"
 
 #: .\classroom\templates\classroom\create_assignment.html:96
+#: .\classroom\templates\classroom\parent_class.html:38
 msgid "Создать задание"
 msgstr "Тапшырма түзүү"
 
@@ -128,11 +132,13 @@ msgstr "Студенттер"
 msgid "Удалить"
 msgstr "Жок кылуу"
 
+#: .\classroom\templates\classroom\hamburger.html:35
 #: .\classroom\templates\classroom\hamburger.html:58
 #: .\classroom\templates\classroom\hamburger.html:75
 msgid "Создать класс"
 msgstr "Класс түзүү"
 
+#: .\classroom\templates\classroom\hamburger.html:39
 #: .\classroom\templates\classroom\hamburger.html:62
 #: .\classroom\templates\classroom\hamburger.html:101
 msgid "Присоединиться к классу"
@@ -267,11 +273,12 @@ msgstr "Биз жөнүндө"
 msgid "Отзывы"
 msgstr "Ой-пикирлер"
 
-#: .\landing\templates\base.html:63 .\landing\templates\base.html:220
+#: .\landing\templates\base.html:63 .\landing\templates\base.html:236
 msgid "Контакты"
 msgstr "Байланыш"
 
 #: .\landing\templates\base.html:79
+#: .\landing\templates\landing\category-detail.html:36
 #: .\landing\templates\landing\category-detail.html:195
 #: .\landing\templates\landing\content-detail.html:21
 #: .\landing\templates\landing\content-detail.html:165
@@ -289,15 +296,15 @@ msgstr "Үйрөткүчтөр"
 msgid "Авторизация"
 msgstr "Авторизация"
 
-#: .\landing\templates\base.html:115
+#: .\landing\templates\base.html:131
 msgid "Оставьте свой номер"
 msgstr "Номериңизди калтырыңыз"
 
-#: .\landing\templates\base.html:115
+#: .\landing\templates\base.html:131
 msgid "а мы вам перезвоним"
 msgstr "жана биз сизге кайра чалабыз"
 
-#: .\landing\templates\base.html:132
+#: .\landing\templates\base.html:148
 msgid "Заказать консультацию"
 msgstr "Консультацияга заказ бериңиз"
 
@@ -611,4 +618,15 @@ msgid ""
 "js, ExtJS, Angular, React и др.<br><br>Поскольку жизнь не стоит на месте, "
 "все материалы по возможности дополняются и обновляются, чтобы "
 "соответствовать духу времени и не терять своей актуальности."
-msgstr "Бул сайт ар кандай программалоо тилдерине жана технологияларына, компьютерлерге, мобилдик платформаларга жана IT технологияларына арналган. Бул жерде ар кандай колдонмолор жана окуу куралдары, макалалар жана мисалдар жайгаштырылат.<br><br>Сайтта сиз C# тили жана .NET технологиялар үй-бүлөсү (ASP.NET, WPF, Entity Framework, ж.б.), Java негизиндеги технологиялар (Java SE, Android программалоо ж.б.), Python, Dart (анын ичинде Flutter), маалымат базалары (MS SQL Server, MySQL, MongoDB) жана HTML5, AJAX, jQuery сыяктуу WEB технологиялары , Node.js, ExtJS, Angular, React, ж.б.<br><br>Жашоо бир орунда турбагандыктан, бардык материалдар убакыттын духуна шайкеш келип, актуалдуулугун жоготпоо үчүн мүмкүн болушунча толукталат жана жаңыртылып турат."
+msgstr ""
+"Бул сайт ар кандай программалоо тилдерине жана технологияларына, "
+"компьютерлерге, мобилдик платформаларга жана IT технологияларына арналган. "
+"Бул жерде ар кандай колдонмолор жана окуу куралдары, макалалар жана мисалдар "
+"жайгаштырылат.<br><br>Сайтта сиз C# тили жана .NET технологиялар үй-бүлөсү "
+"(ASP.NET, WPF, Entity Framework, ж.б.), Java негизиндеги технологиялар (Java "
+"SE, Android программалоо ж.б.), Python, Dart (анын ичинде Flutter), маалымат "
+"базалары (MS SQL Server, MySQL, MongoDB) жана HTML5, AJAX, jQuery сыяктуу "
+"WEB технологиялары , Node.js, ExtJS, Angular, React, ж.б.<br><br>Жашоо бир "
+"орунда турбагандыктан, бардык материалдар убакыттын духуна шайкеш келип, "
+"актуалдуулугун жоготпоо үчүн мүмкүн болушунча толукталат жана жаңыртылып "
+"турат."

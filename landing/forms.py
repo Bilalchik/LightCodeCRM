@@ -33,6 +33,7 @@ class SectionForm(forms.ModelForm):
 
 class ArticleForm(forms.ModelForm):
     body = forms.CharField(widget=CKEditorWidget())
+    # body_ky = forms.CharField(widget=CKEditorWidget(), label='На кыргызском (Не обязательное)', required=False)
     section = forms.ModelChoiceField(
         queryset=Section.objects.all(),
         widget=SectionWidget,

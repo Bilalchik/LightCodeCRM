@@ -1,8 +1,11 @@
+import time
+
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
 from googletrans import Translator
+from bs4 import BeautifulSoup
 
 
 User = get_user_model()
@@ -160,19 +163,33 @@ class Article(models.Model):
         return str(self.section)
 
     def save(self, *args, **kwargs):
-        article = Article.objects.get(pk=1)
-        print(article._meta.get_field('body_ky').get_internal_type())
 
         text_topic_name = self.topic_name
-        text_body = self.body
 
         ky_topic_name = translator.translate(str(text_topic_name), 'ky')
-        # print(a.text)
         self.topic_name_ky = ky_topic_name.text
 
-        ky_body = translator.translate(str(text_body), 'ky')
-        # print(a.text)
-        self.body_ky = ky_body.text
+        soup = BeautifulSoup(self.body, 'html.parser')
+        text_body = list(soup.stripped_strings)
+        dct = {i: translator.translate(i, 'ky').text for i in text_body}
+
+        for k, v in dct.items():
+            self.body_ky = self.body.replace(k, v)
+
+        # if self.pk is not None:
+        #     old_instance = Article.objects.get(pk=self.pk)
+        #     # Проверяем, изменилось ли поле body_ky
+        #     if old_instance.body_ky != self.body_ky:
+        #         # Если да, то не выполняем перевод
+        #         pass
+        #     else:
+        #         # Иначе, выполняем перевод поля body
+        #         soup = BeautifulSoup(self.body, 'html.parser')
+        #         text_body = list(soup.stripped_strings)
+        #         dct = {i: translator.translate(i, 'ky').text for i in text_body}
+        #
+        #         for k, v in dct.items():
+        #             self.body_ky = self.body.replace(k, v)
 
         user = self.teacher
         user.status = 4

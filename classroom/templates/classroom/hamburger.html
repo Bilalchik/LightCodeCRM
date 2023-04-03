@@ -31,15 +31,15 @@
             <menu class="sideBarMenu">
            <ul class="navbar-nav mr-auto">
               {% if user.is_admin or user.status == 4 %}
-            <li class="nav-item active">
-              <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#add_class">Создать класс</button>
-            </li>
+                <li class="nav-item active">
+                  <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#add_class">{% trans 'Создать класс' %}</button>
+                </li>
               {% endif %}
             <li class="nav-item active">
-              <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#join_class">Присоединиться к классу</button>
+              <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#join_class">{% trans 'Присоединиться к классу' %}</button>
             </li>
             <li class="nav-item active">
-              <a href="{% url 'logout' %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">Выйти</a>
+              <a href="{% url 'logout' %}" type="button" class="mybtn myinfo mybtn-active" style="text-decoration: none;">{% trans 'Выйти' %}</a>
             </li>
           </ul>
         </menu>
@@ -54,9 +54,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               {% if user.is_admin or user.status == 4 %}
-            <li class="nav-item active">
-              <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#add_class">{% trans 'Создать класс' %}</button>
-            </li>
+                <li class="nav-item active">
+                  <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#add_class">{% trans 'Создать класс' %}</button>
+                </li>
               {% endif %}
             <li class="nav-item active">
               <button class="mybtn myinfo mybtn-active" type="button" data-toggle="modal" data-target="#join_class">{% trans 'Присоединиться к классу' %}</button>

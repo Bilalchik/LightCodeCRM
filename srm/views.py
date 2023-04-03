@@ -298,7 +298,7 @@ class ExpenseListView(FilteredListView):
 
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -334,7 +334,7 @@ class IncomesView(FilteredListView):
         context['total_incomes'] = context['object_list'].aggregate(total=Sum('value'))['total']
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_admin or u.status == 3, login_url='/registration/'))
+    @method_decorator(user_passes_test(lambda u: u.is_admin, login_url='/registration/'))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

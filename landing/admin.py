@@ -7,7 +7,7 @@ from .models import CourseForLanding, Review, StudyingTime, Article, Section, Su
 
 class ArticleAdminForm(forms.ModelForm):
     body_ru = forms.CharField(label='Контент [ru]', widget=CKEditorUploadingWidget())
-    body_ky = forms.CharField(label='Контент [ky]', widget=CKEditorUploadingWidget())
+    body_ky = forms.CharField(label='Контент [ky]', widget=CKEditorUploadingWidget(), required=False)
 
 
 class StudyingTimeAdmin(TranslationAdmin):
