@@ -170,26 +170,11 @@ class Article(models.Model):
         self.topic_name_ky = ky_topic_name.text
 
         soup = BeautifulSoup(self.body, 'html.parser')
-        text_body = list(soup.stripped_strings)
+        text_body = [i.replace('.', '. ') for i in list(soup.stripped_strings)]
         dct = {i: translator.translate(i, 'ky').text for i in text_body}
 
         for k, v in dct.items():
-            self.body_ky = self.body.replace(k, v)
-
-        # if self.pk is not None:
-        #     old_instance = Article.objects.get(pk=self.pk)
-        #     # Проверяем, изменилось ли поле body_ky
-        #     if old_instance.body_ky != self.body_ky:
-        #         # Если да, то не выполняем перевод
-        #         pass
-        #     else:
-        #         # Иначе, выполняем перевод поля body
-        #         soup = BeautifulSoup(self.body, 'html.parser')
-        #         text_body = list(soup.stripped_strings)
-        #         dct = {i: translator.translate(i, 'ky').text for i in text_body}
-        #
-        #         for k, v in dct.items():
-        #             self.body_ky = self.body.replace(k, v)
+            self.body_ky = self.body_ky.replace(k, v)
 
         user = self.teacher
         user.status = 4

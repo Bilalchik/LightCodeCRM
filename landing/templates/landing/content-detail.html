@@ -130,7 +130,7 @@ ul.breadcrumb li a:hover {
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
-<div style="background-image: url(https://oir.mobi/uploads/posts/2021-03/1616435811_9-p-belii-fon-gradient-11.png)">
+<!--<div style="background-image: url(https://oir.mobi/uploads/posts/2021-03/1616435811_9-p-belii-fon-gradient-11.png)">-->
      <div style="display: flex;">
    <div class="sideBar">
       <div class="sideBarInner">
@@ -143,14 +143,14 @@ ul.breadcrumb li a:hover {
           </svg>
         </div>
 
-        <menu class="sideBarMenu" style="display: none;">
+        <menu class="sideBarMenu">
           {% for article in articles %}
             <li><a href="{% url 'content_view' article.slug %}">{{ article.topic_name }}</a></li><hr style="color: gray;">
         {% endfor %}
         </menu>
       </div>
     </div>
-    <div class="container mt-3" style="width: 75%; fon-size: 10px; flex: 1;">
+    <div class="container mt-3" style="width: 65%; fon-size: 10px;">
         <div id="about" class="about-us section">
             <div class="col-lg-6 align-self-center">
                 <div class="section-heading">
