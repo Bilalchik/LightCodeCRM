@@ -27,11 +27,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # local apps
     'landing',
     'account',
     'srm',
     'classroom',
+    'forum',
+
     # external apps
     'django_select2',
     "phonenumber_field",

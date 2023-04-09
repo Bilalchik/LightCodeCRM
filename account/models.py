@@ -57,6 +57,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
             (3, 'Менеждер'),
             (4, 'Ментор'),
             (5, 'Копирайтер'),
+            (6, 'Модератор')
         ),
         default=1,
         verbose_name=('Статус')
