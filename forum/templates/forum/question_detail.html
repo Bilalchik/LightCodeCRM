@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+
 <html lang="en">
 
 <head>
@@ -17,7 +19,9 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
@@ -77,6 +81,13 @@ ul.breadcrumb li a:hover {
                 </div>
                 <div class="sidebar-brand-text mx-3">LighCode</div>
             </a>
+
+            <hr class="sidebar-divider my-0">
+            {% if user.is_admin or user.status == 6 %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'banned_list' %}"><span>Управление пользователями</span></a>
+                </li>
+            {% endif %}
 
             <hr class="sidebar-divider my-0">
 
@@ -153,7 +164,7 @@ ul.breadcrumb li a:hover {
                     <!-- Topbar Search -->
                     <form method="GET" action="{% url 'question_list' %}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Искать..."
                                 aria-label="Search" aria-describedby="basic-addon2" value="{{ request.GET.q }}">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
@@ -207,7 +218,7 @@ ul.breadcrumb li a:hover {
                                 <a class="dropdown-item" href="{% url 'personal_area' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>
-                                    Profile
+                                    Профиль
                                 </a>
 <!--                                <a class="dropdown-item" href="#">-->
 <!--                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
@@ -222,7 +233,7 @@ ul.breadcrumb li a:hover {
   <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
   <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
 </svg>
-                                    Logout
+                                    Выйти
                                 </a>
                             </div>
                         </li>
@@ -242,18 +253,37 @@ ul.breadcrumb li a:hover {
                         <li><a href="{% url 'main_page' %}">Главная</a></li>
                         <li style="color: #0275d8;">{{ question.topic.parent_topic }}</li>
                         <li><a href="{% url 'topic_detail' question.topic.slug %}">{{ question.topic.title }}</a></li>
-                        <li><a href="{% url 'question_detail' question.slug %}">{{ question.title }}</a></li>
+                        <li><a href="{% url 'question_detail' question.id %}">{{ question.title }}</a></li>
                         <li><a>...</a></li>
                     </ul>
 
                     <!-- Content Row -->
 
                    <div class="row">
+                        <div class="container-fluid">
+                    <div class="container" style="width: 55%;">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                        {% if is_creator %}
+                            <h4 style="margin-bottom: 30px;"><a href="#" data-toggle="modal" data-target="#QuestionModal">Изменить пост</a></h4>
+                        {% endif %}
                         <!-- Default Card Example -->
                         <div class="card mb-4" style="width: 100%;">
                             <div class="card-header">
                                 <div style="display: flex; justify-content: space-between;">
                                     <h5 style="color: blue; margin-right: 10px;">{{ question.user }}</h5>
+                                    {% if user.is_admin or user.status == 6 %}
+                                        <h5 style="color: blue; margin-center: 10px;"><a href="{% url 'question_delete' question.id %}" data-toggle="modal" data-target="#DeleteModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+</svg></a></h5>
+                                    {% endif %}
                                     <div class="dropdown no-arrow">
                                         <p>{{ question.created_date }}</p>
                                     </div>
@@ -268,20 +298,71 @@ ul.breadcrumb li a:hover {
                                 {{ question.body }}
                             </div>
                         </div>
+                            <div class="dropdown mb-4">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сортировать по дате</button>
+                                <div class="dropdown-menu animated--fade-in"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="?order_by=asc" style="font-size: 15px;">Сначала старые</a>
+                                    <a class="dropdown-item" href="?order_by=desc" style="font-size: 15px;">Сначала новые</a>
+                                </div>
+                            </div>
                     </div>
             </div>
-                <div class="container">
+
+               <div class="container">
                     {% for comment in comments %}
                         <div class="card mb-4 py-3 border-left-primary">
                             <div class="card-body">
-                                <h6 class="m-0 font-weight-bold text-primary">{{ comment.user }} {% if comment.parent_comment %}| <span style="color: gray;">Ответил(-а) {{ comment.parent_comment.user }}</span> {% endif %}</h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ comment.user }} {% if comment.parent_comment %}| <span style="color: gray;">Ответил(-а) {{ comment.parent_comment.user }}</span> {% endif %}</h6>
+                                    {% if user.is_admin or user.status == 6 %}
+                                        <h7 style="color: blue;"><a href="{% url 'comment_delete' comment.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                        </svg>Удалить комментарий</a></h7>
+                                    {% endif %}
+                                </div>
                                 <div class="dropdown no-arrow">
                                     <p>{{ comment.created_date }}</p>
                                 </div>
                                 <p>{{ comment.body }}</p>
+                                <button class="btn btn-light collapse-btn reply-btn" data-comment-id="{{ comment.id }}">Ответить</button>
                             </div>
                         </div>
                     {% endfor %}
+                </div>
+
+                        <!-- Question change Modal-->
+                <div class="modal fade" id="QuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="QuestionModalLabel">Изменить объект</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                {{ form.media.css }}
+                                <form method="POST" action=".">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            {{ question_form.title|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            {{ question_form.body|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" name="question_submit">Сохранить</button>
+                                </form>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                {{ form.media.js }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                  <hr>
                 <!-- Pagination -->
@@ -310,6 +391,24 @@ ul.breadcrumb li a:hover {
                         {% endif %}
                     </ul>
                 </nav>
+                <h4 align="center">Добавить комментарий</h4>
+                {{ form.media.css }}
+                    <form id="comment-form" method="POST" action=".">
+                        {% csrf_token %}
+                        <center><div class="row" style="width: 70%;">
+                            <div class="col-12 text-center">
+                                {{ comment_form.body|as_crispy_field }}
+                            </div>
+                        </div></center>
+                        <div class="row">
+                            <div class="col-12 d-none">
+                                {{ comment_form.parent_comment|as_crispy_field }}
+                            </div>
+                        </div>
+                        <center><button class="btn btn-primary" type="submit" name="comment_submit" >Сохранить</button></center>
+                    </form>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                {{ form.media.js }}
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -335,21 +434,40 @@ ul.breadcrumb li a:hover {
 </svg>
     </a>
 
+    <!-- Delete post Modal-->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Вы точно хотите удалить этот пост?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Нет</button>
+                    <a class="btn btn-primary" href="{% url 'question_delete' question.id %}">Да</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Готов выйти?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Выберите «Выйти» ниже, если вы готовы завершить текущий сеанс.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{% url 'exit' %}">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Отмена</button>
+                    <a class="btn btn-primary" href="{% url 'exit' %}">Выйти</a>
                 </div>
             </div>
         </div>
@@ -371,6 +489,26 @@ ul.breadcrumb li a:hover {
     <!-- Page level custom scripts -->
     <script src="{% static 'js/chart-area-demo.js' %}"></script>
     <script src="{% static 'js/chart-pie-demo.js' %}"></script>
+        <script>
+    // получаем все кнопки "Ответить"
+    const replyButtons = document.querySelectorAll('.reply-btn');
+
+    replyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // получаем ID комментария, на который пользователь нажал "Ответить"
+            const commentId = button.dataset.commentId;
+
+            // заполняем скрытое поле в форме для создания нового комментария
+            const parentCommentField = document.getElementById('id_parent_comment');
+            parentCommentField.value = commentId;
+
+            // прокручиваем страницу к форме для создания нового комментария
+            const commentForm = document.getElementById('comment-form');
+            commentForm.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+
 
 </body>
 

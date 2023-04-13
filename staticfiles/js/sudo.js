@@ -1,6 +1,6 @@
     // создаем объект Swiper и настраиваем его
     var mySwiper = new Swiper('.swiper-container', {
-      slidesPerView: 3, /* показываем сразу 3 слайда */
+      slidesPerView: window.innerWidth <= 670 ?1 :window.innerWidth <= 990 ?2 :3, /* показываем сразу 3 слайда */
       spaceBetween: 30,
       loop: false, /* включаем бесконечный скролл */
       autoHeight: true,
@@ -16,14 +16,9 @@
     });
 
     // добавляем обработчик события click для слайдов
-    var slides = document.querySelectorAll('.swiper-slide');
-    for (var i = 0; i < slides.length; i++) {
-      slides[i].addEventListener('click', function () {
-        mySwiper.slideToLoop(this.dataset.swiperSlideIndex);
-      });
-    }
+    const slides = document.querySelectorAll('.swiper-slide');
     slides.forEach((item, index) => {
-    item.setAttribute('data-swiper-slide-index', index)
+        item.setAttribute('data-swiper-slide-index', index)
     })
 
 

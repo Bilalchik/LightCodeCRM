@@ -12,12 +12,11 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ['user', 'topic', 'title', 'created_date']
     list_filter = ('topic', 'created_date')
     search_fields = ['topic', 'user']
-    prepopulated_fields = {'slug': ('title',)}
 
 
 class AccessRightsAdmin(admin.ModelAdmin):
-    list_display = ['user', 'start_date', 'end_date', 'created_date']
-    list_filter = ('start_date', 'end_date', 'created_date')
+    list_display = ['user', 'created_date', 'end_date', 'created_date']
+    list_filter = ('created_date', 'end_date')
     search_fields = ['user']
 
 

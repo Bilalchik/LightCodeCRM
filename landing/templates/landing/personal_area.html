@@ -21,6 +21,18 @@
                 <h4><em>{% trans 'Личный кабинет' %}</em></h4>
               </div>
             </div>
+              {% if user.is_banned == 2 or user.is_banned == 3%}
+                  <div class="container" style="width: 75%;">
+                      <div class="alert alert-danger">
+                          {% if user.is_banned == 2 %}
+                            <h7>Ваш аккаунт заблокирован на некоторое время из-за нарушения наших правил. Если у вас есть вопросы, свяжитесь с нами через форму обратной связи.</h7>
+                          {% endif %}
+                          {% if user.is_banned == 3 %}
+                            <h7>Ваш аккаунт заблокирован навсегда из-за нарушения наших правил. Пожалуйста, свяжитесь с нами, если у вас есть возражения.</h7>
+                          {% endif %}
+                      </div>
+                  </div>
+              {% endif %}
             <h5>{% trans 'Добро пожаловать в ваш личный кабинет!' %}</h5>&nbsp;
             <h4>{{ user.username }}</h4>
             <h5>Статуc: {{ user.get_status_display }}</h5>

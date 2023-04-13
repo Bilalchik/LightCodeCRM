@@ -29,7 +29,6 @@ class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name='Тема')
     title = models.CharField(max_length=225, verbose_name='Название')
-    slug = models.SlugField()
     body = models.TextField(verbose_name='Контент')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
@@ -62,23 +61,28 @@ class Comment(models.Model):
 class AccessRights(models.Model):
     moderator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Модератор', related_name='moderator')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='user')
-    start_date = models.DateField(auto_now_add=True, verbose_name='Начало даты бана')
-    end_date = models.DateField(verbose_name='Конец даты бана')
+    is_ban_forever = models.BooleanField(default=False, verbose_name='Забанить навсегда')
+    end_date = models.DateField(verbose_name='Конец даты бана', blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def save(self, *args, **kwargs):
+        user = self.user
+        if self.is_ban_forever == True:
+            user.is_banned = 3
+            user.save()
+        elif self.end_date:
+            user.is_banned = 2
+            user.save()
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        user = self.user
+        user.is_banned = 1
+        user.save()
+        return super().delete(*args, **kwargs)
 
     def __str__(self):
         return str(self.user)
-
-    def clean(self):
-        moderator = self.moderator
-        user = self.user
-        if moderator.is_admin != True:
-            if moderator.status != 6 :
-                raise ValidationError({'moderator': 'Забанить может только Модератор или Админ'})
-            raise ValidationError({'moderator': 'Забанить может только Модератор или Админ'})
-        elif moderator == user:
-            raise ValidationError({'user': 'Вы не можете забанить самого себя'})
-        return super().clean()
 
     class Meta:
         verbose_name = 'Права доступа'

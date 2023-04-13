@@ -71,7 +71,15 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         default=False,
         verbose_name=('Админ')
     )
-
+    is_banned = models.PositiveSmallIntegerField(
+        choices=(
+            (1, 'Ограничений нет'),
+            (2, 'Забанен на время'),
+            (3, 'Забанен навсегда'),
+        ),
+        default=1,
+        verbose_name='Статус на ограничение'
+    )
     objects = MyUserManager()
 
     USERNAME_FIELD = 'phone_number'

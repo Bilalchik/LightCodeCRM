@@ -21,37 +21,6 @@ class LeadForm(forms.ModelForm):
         fields = ['full_name', 'phone_number', 'course', 'is_add', 'description']
 
 
-# class AppointmentUpdateForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = Appointment
-#         fields = ('status', 'assignment_start_date', 'assignment_end_date', 'more_information', 'services')
-#         widgets = {
-#             'assignment_start_date': forms.widgets.DateTimeInput(
-#                 attrs={'type': 'datetime-local'},
-#                 format='%Y-%m-%d %H:%M'
-#             ),
-#             'assignment_end_date': forms.widgets.DateTimeInput(
-#                 attrs={'type': 'datetime-local'},
-#                 format='%Y-%m-%d %H:%M'),
-#         }
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['services'].queryset = self.fields['services'].queryset.filter(
-#             company=kwargs['instance'].company_branch.company
-#         )
-
-# class CustomSelectWidget(forms.Select):
-#     def create_option(self, name, value, *args, **kwargs):
-#         option = super().create_option(name, value, *args, **kwargs)
-#         if value:
-#             option['attrs']['data-courses'] = value.instance.course_names  # set option attribute
-#             option['attrs']['data-studying_time'] = value.instance.studying_time_names  # set option attribute
-#             option['attrs']['data-format'] = value.instance.format_names  # set option attribute
-#         return option
-
-
 class StudentForm(forms.ModelForm):
     last_payment_date = forms.DateField(widget=forms.widgets.DateInput(
         attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
