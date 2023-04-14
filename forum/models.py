@@ -1,9 +1,15 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
+from googletrans import Translator
 
 
 User = get_user_model()
+
+translator = Translator(service_urls=[
+            'translate.google.com',
+            'translate.google.co.kr',
+        ])
 
 
 class Topic(models.Model):
@@ -20,6 +26,16 @@ class Topic(models.Model):
             k = k.parent_topic
         return ' -> '.join(full_path[::-1])
 
+    def save(self, *args, **kwargs):
+
+        text_title = self.title
+
+        ky_title = translator.translate(str(text_title), 'ky')
+        # print(a.text)
+        self.title_ky = ky_title.text
+
+        super().save()
+
     class Meta:
         verbose_name = 'Тема'
         verbose_name_plural = 'Темы'
@@ -34,6 +50,20 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.user} -> {self.topic}'
+
+    def save(self, *args, **kwargs):
+
+        text_title = self.title
+        text_dody = self.body
+
+        ky_title = translator.translate(str(text_title), 'ky')
+        # print(a.text)
+        self.title_ky = ky_title.text
+
+        ky_dody = translator.translate(str(text_dody), 'ky')
+        self.body_ky = ky_dody.text
+
+        super().save()
 
     class Meta:
         verbose_name = 'Вопрос'
@@ -52,6 +82,16 @@ class Comment(models.Model):
             return f"{self.user} -> {self.question}"
         else:
             return f"{self.user} -> {self.parent_comment}"
+
+    def save(self, *args, **kwargs):
+
+        text_body = self.body
+
+        ky_body = translator.translate(str(text_body), 'ky')
+        # print(a.text)
+        self.body_ky = ky_body.text
+
+        super().save()
 
     class Meta:
         verbose_name = 'Комментарий'

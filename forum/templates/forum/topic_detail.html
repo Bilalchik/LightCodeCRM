@@ -1,5 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 <html lang="en">
 
@@ -94,7 +95,7 @@ ul.breadcrumb li a:hover {
             <hr class="sidebar-divider my-0">
             {% if user.is_admin or user.status == 6 %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'banned_list' %}"><span>Управление пользователями</span></a>
+                    <a class="nav-link" href="{% url 'banned_list' %}"><span>{% trans 'Управление пользователями' %}</span></a>
                 </li>
             {% endif %}
 
@@ -103,7 +104,7 @@ ul.breadcrumb li a:hover {
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'main_page' %}"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
   <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-</svg> Главная</span></a>
+</svg> {% trans 'Главная' %}</span></a>
             </li>
 
            <!-- Divider -->
@@ -114,7 +115,7 @@ ul.breadcrumb li a:hover {
                 <a class="nav-link" onclick="history.back()">
                     <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-</svg> Вернуться назад</span></a>
+</svg> {% trans 'Вернуться назад' %}</span></a>
             </li>
 
             <!-- Divider -->
@@ -122,7 +123,7 @@ ul.breadcrumb li a:hover {
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Все актуальные темы
+                {% trans 'Все актуальные темы' %}
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -173,7 +174,7 @@ ul.breadcrumb li a:hover {
                     <!-- Topbar Search -->
                     <form method="GET" action="{% url 'question_list' %}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Искать..."
+                            <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="{% trans 'Искать' %}..."
                                 aria-label="Search" aria-describedby="basic-addon2" value="{{ request.GET.q }}">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
@@ -227,7 +228,7 @@ ul.breadcrumb li a:hover {
                                 <a class="dropdown-item" href="{% url 'personal_area' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>
-                                    Профиль
+                                    {% trans 'Профиль' %}
                                 </a>
 <!--                                <a class="dropdown-item" href="#">-->
 <!--                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
@@ -242,7 +243,7 @@ ul.breadcrumb li a:hover {
   <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
   <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
 </svg>
-                                    Выйти
+                                    {% trans 'Выйти' %}
                                 </a>
                             </div>
                         </li>
@@ -268,12 +269,12 @@ ul.breadcrumb li a:hover {
                         <h1 class="h3 mb-0 text-gray-800">{{ topic.title }}</h1>
                     </div>
                     <ul class="breadcrumb" style="margin-bottom: 30px;">
-                        <li><a href="{% url 'main_page' %}">Главная</a></li>
+                        <li><a href="{% url 'main_page' %}">{% trans 'Главная' %}</a></li>
                         <li style="color: #0275d8;">{{ topic.parent_topic }}</li>
                         <li><a href="{% url 'topic_detail' topic.slug %}">{{ topic.title }}</a></li>
                         <li><a>...</a></li>
                     </ul>
-                    <h4 style="margin-bottom: 30px;"><a href="#" data-toggle="modal" data-target="#QuestionModal">Опубликовать пост</a></h4>
+                    <h4 style="margin-bottom: 30px;"><a href="#" data-toggle="modal" data-target="#QuestionModal">{% trans 'Опубликовать пост' %}</a></h4>
 
                     <div class="row">
                         {% for question in questions %}
@@ -300,8 +301,8 @@ ul.breadcrumb li a:hover {
                                         <p>{{ question.body }}</p>
                                     </div>
                                     <div class="btn-container">
-                                        <button class="btn btn-secondary expand-btn" style="background-color: white; font-size: 13;"><span style="color: black;">Развернуть</span></button>
-                                        <button class="btn btn-light collapse-btn" style="display:none"><span>Скрыть</span></button>
+                                        <button class="btn btn-secondary expand-btn" style="background-color: white; font-size: 13;"><span style="color: black;">{% trans 'Развернуть' %}</span></button>
+                                        <button class="btn btn-light collapse-btn" style="display:none"><span>{% trans 'Скрыть' %}</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -315,13 +316,13 @@ ul.breadcrumb li a:hover {
                     <ul class="pagination justify-content-center">
                         {% if questions.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Предыдущая' %}</a>
                             </li>
                         {% endif %}
                         {% for page in questions.paginator.page_range %}
                             {% if questions.number == page %}
                                 <li class="page-item active">
-                                    <span class="page-link">{{ page }} <span class="sr-only">(текущая)</span></span>
+                                    <span class="page-link">{{ page }} <span class="sr-only">({% trans 'текущая' %})</span></span>
                                 </li>
                             {% elif page > questions.number|add:'-3' and page < questions.number|add:'3' %}
                                 <li class="page-item">
@@ -331,7 +332,7 @@ ul.breadcrumb li a:hover {
                         {% endfor %}
                         {% if questions.has_next %}
                             <li class="page-item">
-                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Следующая' %}</a>
                             </li>
                         {% endif %}
                     </ul>

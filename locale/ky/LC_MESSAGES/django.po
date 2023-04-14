@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-02 23:45+0600\n"
+"POT-Creation-Date: 2023-04-14 22:01+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,13 @@ msgstr ""
 #: .\classroom\templates\classroom\mark_submission.html:65
 #: .\classroom\templates\classroom\parent_class.html:33
 #: .\classroom\templates\classroom\register.html:17
+#: .\forum\templates\forum\banned_list.html:57
+#: .\forum\templates\forum\cards.html:53
+#: .\forum\templates\forum\list_questions.html:71
+#: .\forum\templates\forum\question_detail.html:98
+#: .\forum\templates\forum\question_detail.html:254
+#: .\forum\templates\forum\topic_detail.html:107
+#: .\forum\templates\forum\topic_detail.html:272
 #: .\landing\templates\base.html:59
 #: .\landing\templates\landing\authentication.html:20
 #: .\landing\templates\landing\category-detail.html:194
@@ -41,7 +48,18 @@ msgstr "Башкы бет"
 #: .\classroom\templates\classroom\hamburger.html:65
 #: .\classroom\templates\classroom\mark_submission.html:68
 #: .\classroom\templates\classroom\parent_class.html:57
-#: .\landing\templates\base.html:85
+#: .\forum\templates\forum\banned_list.html:196
+#: .\forum\templates\forum\banned_list.html:316
+#: .\forum\templates\forum\cards.html:192
+#: .\forum\templates\forum\cards.html:281
+#: .\forum\templates\forum\index.html:194
+#: .\forum\templates\forum\index.html:334
+#: .\forum\templates\forum\list_questions.html:210
+#: .\forum\templates\forum\list_questions.html:321
+#: .\forum\templates\forum\question_detail.html:237
+#: .\forum\templates\forum\question_detail.html:471
+#: .\forum\templates\forum\topic_detail.html:246
+#: .\landing\templates\base.html:87
 #: .\landing\templates\landing\category-detail.html:41
 #: .\landing\templates\landing\content-detail.html:26
 #: .\landing\templates\landing\tutorial_content.html:26
@@ -233,6 +251,24 @@ msgstr "Кайра жасоо"
 msgid "Выполнено"
 msgstr "Даяр"
 
+#: .\classroom\templates\classroom\parent_class.html:41
+#, fuzzy
+#| msgid "Создать класс"
+msgid "Удалить класс"
+msgstr "Класс түзүү"
+
+#: .\classroom\templates\classroom\parent_class.html:44
+#, fuzzy
+#| msgid "Количество студентов"
+msgid "Добавить студента"
+msgstr "Студенттердин саны"
+
+#: .\classroom\templates\classroom\parent_class.html:52
+#, fuzzy
+#| msgid "Код класса"
+msgid "Выйти из класса"
+msgstr "Класс коду"
+
 #: .\classroom\templates\classroom\parent_class.html:75
 msgid "Все классы"
 msgstr "Бардык класстар"
@@ -260,12 +296,321 @@ msgstr "Каттоо"
 msgid "Отправить задание"
 msgstr "Тапшырма тапшыруу"
 
+#: .\forum\templates\forum\banned_list.html:68
+#: .\forum\templates\forum\cards.html:64
+#: .\forum\templates\forum\list_questions.html:82
+#: .\forum\templates\forum\question_detail.html:109
+#: .\forum\templates\forum\topic_detail.html:118
+#, fuzzy
+#| msgid "Вернуться на главную страницу"
+msgid "Вернуться назад"
+msgstr "Башкы бетке кайтуу"
+
+#: .\forum\templates\forum\banned_list.html:76
+#: .\forum\templates\forum\cards.html:72 .\forum\templates\forum\index.html:71
+#: .\forum\templates\forum\list_questions.html:90
+#: .\forum\templates\forum\question_detail.html:117
+#: .\forum\templates\forum\topic_detail.html:126
+msgid "Все актуальные темы"
+msgstr "Бардык учурдагы темалар"
+
+#: .\forum\templates\forum\banned_list.html:127
+#: .\forum\templates\forum\cards.html:123
+#: .\forum\templates\forum\index.html:122
+#: .\forum\templates\forum\list_questions.html:141
+#: .\forum\templates\forum\question_detail.html:168
+#: .\forum\templates\forum\topic_detail.html:177
+msgid "Искать"
+msgstr "Издөө"
+
+#: .\forum\templates\forum\banned_list.html:181
+#: .\forum\templates\forum\cards.html:177
+#: .\forum\templates\forum\index.html:179
+#: .\forum\templates\forum\list_questions.html:195
+#: .\forum\templates\forum\question_detail.html:222
+#: .\forum\templates\forum\topic_detail.html:231
+msgid "Профиль"
+msgstr "Профиль"
+
+#: .\forum\templates\forum\banned_list.html:218
+#: .\forum\templates\forum\index.html:62
+#: .\forum\templates\forum\list_questions.html:62
+#: .\forum\templates\forum\question_detail.html:89
+#: .\forum\templates\forum\topic_detail.html:98
+#, fuzzy
+#| msgid "Отправлено вовремя"
+msgid "Управление пользователями"
+msgstr "Өз убагында жөнөтүлдү"
+
+#: .\forum\templates\forum\banned_list.html:221
+msgid ""
+"Обратите внимание, что блокировка пользователя ограничивает его возможности "
+"на сайте, и он не сможет отправлять сообщения, писать комментарии, создавать "
+"темы и т.д. на определенный период времени."
+msgstr "Эскерте кетсек, колдонуучуну бөгөттөө анын сайттагы мүмкүнчүлүктөрүн чектейт жана алар билдирүү жөнөтө, комментарий жаза албайт, тема түзө албайт жана башкалар. белгилүү бир мөөнөткө."
+
+#: .\forum\templates\forum\banned_list.html:223
+msgid "Забанить пользователя"
+msgstr "Колдонуучуга тыюу салуу"
+
+#: .\forum\templates\forum\banned_list.html:227
+msgid "Пользователи которые находятся в ограниченном доступе"
+msgstr "Мүмкүнчүлүктөрү чектелген колдонуучулар"
+
+#: .\forum\templates\forum\banned_list.html:234
+#: .\forum\templates\forum\banned_list.html:243
+msgid "Имя пользователя"
+msgstr "Колдонуучунун аты"
+
+#: .\forum\templates\forum\banned_list.html:235
+#: .\forum\templates\forum\banned_list.html:244
+msgid "Дата создания"
+msgstr "Түзүлгөн датасы"
+
+#: .\forum\templates\forum\banned_list.html:236
+#: .\forum\templates\forum\banned_list.html:245
+msgid "Конец даты бана"
+msgstr "Тыюу салуу датасы"
+
+#: .\forum\templates\forum\banned_list.html:237
+#: .\forum\templates\forum\banned_list.html:246
+msgid "Забанен навсегда?"
+msgstr "Түбөлүк тыюу салынганбы?"
+
+#: .\forum\templates\forum\banned_list.html:265
+msgid "Разбанить"
+msgstr "Тыюудан чыгаруу"
+
+#: .\forum\templates\forum\banned_list.html:308
+#: .\forum\templates\forum\cards.html:273
+#: .\forum\templates\forum\index.html:326
+#: .\forum\templates\forum\list_questions.html:313
+#: .\forum\templates\forum\question_detail.html:463
+msgid "Готов выйти?"
+msgstr "Чыгууга даярсызбы?"
+
+#: .\forum\templates\forum\banned_list.html:313
+#: .\forum\templates\forum\cards.html:278
+#: .\forum\templates\forum\index.html:331
+#: .\forum\templates\forum\list_questions.html:318
+#: .\forum\templates\forum\question_detail.html:468
+msgid "Выберите «Выйти» ниже, если вы готовы завершить текущий сеанс."
+msgstr "Учурдагы сеансыңызды бүтүрүүгө даяр болсоңуз, төмөнкү Чыгууну тандаңыз."
+
+#: .\forum\templates\forum\banned_list.html:315
+#: .\forum\templates\forum\cards.html:280
+#: .\forum\templates\forum\index.html:333
+#: .\forum\templates\forum\list_questions.html:320
+#: .\forum\templates\forum\question_detail.html:450
+#: .\forum\templates\forum\question_detail.html:470
+msgid "Отмена"
+msgstr "Жокко чыгаруу"
+
+#: .\forum\templates\forum\cards.html:206
+msgid "Ограничить доступ"
+msgstr "Мүмкүнчүлүктү чектөө"
+
+#: .\forum\templates\forum\cards.html:211
+#, fuzzy
+#| msgid "Выполнено"
+msgid "Заполните поля"
+msgstr "Даяр"
+
+#: .\forum\templates\forum\cards.html:235
+#: .\forum\templates\forum\question_detail.html:360
+#: .\forum\templates\forum\question_detail.html:409
+msgid "Сохранить"
+msgstr "Сактоо"
+
+#: .\forum\templates\forum\index.html:161 .\landing\templates\base.html:84
+#: .\landing\templates\landing\category-detail.html:38
+#: .\landing\templates\landing\content-detail.html:23
+#: .\landing\templates\landing\tutorial_content.html:23
+#: .\landing\templates\landing\tutorials.html:38
+msgid "Авторизация"
+msgstr "Авторизация"
+
+#: .\forum\templates\forum\index.html:208
+msgid "Дискуссионная платформа"
+msgstr "Талкуу платформасы"
+
+#: .\forum\templates\forum\index.html:214
+#: .\landing\templates\landing\personal_area.html:28
+msgid ""
+"Ваш аккаунт заблокирован на некоторое время из-за нарушения наших правил. "
+"Если у вас есть вопросы, свяжитесь с нами через форму обратной связи."
+msgstr "Каттоо эсебиңиз биздин эрежелерди бузгандыктан бир нече убакытка токтотулган. Эгерде сизде кандайдыр бир суроолор болсо, пикир формасы аркылуу биз менен байланышыңыз."
+
+#: .\forum\templates\forum\index.html:217
+#: .\landing\templates\landing\personal_area.html:31
+msgid ""
+"Ваш аккаунт заблокирован навсегда из-за нарушения наших правил. Пожалуйста, "
+"свяжитесь с нами, если у вас есть возражения."
+msgstr "Каттоо эсебиңиз саясаттарыбызды бузгандыктан биротоло токтотулду. Эгерде кандайдыр бир каршы пикириңиз болсо, биз менен байланышыңыз."
+
+#: .\forum\templates\forum\index.html:232
+#, fuzzy
+#| msgid "О разделе"
+msgid "О Разделе"
+msgstr "Бөлүм жөнүндө"
+
+#: .\forum\templates\forum\index.html:237
+msgid ""
+"В данном разделе вы можете найти обсуждения по различным темам, которые "
+"могут быть интересны для вас. Наш сайт предоставляет платформу для обмена "
+"мнениями и опытом между пользователями, которые разделяют общие интересы."
+msgstr "Бул бөлүмдө сизди кызыктырган ар кандай темалар боюнча талкууларды таба аласыз. Биздин сайт жалпы кызыкчылыктары бар колдонуучулардын ортосунда пикир жана тажрыйба алмашуу үчүн аянтчаны камсыз кылат."
+
+#: .\forum\templates\forum\index.html:238
+msgid ""
+"Здесь вы можете найти темы по различным областям, таким как наука, "
+"технологии, искусство, спорт и многое другое. Вы можете создать свою тему и "
+"начать обсуждение с другими участниками, или присоединиться к уже имеющимся "
+"дискуссиям."
+msgstr "Бул жерден сиз илим, технология, искусство, спорт жана башка көптөгөн тармактардагы темаларды таба аласыз. Сиз өзүңүздүн темаңызды түзүп, башка катышуучулар менен талкууну баштасаңыз же учурдагы талкууларга кошула аласыз."
+
+#: .\forum\templates\forum\index.html:239
+msgid ""
+"Мы стремимся создать дружественное и уважительное сообщество, где каждый "
+"может выразить свое мнение и услышать мнения других. Просим вас уважать "
+"мнения других участников и избегать нецензурной лексики и оскорблений."
+msgstr "Биз ар бир адам өз оюн айтып, башкалардын пикирин уга ала турган достук жана урматтуу коомчулукту түзүүгө умтулабыз. Сураныч, башка мүчөлөрдүн пикирин сыйлап, кемсинтүү жана кемсинтүүдөн алыс болуңуз."
+
+#: .\forum\templates\forum\index.html:240
+msgid ""
+"Мы надеемся, что наш раздел будет полезным и интересным для вас, и вы "
+"найдете здесь много новых знаний и интересных идей. Спасибо за то, что "
+"выбрали наш сайт для общения и обмена опытом!"
+msgstr "Биздин бөлүм сиз үчүн пайдалуу жана кызыктуу болот деп ишенебиз жана бул жерден көптөгөн жаңы билимдерди жана кызыктуу идеяларды таба аласыз. Байланыш жана тажрыйба алмашуу үчүн биздин сайтты тандаганыңыз үчүн рахмат!"
+
+#: .\forum\templates\forum\index.html:251
+msgid "Предупреждение"
+msgstr "Эскертүү"
+
+#: .\forum\templates\forum\index.html:255
+msgid ""
+"В нашем сообществе мы стараемся создать дружественную и уважительную "
+"атмосферу, где каждый может высказаться и поделиться своими мыслями и "
+"идеями. Но чтобы сохранить эту атмосферу, мы имеем правила поведения на "
+"сайте, которые необходимо соблюдать."
+msgstr "Биздин жамаатта биз ар бир адам өз ойлорун жана идеяларын айтып, бөлүшө ала турган достук жана урмат-сый атмосферасын түзүүгө аракет кылабыз. Бирок бул атмосфераны сактап калуу үчүн бизде сайтта сакталышы керек болгон жүрүм-турум эрежелери бар."
+
+#: .\forum\templates\forum\index.html:256
+msgid ""
+"Модераторы нашего сообщества следят за тем, чтобы правила были соблюдены и "
+"чтобы каждый участник чувствовал себя комфортно. Если какой-то участник "
+"нарушает правила, модераторы могут забанить его на некоторое время или "
+"навсегда."
+msgstr "Коомчулуктун модераторлору эрежелердин сакталышын жана ар бир мүчөнүн өзүн ыңгайлуу сезишине ынанышат. Эгер мүчө эрежелерди бузса, модераторлор ага бир аз убакытка же биротоло тыюу салышы мүмкүн."
+
+#: .\forum\templates\forum\index.html:257
+msgid ""
+"Пожалуйста, соблюдайте правила нашего сайта и уважайте других участников. Не "
+"используйте оскорбительную речь или нецензурные выражения, не нарушайте "
+"авторские права и не публикуйте запрещенный контент."
+msgstr "Сураныч, биздин сайттын эрежелерин сактоо жана башка мүчөлөрүн урматтоо. Адепсиз сөздөрдү же адепсиз сөздөрдү колдонбоңуз, автордук укуктарды бузбаңыз жана тыюу салынган мазмунду жарыялабаңыз."
+
+#: .\forum\templates\forum\index.html:258
+msgid "Спасибо за ваше понимание и уважение к нашему сообществу!"
+msgstr "Коомубузду түшүнгөнүңүз жана урматтаганыңыз үчүн рахмат!"
+
+#: .\forum\templates\forum\index.html:266
+#: .\forum\templates\forum\list_questions.html:224
+#, fuzzy
+#| msgid "Формат обучения"
+msgid "Последние обсуждения"
+msgstr "Окуу форматы"
+
+#: .\forum\templates\forum\index.html:291
+msgid "Смотреть все"
+msgstr "Баарын көрүү"
+
+#: .\forum\templates\forum\list_questions.html:259
+#: .\forum\templates\forum\question_detail.html:374
+#: .\forum\templates\forum\topic_detail.html:319
+msgid "Предыдущая"
+msgstr "Мурунку"
+
+#: .\forum\templates\forum\list_questions.html:265
+#: .\forum\templates\forum\question_detail.html:380
+#: .\forum\templates\forum\topic_detail.html:325
+msgid "текущая"
+msgstr "учурдагы"
+
+#: .\forum\templates\forum\list_questions.html:275
+#: .\forum\templates\forum\question_detail.html:390
+#: .\forum\templates\forum\topic_detail.html:335
+msgid "Следующая"
+msgstr "Кийинки"
+
+#: .\forum\templates\forum\question_detail.html:275
+msgid "Изменить пост"
+msgstr "Постту түзөтүү"
+
+#: .\forum\templates\forum\question_detail.html:303
+#, fuzzy
+#| msgid "Создать задание"
+msgid "Сортировать по дате"
+msgstr "Тапшырма түзүү"
+
+#: .\forum\templates\forum\question_detail.html:306
+#, fuzzy
+#| msgid "Начало курса"
+msgid "Сначала старые"
+msgstr "Курстун башталышы"
+
+#: .\forum\templates\forum\question_detail.html:307
+msgid "Сначала новые"
+msgstr "Жаңылар биринчи"
+
+#: .\forum\templates\forum\question_detail.html:323
+#, fuzzy
+#| msgid "Удалить задание"
+msgid "Удалить комментарий"
+msgstr "Жумушту жок кылуу"
+
+#: .\forum\templates\forum\question_detail.html:330
+msgid "Ответить"
+msgstr "Жооп берүү"
+
+#: .\forum\templates\forum\question_detail.html:341
+msgid "Изменить объект"
+msgstr "Объектти түзөтүү"
+
+#: .\forum\templates\forum\question_detail.html:395
+#, fuzzy
+#| msgid "Заказать консультацию"
+msgid "Добавить комментарий"
+msgstr "Консультацияга заказ бериңиз"
+
+#: .\forum\templates\forum\question_detail.html:444
+msgid "Вы точно хотите удалить этот пост?"
+msgstr "Бул постту чын эле жок кылгыңыз келеби?"
+
+#: .\forum\templates\forum\question_detail.html:451
+msgid "Да"
+msgstr "Ооба"
+
+#: .\forum\templates\forum\topic_detail.html:277
+#, fuzzy
+#| msgid "Задание опубликовано"
+msgid "Опубликовать пост"
+msgstr "Көнүгүү жарыяланды"
+
+#: .\forum\templates\forum\topic_detail.html:304
+msgid "Развернуть"
+msgstr "Кеңейтүү"
+
+#: .\forum\templates\forum\topic_detail.html:305
+msgid "Скрыть"
+msgstr "Жашыруу"
+
 #: .\landing\templates\base.html:60
 #: .\landing\templates\landing\employee.html:25
 msgid "Курсы"
 msgstr "Курстар"
 
-#: .\landing\templates\base.html:61 .\landing\templates\landing\index.html:154
+#: .\landing\templates\base.html:61 .\landing\templates\landing\index.html:134
 msgid "О нас"
 msgstr "Биз жөнүндө"
 
@@ -273,11 +618,11 @@ msgstr "Биз жөнүндө"
 msgid "Отзывы"
 msgstr "Ой-пикирлер"
 
-#: .\landing\templates\base.html:63 .\landing\templates\base.html:236
+#: .\landing\templates\base.html:63 .\landing\templates\base.html:237
 msgid "Контакты"
 msgstr "Байланыш"
 
-#: .\landing\templates\base.html:79
+#: .\landing\templates\base.html:81
 #: .\landing\templates\landing\category-detail.html:36
 #: .\landing\templates\landing\category-detail.html:195
 #: .\landing\templates\landing\content-detail.html:21
@@ -288,23 +633,15 @@ msgstr "Байланыш"
 msgid "Туториалы"
 msgstr "Үйрөткүчтөр"
 
-#: .\landing\templates\base.html:82
-#: .\landing\templates\landing\category-detail.html:38
-#: .\landing\templates\landing\content-detail.html:23
-#: .\landing\templates\landing\tutorial_content.html:23
-#: .\landing\templates\landing\tutorials.html:38
-msgid "Авторизация"
-msgstr "Авторизация"
-
-#: .\landing\templates\base.html:131
+#: .\landing\templates\base.html:132
 msgid "Оставьте свой номер"
 msgstr "Номериңизди калтырыңыз"
 
-#: .\landing\templates\base.html:131
+#: .\landing\templates\base.html:132
 msgid "а мы вам перезвоним"
 msgstr "жана биз сизге кайра чалабыз"
 
-#: .\landing\templates\base.html:148
+#: .\landing\templates\base.html:149
 msgid "Заказать консультацию"
 msgstr "Консультацияга заказ бериңиз"
 
@@ -391,8 +728,8 @@ msgid "Формат обучения"
 msgstr "Окуу форматы"
 
 #: .\landing\templates\landing\course-detail.html:40
-#: .\landing\templates\landing\personal_area.html:35
-#: .\landing\templates\landing\personal_area.html:49
+#: .\landing\templates\landing\personal_area.html:47
+#: .\landing\templates\landing\personal_area.html:61
 #: .\landing\templates\landing\tutorial_content.html:181
 msgid "Ментор"
 msgstr "Мугалимдер"
@@ -423,15 +760,15 @@ msgstr ""
 
 #: .\landing\templates\landing\course-detail.html:53
 #: .\landing\templates\landing\employee.html:60
-#: .\landing\templates\landing\index.html:77
+#: .\landing\templates\landing\index.html:48
 msgid "Записаться на курс"
 msgstr "Курска жазылыңыз"
 
-#: .\landing\templates\landing\index.html:68
+#: .\landing\templates\landing\index.html:39
 msgid "Курсы програмирования Бишкек"
 msgstr "Программалоо курстары Бишкек"
 
-#: .\landing\templates\landing\index.html:69
+#: .\landing\templates\landing\index.html:40
 msgid ""
 "Научись программировать за 3 месяца, обучаясь 5 дней в неделю по 3 часа в "
 "день только практика только хардкор"
@@ -439,7 +776,7 @@ msgstr ""
 "Аптасына 5 күн окуп, күнүнө 3 сааттан гана хардкор менен машыгып, 3 айдын "
 "ичинде коддоону үйрөнүңүз"
 
-#: .\landing\templates\landing\index.html:72
+#: .\landing\templates\landing\index.html:43
 msgid ""
 "Не пропустите уникальную возможность услышать экспертов по программированию "
 "в прямом эфире прямо сейчас!"
@@ -447,11 +784,11 @@ msgstr ""
 "Программалоо боюнча эксперттерди азыр түз ободо угуу үчүн уникалдуу "
 "мүмкүнчүлүктү колдон чыгарбаңыз!"
 
-#: .\landing\templates\landing\index.html:74
+#: .\landing\templates\landing\index.html:45
 msgid "Прямой эфир начнётся"
 msgstr "Түз эфир башталат"
 
-#: .\landing\templates\landing\index.html:100
+#: .\landing\templates\landing\index.html:71
 msgid ""
 "Это программа обучения включающая в себя в основном лишь только практику "
 "совмещая интеракивы. Light Code готовит специалистов, способных работать в "
@@ -461,64 +798,64 @@ msgstr ""
 "айкалыштырган практиканы гана камтыйт. Light Code динамикалуу өнүгүп жаткан "
 "тармакта иштөөгө жөндөмдүү адистерди даярдайт."
 
-#: .\landing\templates\landing\index.html:116
+#: .\landing\templates\landing\index.html:87
 msgid "Чему мы обучаем?"
 msgstr "Биз эмнени үйрөтөбүз?"
 
-#: .\landing\templates\landing\index.html:136
+#: .\landing\templates\landing\index.html:111
 msgid "Подробнее"
 msgstr "Көбүрөөк"
 
-#: .\landing\templates\landing\index.html:138
+#: .\landing\templates\landing\index.html:113
 msgid "На данный момент набора нету"
 msgstr "Учурда комплект жок"
 
-#: .\landing\templates\landing\index.html:155
+#: .\landing\templates\landing\index.html:135
 msgid "Важно не заучивание, а понимание сути"
 msgstr "Маанилүү жаттоо эмес, маңызын түшүнүү"
 
-#: .\landing\templates\landing\index.html:165
+#: .\landing\templates\landing\index.html:145
 msgid "Наша Команда"
 msgstr "Биздин команда"
 
-#: .\landing\templates\landing\index.html:200
+#: .\landing\templates\landing\index.html:188
 msgid "Что мне нужно иметь для учебы?"
 msgstr "Окуу үчүн эмне кылышым керек?"
 
-#: .\landing\templates\landing\index.html:202
+#: .\landing\templates\landing\index.html:190
 msgid "Главное наличия ноутбука и желания учиться!"
 msgstr "Эң негизгиси ноутбуктун болушу жана үйрөнүүгө болгон каалоо!"
 
-#: .\landing\templates\landing\index.html:222
+#: .\landing\templates\landing\index.html:210
 msgid "Почему я должен/должна учиться у вас?"
 msgstr "Эмне үчүн мен сизден үйрөнүшүм керек?"
 
-#: .\landing\templates\landing\index.html:224
+#: .\landing\templates\landing\index.html:212
 msgid "Обучение 15 часов неделю"
 msgstr "Жумасына 15 саат машыгуу"
 
-#: .\landing\templates\landing\index.html:225
+#: .\landing\templates\landing\index.html:213
 msgid "3 месяца сплошной практики"
 msgstr "3 ай үзгүлтүксүз практика"
 
-#: .\landing\templates\landing\index.html:226
+#: .\landing\templates\landing\index.html:214
 msgid "180 часов за 3 месяца"
 msgstr "3 айда 180 саат"
 
-#: .\landing\templates\landing\index.html:227
+#: .\landing\templates\landing\index.html:215
 #, python-format
 msgid "Обучение 20%% теории 80%% практики через"
 msgstr "20 пайыз теория 80 пайыз практика аркылуу үйрөтүү"
 
-#: .\landing\templates\landing\index.html:227
+#: .\landing\templates\landing\index.html:215
 msgid "интерактивы, разборы и реальные кейсы"
 msgstr "интерактивдүү, анализдер жана реалдуу учурлар"
 
-#: .\landing\templates\landing\index.html:248
+#: .\landing\templates\landing\index.html:236
 msgid "Нужен ли мне свой ноутбук?"
 msgstr "Мага ноутбук керекпи?"
 
-#: .\landing\templates\landing\index.html:250
+#: .\landing\templates\landing\index.html:238
 msgid ""
 "Да. Необходимо иметь свой ноутбук. Характеристики: минимум 4 ГБ оперативной "
 "памяти, 2 ядровый процессор. В идеале: 8 ГБ оперативной памяти и процессор с "
@@ -528,7 +865,7 @@ msgstr ""
 "оперативдүү эс тутум, 2 негизги процессор. Идеалында: 8 ГБ оперативдик эс "
 "жана 4 ядролуу процессор."
 
-#: .\landing\templates\landing\index.html:371
+#: .\landing\templates\landing\index.html:254
 msgid "Отзывы наших учеников"
 msgstr "Биздин студенттердин пикири"
 
@@ -536,15 +873,15 @@ msgstr "Биздин студенттердин пикири"
 msgid "Личный кабинет"
 msgstr "Жеке бөлмө"
 
-#: .\landing\templates\landing\personal_area.html:24
+#: .\landing\templates\landing\personal_area.html:36
 msgid "Добро пожаловать в ваш личный кабинет!"
 msgstr "Жеке аккаунтуңузга кош келиңиз!"
 
-#: .\landing\templates\landing\personal_area.html:46
+#: .\landing\templates\landing\personal_area.html:58
 msgid "Онлайн курсы"
 msgstr "Онлайн курстар"
 
-#: .\landing\templates\landing\personal_area.html:55
+#: .\landing\templates\landing\personal_area.html:67
 msgid ""
 "Спасибо за интерес к школе IT-технологий LightCode! Мы предлагаем курсы по "
 "программированию, веб-разработке, аналитике данных и многому другому. Наши "
@@ -556,7 +893,7 @@ msgstr ""
 "Биздин тажрыйбалуу окутуучулар жаңы көндүмдөрдү үйрөнүүгө жана сиз тандаган "
 "тармактын адиси болууга жардам берет."
 
-#: .\landing\templates\landing\personal_area.html:55
+#: .\landing\templates\landing\personal_area.html:67
 msgid ""
 "У нас есть гибкая система обучения, которая позволяет выбрать удобное "
 "расписание и формат занятий. Вы можете выбрать индивидуальные занятия, "
@@ -566,7 +903,7 @@ msgstr ""
 "сабактардын форматын тандоого мүмкүндүк берет. Сиз жеке сабактарды, топтук "
 "курстарды же аралыктан окутууну тандай аласыз."
 
-#: .\landing\templates\landing\personal_area.html:55
+#: .\landing\templates\landing\personal_area.html:67
 msgid ""
 "Мы также предлагаем практические задания и проекты, которые помогут вам "
 "укрепить свои знания и подготовиться к реальным задачам на рынке труда."
@@ -575,13 +912,13 @@ msgstr ""
 "кыйынчылыктарга даярданууга жардам берүүчү практикалык тапшырмаларды жана "
 "долбоорлорду сунуштайбыз."
 
-#: .\landing\templates\landing\personal_area.html:55
+#: .\landing\templates\landing\personal_area.html:67
 msgid ""
 "Присоединяйтесь к LightCode и начните свой путь в мире IT-технологий уже "
 "сегодня!"
 msgstr "LightCode'го кошулуп, IT дүйнөсүндө саякатыңызды бүгүн баштаңыз!"
 
-#: .\landing\templates\landing\personal_area.html:60
+#: .\landing\templates\landing\personal_area.html:72
 msgid "Учитесь программированию вместе с LightCode"
 msgstr "LightCode менен коддоону үйрөнүңүз"
 

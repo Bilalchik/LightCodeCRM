@@ -20,6 +20,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', include('landing.urls')),
     path('classroom/', include('classroom.urls')),
+    path('forum/', include('forum.urls')),
 )
 
 handler404 = 'landing.views.error_404'
