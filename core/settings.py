@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'googletrans',
+    'django_crontab',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -219,3 +220,9 @@ CKEDITOR_CONFIGS = {
         'tabSpaces': 4,
     }
 }
+
+CRONJOBS = [
+    ('0 0 * * *', 'forum.liberation.user_liberation')
+]
+
+
